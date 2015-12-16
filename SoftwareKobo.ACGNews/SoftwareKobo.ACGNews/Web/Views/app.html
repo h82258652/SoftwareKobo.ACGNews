@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <script src="../Scripts/hammer.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        var hammertime = new Hammer(document.getElementsByTagName("html")[0]);
+        hammertime.on("swipeleft", function (e) {
+            if (e.pointerType !== "mouse") {
+                window.external.notify("goforward");
+            }
+        });
+        hammertime.on("swiperight", function (e) {
+            if (e.pointerType !== "mouse") {
+                window.external.notify("goback");
+            }
+        })
+    </script>
+</body>
+</html>

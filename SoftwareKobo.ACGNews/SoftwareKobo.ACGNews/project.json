@@ -2,7 +2,9 @@
   "dependencies": {
     "AngleSharp": "0.9.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "Newtonsoft.Json": "7.0.1"
+    "Newtonsoft.Json": "7.0.1",
+    "UmengSocialWP": "2.0.2",
+    "WinRTXamlToolkit.UWP": "1.9.4"
   },
   "frameworks": {
     "uap10.0": {}

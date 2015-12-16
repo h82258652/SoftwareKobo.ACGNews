@@ -70,7 +70,7 @@ namespace SoftwareKobo.ACGNews.Services
                     }
                 }
 
-                return null;
+                return Enumerable.Empty<GamerskyFeed>();
             }
         }
 
