@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{EE48C3B2-9A74-47C7-94B5-585C86BB3FE5}</ProjectGuid>
+    <ProjectGuid>{59FF1EDA-813F-48C5-A420-7E5D32D0E836}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SoftwareKobo.ACGNews</RootNamespace>
@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -89,52 +89,67 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Assets\Fonts\Roboto-BoldItalic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Bold.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-BoldItalic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Italic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Light.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-LightItalic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Regular.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Italic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Light.ttf" />
-    <Content Include="Assets\Fonts\Roboto-LightItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Medium.ttf" />
-    <Content Include="Assets\Fonts\Roboto-MediumItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Regular.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Thin.ttf" />
-    <Content Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Black.ttf" />
-    <Content Include="Assets\Fonts\Roboto-BlackItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Bold.ttf" />
-    <Content Include="Web\Content\app.css" />
-    <Content Include="Web\Views\app.html" />
+    <Content Include="Assets\Fonts\HYQiHei 105J.ttf" />
     <None Include="project.json" />
-    <Content Include="Web\Scripts\hammer.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ACG17173Feed.cs" />
-    <Compile Include="Models\ACG178Feed.cs" />
-    <Compile Include="Models\ACGdogeFeed.cs" />
-    <Compile Include="Models\GamerskyFeed.cs" />
-    <Compile Include="Models\TencentFeed.cs" />
+    <Compile Include="Controls\Acg17173Item.xaml.cs">
+      <DependentUpon>Acg17173Item.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Acg178Item.xaml.cs">
+      <DependentUpon>Acg178Item.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AcgdogeItem.xaml.cs">
+      <DependentUpon>AcgdogeItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AcgGamerskyItem.xaml.cs">
+      <DependentUpon>AcgGamerskyItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Bubble.xaml.cs">
+      <DependentUpon>Bubble.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BubblePanel.xaml.cs">
+      <DependentUpon>BubblePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ItemTemplateSelector.cs" />
+    <Compile Include="Controls\TencentComicItem.xaml.cs">
+      <DependentUpon>TencentComicItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ImageCacheConverter.cs" />
+    <Compile Include="DatabaseModels\ArticleEntity.cs" />
+    <Compile Include="DataModels\FeedCollection.cs" />
+    <Compile Include="DataSources\FeedSource.cs" />
+    <Compile Include="Datas\AppDatabase.cs" />
+    <Compile Include="Datas\AppSetting.cs" />
+    <Compile Include="Models\Acg17173Feed.cs" />
+    <Compile Include="Models\Acg178Feed.cs" />
+    <Compile Include="Models\AcgdogeFeed.cs" />
+    <Compile Include="Models\AcgGamerskyFeed.cs" />
+    <Compile Include="Models\BindableBase.cs" />
+    <Compile Include="Models\FeedBase.cs" />
+    <Compile Include="Models\TencentComicFeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ACG17173Service.cs" />
-    <Compile Include="Services\ACG178Service.cs" />
-    <Compile Include="Services\ACGdogeService.cs" />
-    <Compile Include="Services\GamerskyService.cs" />
-    <Compile Include="Services\TencentService.cs" />
-    <Compile Include="Views\AppContainer.xaml.cs">
-      <DependentUpon>AppContainer.xaml</DependentUpon>
+    <Compile Include="Services\Acg17173Service.cs" />
+    <Compile Include="Services\Acg178Service.cs" />
+    <Compile Include="Services\AcgdogeService.cs" />
+    <Compile Include="Services\AcgGamerskyService.cs" />
+    <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\TencentComicService.cs" />
+    <Compile Include="ViewModels\IndexViewModel.cs" />
+    <Compile Include="Views\AppView.xaml.cs">
+      <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DetailView.xaml.cs">
       <DependentUpon>DetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IndexView.xaml.cs">
       <DependentUpon>IndexView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingView.xaml.cs">
+      <DependentUpon>SettingView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +159,11 @@
     <None Include="SoftwareKobo.ACGNews_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\day.jpg" />
+    <Content Include="Assets\Images\night.jpg" />
+    <Content Include="Assets\Images\bubble.png" />
+    <Content Include="Assets\Images\tempbackground.jpg" />
+    <Content Include="Assets\Images\background.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -152,13 +172,46 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Web\Content\app.css" />
+    <Content Include="Web\Scripts\app.js" />
+    <Content Include="Web\Scripts\hammer.min.js" />
+    <Content Include="Web\Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Web\Views\app.html" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\AppContainer.xaml">
+    <Page Include="Controls\Acg17173Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Acg178Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AcgdogeItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AcgGamerskyItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Bubble.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BubblePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TencentComicItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,9 +223,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.UAP.2015, Version=3.9.2">
+      <Name>SQLite for Universal App Platform</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

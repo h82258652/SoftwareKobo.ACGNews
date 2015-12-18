@@ -1,6 +1,6 @@
 ﻿namespace SoftwareKobo.ACGNews.Models
 {
-    public class AcgdogeFeed : FeedBase
+    public class TencentComicFeed : FeedBase
     {
         public string Thumbnail
         {
@@ -15,18 +15,6 @@
         }
 
         public string PublishTime
-        {
-            get;
-            set;
-        }
-
-        public int CommentCount
-        {
-            get;
-            set;
-        }
-
-        public string[] Categories
         {
             get;
             set;

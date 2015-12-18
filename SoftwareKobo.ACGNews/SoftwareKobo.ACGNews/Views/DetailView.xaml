@@ -4,12 +4,110 @@
       xmlns:local="using:SoftwareKobo.ACGNews.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:controls="using:SoftwareKobo.ACGNews.Controls"
+      mc:Ignorable="d"
       x:Name="Page"
-      mc:Ignorable="d">
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="分享">
+      Visibility="Collapsed">
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="DisplayState">
+                <VisualState x:Name="ShowState">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="Scale"
+                                         Storyboard.TargetProperty="ScaleX"
+                                         From="0"
+                                         To="1"
+                                         Duration="0:0:0.2">
+                            <DoubleAnimation.EasingFunction>
+                                <BackEase EasingMode="EaseOut"
+                                          Amplitude="0.2" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="Scale"
+                                         Storyboard.TargetProperty="ScaleY"
+                                         From="0"
+                                         To="1"
+                                         Duration="0:0:0.2">
+                            <DoubleAnimation.EasingFunction>
+                                <BackEase EasingMode="EaseOut"
+                                          Amplitude="0.2" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="Translate"
+                                         Storyboard.TargetProperty="Y"
+                                         From="48"
+                                         To="0"
+                                         Duration="0:0:0.2">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Page"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0"
+                                                    Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="HideState">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="Scale"
+                                         Storyboard.TargetProperty="ScaleX"
+                                         From="1"
+                                         To="0"
+                                         Duration="0:0:0.2">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseIn" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="Scale"
+                                         Storyboard.TargetProperty="ScaleY"
+                                         From="1"
+                                         To="0"
+                                         Duration="0:0:0.2">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseIn"></ExponentialEase>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="Translate"
+                                         Storyboard.TargetProperty="Y"
+                                         From="0"
+                                         To="48"
+                                         Duration="0:0:0.2">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseIn" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Page"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.2"
+                                                    Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="ContentGrid"
+              x:FieldModifier="public"
+              Grid.Row="0">
+            <Grid.RenderTransform>
+                <ScaleTransform x:Name="Scale" />
+            </Grid.RenderTransform>
+            <WebView x:Name="WebView"
+                     x:FieldModifier="public"
+                     ScriptNotify="WebView_ScriptNotify"
+                     Source="ms-appx-web:///Web/Views/app.html"></WebView>
+        </Grid>
+        <CommandBar x:Name="AppBar"
+                    Grid.Row="1">
+            <CommandBar.RenderTransform>
+                <TranslateTransform x:Name="Translate" />
+            </CommandBar.RenderTransform>
+            <AppBarButton Label="分享"
+                          Click="BtnShare_Click">
                 <AppBarButton.Icon>
                     <PathIcon Width="24"
                               Height="24"
@@ -19,8 +117,5 @@
                 </AppBarButton.Icon>
             </AppBarButton>
         </CommandBar>
-    </Page.BottomAppBar>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <WebView x:Name="WebView"></WebView>
     </Grid>
 </Page>

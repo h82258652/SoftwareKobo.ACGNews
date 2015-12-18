@@ -1,6 +1,8 @@
-﻿namespace SoftwareKobo.ACGNews.Models
+﻿using System;
+
+namespace SoftwareKobo.ACGNews.Models
 {
-    public class AcgdogeFeed : FeedBase
+    public class AcgGamerskyFeed : FeedBase
     {
         public string Thumbnail
         {
@@ -14,25 +16,19 @@
             set;
         }
 
-        public string PublishTime
+        public DateTime PublishTime
+        {
+            get;
+            set;
+        }
+
+        public int ViewCount
         {
             get;
             set;
         }
 
         public int CommentCount
-        {
-            get;
-            set;
-        }
-
-        public string[] Categories
-        {
-            get;
-            set;
-        }
-
-        public string[] Tags
         {
             get;
             set;

@@ -1,31 +1,38 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SQLite.Net.Attributes;
+using System;
+using System.ComponentModel;
 
 namespace SoftwareKobo.ACGNews.Models
 {
-    public class ACG178Feed
+    public class Acg178Feed : FeedBase
     {
-        public string Title
-        {
-            get;
-            set;
-        }
+        private string _thumbnail;
 
-        public string DetailLink
-        {
-            get;
-            set;
-        }
+        private string _summary;
 
         public string Thumbnail
         {
-            get;
-            set;
+            get
+            {
+                return _thumbnail;
+            }
+            set
+            {
+                Set(ref _thumbnail, value);
+            }
         }
 
         public string Summary
         {
-            get;
-            set;
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                Set(ref _summary, value);
+            }
         }
 
         public DateTime PublishTime
@@ -34,10 +41,25 @@ namespace SoftwareKobo.ACGNews.Models
             set;
         }
 
-        public string[] Categories
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string DatabaseCategories
         {
             get;
             set;
+        }
+
+        [Ignore]
+        public string[] Categories
+        {
+            get
+            {
+                return DatabaseCategories == null ? null : JsonConvert.DeserializeObject<string[]>(DatabaseCategories);
+            }
+            set
+            {
+                DatabaseCategories = JsonConvert.SerializeObject(value);
+                RaisePropertyChanged();
+            }
         }
 
         public string Tag

@@ -217,6 +217,33 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -1552,12 +1579,12 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -1825,6 +1852,33 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -3209,12 +3263,12 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -3468,6 +3522,33 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -4838,12 +4919,12 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -5118,6 +5199,33 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -6500,12 +6608,12 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -6759,6 +6867,33 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -8129,12 +8264,12 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -8409,6 +8544,33 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -9791,12 +9953,12 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -10050,6 +10212,33 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "PlatformSpecific.Analyzer/2.0.2": {
+        "compile": {
+          "lib/uap/PlatformSpecific.dll": {}
+        },
+        "runtime": {
+          "lib/uap/PlatformSpecific.dll": {}
+        }
+      },
+      "SQLite.Net-PCL/3.1.1": {
+        "dependencies": {
+          "SQLite.Net.Core-PCL": "[3.1.1, )"
+        },
+        "compile": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/Windows8/SQLite.Net.Platform.WinRT.dll": {}
+        }
+      },
+      "SQLite.Net.Core-PCL/3.1.1": {
+        "compile": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -11420,12 +11609,12 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
+      "UmengAnalytics/3.1.0": {
         "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         },
         "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
+          "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
       "WinRTXamlToolkit.UWP/1.9.4": {
@@ -12131,6 +12320,52 @@
         "Newtonsoft.Json.nuspec",
         "package/services/metadata/core-properties/49e907fc018c4c7ab632e6d4ad4766f8.psmdcp",
         "tools/install.ps1"
+      ]
+    },
+    "PlatformSpecific.Analyzer/2.0.2": {
+      "sha512": "y8GWISxgxQ9v9KWTCuZG9fCsiZ9YSYQkVQUdscroqwT0fsUnYIabE/7puIsQk4vea6WLpFRCWplZw4vIeDpVkw==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "analyzers/dotnet/PlatformSpecificAnalyzer.dll",
+        "build/uap/PlatformSpecific.Analyzer.targets",
+        "lib/uap/PlatformSpecific.dll",
+        "package/services/metadata/core-properties/48250d7ff3b2437ab72350b9c9c558fa.psmdcp",
+        "PlatformSpecific.Analyzer.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "SQLite.Net-PCL/3.1.1": {
+      "sha512": "eIaIk+k4MwvBeKyzj1kgIegWXYZlaDAHNzsaYP7wNDgSqAdaza8FgCRun7mIZScJD/RIuKxN/b1V+bkC+/WIeA==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/MonoAndroid/SQLite.Net.Platform.XamarinAndroid.dll",
+        "lib/monotouch/SQLite.Net.Platform.XamarinIOS.dll",
+        "lib/net4/SQLite.Net.Platform.Win32.dll",
+        "lib/net40/SQLite.Net.Platform.Generic.dll",
+        "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll",
+        "lib/portable-win81+wpa81/SQLite.Net.Platform.WinRT.dll",
+        "lib/Windows8/SQLite.Net.Platform.WinRT.dll",
+        "lib/windowsphone8/ARM/SQLite.Net.Platform.WindowsPhone8.dll",
+        "lib/windowsphone8/x86/SQLite.Net.Platform.WindowsPhone8.dll",
+        "lib/Xamarin.iOS10/SQLite.Net.Platform.XamarinIOS.Unified.dll",
+        "package/services/metadata/core-properties/42617fe08935462ea38a3073a9954c4b.psmdcp",
+        "SQLite.Net-PCL.nuspec"
+      ]
+    },
+    "SQLite.Net.Core-PCL/3.1.1": {
+      "sha512": "/0VdXnyj2srEh5rM1RW/snXJrVGRsxGB3xjW4EkhZIig9N/8EocZZrEr0vwRJU8a9Lz4BrweoLyKwp2evmSIzg==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1/SQLite.Net.dll",
+        "package/services/metadata/core-properties/23cc4adcea6c40a7a0e82fb6b4a09ba7.psmdcp",
+        "SQLite.Net.Core-PCL.nuspec"
       ]
     },
     "System.AppContext/4.0.0": {
@@ -14828,49 +15063,22 @@
         "System.Xml.XmlSerializer.nuspec"
       ]
     },
-    "UmengSocialWP/2.0.2": {
-      "sha512": "Bt1BPDqu4IlhSb0tjDdUtbiq7pMfLyPqfew388tEhT+o3seMAjw6VTEJT4knz/XXrMzGPeIuebk6cJSA5AQ7tw==",
+    "UmengAnalytics/3.1.0": {
+      "sha512": "zTkbAgLvGEobpAvSnEEuHc6RWX8stjB5GHdBQHA9O1ovcyxxuClL5/alcm1Og+RIEy+V4nvCfFerHXymGEf5Sw==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
         "_rels/.rels",
-        "content/UmImages/location.png",
-        "content/UmImages/share.png",
-        "content/UmImages/sns/douban.png",
-        "content/UmImages/sns/facebook.png",
-        "content/UmImages/sns/qzone.png",
-        "content/UmImages/sns/renren.png",
-        "content/UmImages/sns/sina.png",
-        "content/UmImages/sns/sms.png",
-        "content/UmImages/sns/tencent.png",
-        "content/UmImages/sns/twitter.png",
-        "content/UmImages/sns/wechat.png",
-        "content/UmImages/sns/wxcircle.png",
-        "lib/wp8/Google.ProtocolBuffersLite.dll",
-        "lib/wp8/MicroMsgSDK.dll",
-        "lib/wp8/UmengSocialWP.Silverlight.dll",
-        "lib/wp8/UmengSocialWP.Silverlight.XML",
-        "lib/wpa/UmengSocialWP.Winrt.dll",
-        "lib/wpa/UmengSocialWP.Winrt.pri",
-        "lib/wpa/UmengSocialWP.Winrt.XML",
-        "lib/wpa/UmengSocialWP.Winrt/UmengSocialWP.Winrt.xr.xml",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/location.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/share.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/douban.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/facebook.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/qzone.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/renren.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/sina.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/sms.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/tencent.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/twitter.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/wechat.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/wxcircle.png",
-        "lib/wpa/UmengSocialWP.Winrt/View/ChoosePlatformPage.xbf",
-        "lib/wpa/UmengSocialWP.Winrt/View/OAuthPage.xbf",
-        "lib/wpa/UmengSocialWP.Winrt/View/ShareEditPage.xbf",
-        "package/services/metadata/core-properties/6a1cc78eb4ed4eea890794737b74e1ef.psmdcp",
-        "UmengSocialWP.nuspec"
+        "content/_._",
+        "lib/netcore45/UmengAnalyticsWinRT.dll",
+        "lib/netcore451/UmengAnalyticsUniversal.dll",
+        "lib/sl3-wp/UmengAnalyticsWP7.dll",
+        "lib/sl4-wp71/UmengAnalyticsWP7.dll",
+        "lib/wp8/UmengAnalyticsWP8.dll",
+        "lib/wp81/UmengAnalyticsWP8.dll",
+        "lib/wpa81/UmengAnalyticsUniversal.dll",
+        "package/services/metadata/core-properties/9bf85c6dc2e1428999cae179b9ea0991.psmdcp",
+        "UmengAnalytics.nuspec"
       ]
     },
     "WinRTXamlToolkit.UWP/1.9.4": {
@@ -15134,7 +15342,9 @@
       "AngleSharp >= 0.9.3",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Newtonsoft.Json >= 7.0.1",
-      "UmengSocialWP >= 2.0.2",
+      "PlatformSpecific.Analyzer >= 2.0.2",
+      "SQLite.Net-PCL >= 3.1.1",
+      "UmengAnalytics >= 3.1.0",
       "WinRTXamlToolkit.UWP >= 1.9.4"
     ],
     "UAP,Version=v10.0": []

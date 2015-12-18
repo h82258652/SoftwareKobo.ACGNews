@@ -1,29 +1,33 @@
 ﻿namespace SoftwareKobo.ACGNews.Models
 {
-    public class ACG17173Feed
+    public class Acg17173Feed : FeedBase
     {
-        public string Title
-        {
-            get;
-            set;
-        }
+        private string _thumbnail;
 
-        public string DetailLink
-        {
-            get;
-            set;
-        }
+        private string _summary;
 
         public string Thumbnail
         {
-            get;
-            set;
+            get
+            {
+                return _thumbnail;
+            }
+            set
+            {
+                Set(ref _thumbnail, value);
+            }
         }
 
         public string Summary
         {
-            get;
-            set;
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                Set(ref _summary, value);
+            }
         }
     }
 }
