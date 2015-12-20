@@ -99,6 +99,9 @@
     <Compile Include="Controls\Acg17173Item.xaml.cs">
       <DependentUpon>Acg17173Item.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Acg178Header.xaml.cs">
+      <DependentUpon>Acg178Header.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Acg178Item.xaml.cs">
       <DependentUpon>Acg178Item.xaml</DependentUpon>
     </Compile>
@@ -114,10 +117,12 @@
     <Compile Include="Controls\BubblePanel.xaml.cs">
       <DependentUpon>BubblePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HeaderTemplateSelector.cs" />
     <Compile Include="Controls\ItemTemplateSelector.cs" />
     <Compile Include="Controls\TencentComicItem.xaml.cs">
       <DependentUpon>TencentComicItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\CharacterWrapConverter.cs" />
     <Compile Include="Converters\ImageCacheConverter.cs" />
     <Compile Include="DatabaseModels\ArticleEntity.cs" />
     <Compile Include="DataModels\FeedCollection.cs" />
@@ -136,11 +141,19 @@
     <Compile Include="Services\Acg178Service.cs" />
     <Compile Include="Services\AcgdogeService.cs" />
     <Compile Include="Services\AcgGamerskyService.cs" />
+    <Compile Include="Services\Channel.cs" />
     <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\IServiceGeneric.cs" />
+    <Compile Include="Services\Service.cs" />
     <Compile Include="Services\TencentComicService.cs" />
+    <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
+    <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChannelView.xaml.cs">
+      <DependentUpon>ChannelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DetailView.xaml.cs">
       <DependentUpon>DetailView.xaml</DependentUpon>
@@ -187,6 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Acg178Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Acg178Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,7 +228,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Views\AppView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChannelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

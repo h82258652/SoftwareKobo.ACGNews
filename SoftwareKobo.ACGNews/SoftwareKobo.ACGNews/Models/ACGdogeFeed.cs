@@ -1,41 +1,107 @@
-﻿namespace SoftwareKobo.ACGNews.Models
+﻿using Newtonsoft.Json;
+using SQLite.Net.Attributes;
+using System.ComponentModel;
+
+namespace SoftwareKobo.ACGNews.Models
 {
     public class AcgdogeFeed : FeedBase
     {
+        private string _thumbnail;
+
+        private string _summary;
+
+        private string _publishTime;
+
+        private int _commentCount;
+
         public string Thumbnail
         {
-            get;
-            set;
+            get
+            {
+                return _thumbnail;
+            }
+            set
+            {
+                Set(ref _thumbnail, value);
+            }
         }
 
         public string Summary
         {
-            get;
-            set;
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                Set(ref _summary, value);
+            }
         }
 
         public string PublishTime
         {
-            get;
-            set;
+            get
+            {
+                return _publishTime;
+            }
+            set
+            {
+                Set(ref _publishTime, value);
+            }
         }
 
         public int CommentCount
         {
+            get
+            {
+                return _commentCount;
+            }
+            set
+            {
+                Set(ref _commentCount, value);
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string DatabaseCategories
+        {
             get;
             set;
         }
 
+        [Ignore]
         public string[] Categories
         {
+            get
+            {
+                return DatabaseCategories == null ? null : JsonConvert.DeserializeObject<string[]>(DatabaseCategories);
+            }
+            set
+            {
+                DatabaseCategories = JsonConvert.SerializeObject(value);
+                RaisePropertyChanged();
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string DatabaseTags
+        {
             get;
             set;
         }
 
+        [Ignore]
         public string[] Tags
         {
-            get;
-            set;
+            get
+            {
+                return DatabaseTags == null ? null : JsonConvert.DeserializeObject<string[]>(DatabaseTags);
+            }
+            set
+            {
+                DatabaseTags = JsonConvert.SerializeObject(value);
+                RaisePropertyChanged();
+            }
         }
     }
 }

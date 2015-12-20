@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,18 +17,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class Acg178Item : UserControl
+    public sealed partial class Acg178Header : UserControl
     {
-        public Acg178Item()
+        public Acg178Header()
         {
             this.InitializeComponent();
-        }
-
-        private void Thumbnail_ImageFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-            Image img = (Image)sender;
-            var bind = img.GetBindingExpression(Image.SourceProperty);
-            Debugger.Break();
         }
     }
 }

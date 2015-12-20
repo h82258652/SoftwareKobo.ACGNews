@@ -20,11 +20,6 @@ namespace SoftwareKobo.ACGNews.DataModels
 
         public FeedCollection(IService<T> service)
         {
-            foreach (var feed in AppDatabase.GetFeeds<T>())
-            {
-                Add(feed);
-            }
-
             _feedSource = new FeedSource<T>(service);
         }
 
@@ -39,7 +34,7 @@ namespace SoftwareKobo.ACGNews.DataModels
             set
             {
                 _isLoading = value;
-                this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsLoading)));
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsLoading)));
             }
         }
 

@@ -32,80 +32,9 @@ namespace SoftwareKobo.ACGNews.Views
         public IndexView()
         {
             this.InitializeComponent();
-
-            #region
-            //var testC = new List<Acg17173Feed>();
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //testC.Add(new Acg17173Feed()
-            //{
-            //    Title = "三次元10周年原创动画1月9日开播　PV及声优等最新情报公开",
-            //    Thumbnail = "http://i1.17173.itc.cn/2015/acg/2015/12/10/tn1210vu01aaaa.jpg",
-            //    Summary = "曾参与制作过《黑岩射手》、《苍蓝钢铁的琶音》、《兔宝的悲惨日常》等动画的动画制作公司“三次元”，..."
-            //});
-            //this.DataContext = testC;
-
-            //this.DataContext = new DataModels.FeedCollection<Acg178Feed>(new Acg178Service());
-
-            this.DataContext = new IndexViewModel()
-            {
-            };
-            #endregion
         }
 
-        private void NewsList_ItemClick(object sender, ItemClickEventArgs e)
+        private async void NewsList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var container = NewsList.ContainerFromItem(e.ClickedItem);
             var image = container.GetFirstDescendantOfType<Image>();
@@ -121,7 +50,11 @@ namespace SoftwareKobo.ACGNews.Views
                 detailRenderTransformOrigin = new Point(0.5, 0.5);
             }
 
-            AppView.Instance.NavigateToDetail("hello world", detailRenderTransformOrigin);
+            var service = Service.GetService(e.ClickedItem as FeedBase);
+            var detail = await service.DetailAsync(e.ClickedItem as FeedBase);
+
+            await AppView.Instance.NavigateToDetail(e.ClickedItem as FeedBase, detail, detailRenderTransformOrigin);
+            (e.ClickedItem as FeedBase).HasRead = true;
         }
 
         private void NewsList_Loaded(object sender, RoutedEventArgs e)

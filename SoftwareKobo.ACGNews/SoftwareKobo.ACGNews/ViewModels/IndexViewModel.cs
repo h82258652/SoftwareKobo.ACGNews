@@ -1,19 +1,29 @@
-﻿using SoftwareKobo.ACGNews.DataModels;
+﻿using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SoftwareKobo.ACGNews.Services;
+using System.Collections;
 
 namespace SoftwareKobo.ACGNews.ViewModels
 {
     public class IndexViewModel : BindableBase
     {
-        public FeedCollection<FeedBase> Feeds
+        private IList _feeds;
+
+        public IndexViewModel()
         {
-            get;
-            set;
+            Feeds = AppSetting.CurrentChannel.CreateFeedCollection();
+        }
+
+        public IList Feeds
+        {
+            get
+            {
+                return _feeds;
+            }
+            set
+            {
+                Set(ref _feeds, value);
+            }
         }
     }
 }

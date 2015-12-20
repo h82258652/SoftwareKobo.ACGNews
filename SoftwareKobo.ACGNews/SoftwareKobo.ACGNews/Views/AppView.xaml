@@ -11,7 +11,7 @@
                   Background="Transparent">
             <Grid>
                 <control:BubblePanel Margin="0,0,-100,0" />
-                <view:SettingView />
+                <view:ChannelView />
             </Grid>
             <Grid>
                 <control:BubblePanel Margin="100,0,-100,0" />

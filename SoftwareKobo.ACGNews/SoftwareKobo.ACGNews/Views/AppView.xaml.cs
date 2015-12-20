@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using SoftwareKobo.ACGNews.Models;
+using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.Phone.UI.Input;
-using Windows.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using WinRTXamlToolkit.AwaitableUI;
 
 namespace SoftwareKobo.ACGNews.Views
 {
@@ -46,9 +34,9 @@ namespace SoftwareKobo.ACGNews.Views
         {
             if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.BackPressedEventArgs"))
             {
-                e.Handled = true;
                 if (Detail.Visibility == Visibility.Visible)
                 {
+                    e.Handled = true;
                     Detail.Hide();
                 }
             }
@@ -62,13 +50,9 @@ namespace SoftwareKobo.ACGNews.Views
             }
         }
 
-        public async void NavigateToDetail(string html, Point renderTransformOrigin)
+        public Task NavigateToDetail(FeedBase feed, string detail, Point? showAnimateCenter = null)
         {
-            Detail.ContentGrid.RenderTransformOrigin = renderTransformOrigin;
-
-            await Detail.SetContentAsync(html);
-
-            Detail.Show();
+            return Detail.ShowAsync(feed, detail, showAnimateCenter);
         }
     }
 }

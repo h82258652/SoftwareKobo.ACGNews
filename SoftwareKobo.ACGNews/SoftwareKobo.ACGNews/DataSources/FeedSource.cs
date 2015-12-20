@@ -1,6 +1,7 @@
 ﻿using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,63 +19,115 @@ namespace SoftwareKobo.ACGNews.DataSources
             _service = service;
         }
 
-        private bool _firstLoad;
-
-        public async Task LoadMoreItemsAsync(IList<T> list)
+        private static void Merge(IList<T> list, T feed)
         {
-            if (_firstLoad == false)
+            if (list.Count <= 0)
             {
-                _firstLoad = true;
+                // 直接加入。
+                list.Insert(0, feed);
             }
-
-            List<T> feeds;
-            try
+            else
             {
-                feeds = (await _service.GetAsync(_currentPage)).ToList();
-                _currentPage++;
-            }
-            catch
-            {
-                return;
-            }
-
-            CacheFeeds(feeds);
-
-            foreach (var feed in feeds)
-            {
-                if (list.Count == 0)
+                for (var i = 0; i < list.Count; i++)
                 {
-                    list.Insert(0, feed);
-                }
-                else
-                {
-                    for (var i = 0; i < list.Count; i++)
+                    var temp = list[i];
+                    if (temp.Id == feed.Id)
                     {
-                        var temp = list[i];
-                        if (temp.SortId == feed.SortId)
-                        {
-                            break;
-                        }
-                        if (temp.SortId < feed.SortId)
-                        {
-                            list.Insert(i, feed);
-                            break;
-                        }
-                        if (i == list.Count - 1)
-                        {
-                            list.Add(feed);
-                        }
+                        // 已经存在。
+                        break;
+                    }
+                    if (temp.Id < feed.Id)
+                    {
+                        // 插入。
+                        list.Insert(i, feed);
+                        break;
+                    }
+                    if (i == list.Count - 1)
+                    {
+                        // 最后一个。
+                        list.Add(feed);
                     }
                 }
             }
         }
 
-        private static async void CacheFeeds(IEnumerable<T> feeds)
+        public async Task LoadMoreItemsAsync(IList<T> list)
         {
-            await Task.Run(() =>
+            var networkTask = LoadNetworkFeedsAsync(list);
+            var cacheTask = LoadCacheFeedsAsync(list);
+            await Task.WhenAll(networkTask, cacheTask);
+
+            //List<T> networkFeeds;
+            //try
+            //{
+            //    networkFeeds = (await _service.GetAsync(_currentPage)).ToList();
+            //    foreach (var networkFeed in networkFeeds)
+            //    {
+            //        Merge(list, networkFeed);
+            //    }
+            //    _currentPage++;
+            //}
+            //catch
+            //{
+            //    networkFeeds = new List<T>();
+            //}
+
+            //List<T> cacheFeeds;
+            //var lastFeed = list.LastOrDefault();
+            //if (lastFeed == null)
+            //{
+            //    // 网络加载失败。
+            //    cacheFeeds = AppDatabase.GetFeeds<T>(30).ToList();
+            //}
+            //else
+            //{
+            //    cacheFeeds = AppDatabase.GetFeeds<T>(30, lastFeed.Id).ToList();
+            //}
+
+            //foreach (var cacheFeed in cacheFeeds)
+            //{
+            //    Merge(list, cacheFeed);
+            //}
+
+            //if (networkFeeds.Count > 0)
+            //{
+            //    AppDatabase.InsertOrUpdateFeeds(networkFeeds);
+            //}
+        }
+
+        private async Task LoadNetworkFeedsAsync(IList<T> list)
+        {
+            List<T> networkFeeds;
+            try
             {
-                AppDatabase.InsertOrUpdateFeeds(feeds);
-            });
+                networkFeeds = (await _service.GetAsync(_currentPage)).ToList();
+                foreach (var networkFeed in networkFeeds)
+                {
+                    Merge(list, networkFeed);
+                }
+            }
+            catch
+            {
+                networkFeeds = new List<T>();
+            }
+
+            #region
+            // save to db.
+            #endregion
+        }
+
+        private async Task LoadCacheFeedsAsync(IList<T> list)
+        {
+            var lastFeed = list.LastOrDefault();
+            var cacheFeeds = await AppDatabase.GetFeedsAsync<T>(30, lastFeed?.Id);
+            foreach (var cacheFeed in cacheFeeds)
+            {
+                Merge(list, cacheFeed);
+            }
+        }
+
+        private async void CacheNetworkFeeds(IList<T> networkFeeds)
+        {
         }
     }
 }

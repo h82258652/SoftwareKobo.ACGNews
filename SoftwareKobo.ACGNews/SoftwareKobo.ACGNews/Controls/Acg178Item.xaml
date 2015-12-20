@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="SoftwareKobo.ACGNews.Controls.Acg178Item"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:SoftwareKobo.ACGNews.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="using:SoftwareKobo.ACGNews.Models"
@@ -11,15 +10,43 @@
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=model:Acg178Feed}">
     <UserControl.Resources>
+        <conv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
         <conv:ImageCacheConverter x:Key="ImageCacheConverter" />
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                   Text="{Binding Title}"
-                   TextWrapping="Wrap" />
+        <Polygon HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Points="0,0 20,0 0,20">
+            <Polygon.Fill>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+            </Polygon.Fill>
+        </Polygon>
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  Padding="0,0,0,4">
+                <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
+                           Style="{ThemeResource ItemTitleStyle}" />
+            </Grid>
+            <Grid Grid.Row="1"
+                  MaxHeight="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Padding="0,0,4,0">
+                    <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
+                               Style="{ThemeResource ItemSummaryStyle}"></TextBlock>
+                </Grid>
+                <Image Grid.Column="1"
+                       Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+                       Stretch="UniformToFill"
+                       ImageFailed="Thumbnail_ImageFailed"></Image>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

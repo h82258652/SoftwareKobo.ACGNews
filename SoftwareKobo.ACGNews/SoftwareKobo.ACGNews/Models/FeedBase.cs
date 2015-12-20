@@ -1,41 +1,21 @@
-﻿using SQLite.Net.Attributes;
+﻿using SoftwareKobo.ACGNews.Datas;
+using SQLite.Net.Attributes;
 
 namespace SoftwareKobo.ACGNews.Models
 {
     public abstract class FeedBase : BindableBase
     {
-        private int _databaseId;
-
-        private long _sortId;
-
         private string _title;
 
         private string _detailLink;
 
-        [PrimaryKey]
-        [AutoIncrement]
-        public int DatabaseId
-        {
-            get
-            {
-                return _databaseId;
-            }
-            set
-            {
-                Set(ref _databaseId, value);
-            }
-        }
+        private bool _hasRead;
 
-        public long SortId
+        [PrimaryKey]
+        public long Id
         {
-            get
-            {
-                return _sortId;
-            }
-            set
-            {
-                Set(ref _sortId, value);
-            }
+            get;
+            set;
         }
 
         public string Title
@@ -60,6 +40,29 @@ namespace SoftwareKobo.ACGNews.Models
             {
                 Set(ref _detailLink, value);
             }
+        }
+
+        public bool HasRead
+        {
+            get
+            {
+                return _hasRead;
+            }
+            set
+            {
+                if (_hasRead == value)
+                {
+                    return;
+                }
+
+                Set(ref _hasRead, value);
+                MarkAsReaded();
+            }
+        }
+
+        private async void MarkAsReaded()
+        {
+            await AppDatabase.InsertOrUpdateFeedAsync(this);
         }
     }
 }

@@ -1,14 +1,19 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom.Html;
+using AngleSharp.Parser.Html;
 using Newtonsoft.Json;
 using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UmengSDK;
+using Windows.Devices.AllJoyn;
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 
 namespace SoftwareKobo.ACGNews.Services
 {
@@ -41,7 +46,7 @@ namespace SoftwareKobo.ACGNews.Services
                         var monthDayYear = matches[0].Value;
                         var monthDay = monthDayYear.Substring(0, 4);
                         var year = monthDayYear.Substring(5);
-                        feed.SortId = long.Parse(year + monthDay + matches[1].Value);
+                        feed.Id = long.Parse(year + monthDay + matches[1].Value);
 
                         var img = (IHtmlImageElement)item.QuerySelector(".pic");
                         feed.Thumbnail = img.Source;
@@ -54,10 +59,10 @@ namespace SoftwareKobo.ACGNews.Services
                     catch (Exception ex)
                     {
                         var buffer = new StringBuilder();
-                        buffer.AppendLine("Html 解释错误");
+                        buffer.AppendLine("Html->Acg17173Feed 解析错误");
                         buffer.AppendLine("Url:" + url);
                         buffer.AppendLine("当前Item:" + item.OuterHtml);
-                        buffer.AppendLine("已解释:" + JsonConvert.SerializeObject(feed));
+                        buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                         await UmengAnalytics.TrackException(ex, buffer.ToString());
                     }
                 }
@@ -65,9 +70,49 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        public Task<string> DetailAsync(Acg17173Feed feed)
+        public async Task<string> DetailAsync(FeedBase feed)
         {
-            throw new NotImplementedException();
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is Acg17173Feed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            const string userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+                var html = await client.GetStringAsync(new Uri(url));
+                var parser = new HtmlParser();
+                using (var document = await parser.ParseAsync(html))
+                {
+                    try
+                    {
+                        return document.QuerySelector(".art-bd").OuterHtml;
+                    }
+                    catch (Exception ex)
+                    {
+                        var buffer = new StringBuilder();
+                        buffer.AppendLine("Acg17173 内容解析错误");
+                        buffer.AppendLine("Url:" + url);
+                        buffer.AppendLine("UserAgent:" + userAgent);
+                        buffer.AppendLine("Document:" + document.ToHtml());
+                        await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                        if (Debugger.IsAttached)
+                        {
+                            Debugger.Break();
+                        }
+
+                        return "抱歉，解析错误";
+                    }
+                }
+            }
         }
     }
 }

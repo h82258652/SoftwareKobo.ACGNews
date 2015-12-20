@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,9 +39,9 @@ namespace SoftwareKobo.ACGNews.Services
                         {
                             var anchor = (IHtmlAnchorElement)topic.QuerySelector("h3 > a");
                             feed.Title = anchor.Text;
-                            feed.DetailLink = "http://comic.qq.com" + anchor.Href;
+                            feed.DetailLink = "http://comic.qq.com" + anchor.PathName;
                             var matches = Regex.Matches(anchor.PathName, @"\d+").Cast<Match>();
-                            feed.SortId = long.Parse(string.Join(string.Empty, matches.Select(temp => temp.Value)));
+                            feed.Id = long.Parse(string.Join(string.Empty, matches.Select(temp => temp.Value)));
 
                             var img = (IHtmlImageElement)topic.QuerySelector(".pic > img");
                             feed.Thumbnail = img.Source;
@@ -62,10 +64,10 @@ namespace SoftwareKobo.ACGNews.Services
                         catch (Exception ex)
                         {
                             var buffer = new StringBuilder();
-                            buffer.AppendLine("Html 解释错误");
+                            buffer.AppendLine("Html 解析错误");
                             buffer.AppendLine("Url:" + url);
                             buffer.AppendLine("当前Item:" + topic.OuterHtml);
-                            buffer.AppendLine("已解释:" + JsonConvert.SerializeObject(feed));
+                            buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                             await UmengAnalytics.TrackException(ex, buffer.ToString());
                         }
                     }
@@ -74,9 +76,50 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        public Task<string> DetailAsync(TencentComicFeed feed)
+        public async Task<string> DetailAsync(FeedBase feed)
         {
-            throw new NotImplementedException();
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is TencentComicFeed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            var html = await GetHtml(url);
+            var parser = new HtmlParser();
+            using (var document = await parser.ParseAsync(html))
+            {
+                try
+                {
+                    return document.QuerySelector(".content").OuterHtml;
+                }
+                catch (Exception ex)
+                {
+                    Debugger.Break();
+
+                    return "抱歉，解析错误";
+                }
+            }
+        }
+
+        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+
+        private static async Task<string> GetHtml(string url)
+        {
+            if (url.Contains("xw.qq.com") == false)
+            {
+                url = "http://xw.qq.com/comic/" + string.Join(string.Empty, Regex.Matches(url, @"\d+").Cast<Match>().Select(temp => temp.Value));
+            }
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+                return await client.GetStringAsync(new Uri(url));
+            }
         }
     }
 }

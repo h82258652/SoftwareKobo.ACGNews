@@ -1,4 +1,5 @@
-﻿using AngleSharp.Dom.Html;
+﻿using AngleSharp;
+using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -61,7 +62,7 @@ namespace SoftwareKobo.ACGNews.Services
                             feed.Title = anchor.Text;
                             feed.DetailLink = anchor.Href;
                             var matches = Regex.Matches(anchor.PathName, @"\d+").Cast<Match>();
-                            feed.SortId = long.Parse(string.Join(string.Empty, matches.Select(temp => temp.Value)));
+                            feed.Id = long.Parse(string.Join(string.Empty, matches.Select(temp => temp.Value)));
 
                             var img = (IHtmlImageElement)li.QuerySelector(".pic1");
                             feed.Thumbnail = img.Source;
@@ -83,10 +84,10 @@ namespace SoftwareKobo.ACGNews.Services
                         catch (Exception ex)
                         {
                             var buffer = new StringBuilder();
-                            buffer.AppendLine("Html 解释错误");
+                            buffer.AppendLine("Html 解析错误");
                             buffer.AppendLine("Url:" + url);
                             buffer.AppendLine("当前Item:" + li.OuterHtml);
-                            buffer.AppendLine("已解释:" + JsonConvert.SerializeObject(feed));
+                            buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                             await UmengAnalytics.TrackException(ex, buffer.ToString());
                         }
                     }
@@ -95,9 +96,62 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        public Task<string> DetailAsync(AcgGamerskyFeed feed)
+        private async Task<string> DetailAsync(string url)
         {
-            throw new NotImplementedException();
+            var html = await GetHtml(url);
+            var parser = new HtmlParser();
+            using (var document = await parser.ParseAsync(html))
+            {
+                var pagerElement = document.QuerySelector(".Page");
+                IHtmlAnchorElement nextPageElement = null;
+                if (pagerElement != null)
+                {
+                    nextPageElement = (IHtmlAnchorElement)pagerElement.QuerySelector(".page-next");
+                }
+                var nextPageDetail = string.Empty;
+                if (nextPageElement != null)
+                {
+                    nextPageDetail =
+                        await DetailAsync(string.Format("http://wap.gamersky.com/news{0}", nextPageElement.PathName));
+                }
+                pagerElement?.Remove();
+                var thisPageDetail = document.QuerySelector(".Mid_2").OuterHtml;
+                return thisPageDetail + nextPageDetail;
+            }
         }
+
+        public Task<string> DetailAsync(FeedBase feed)
+        {
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is AcgGamerskyFeed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            if (url.Contains("wap.gamersky.com") == false)
+            {
+                // 转换为手机版网页。
+                var id = Regex.Matches(url, @"\d+").Cast<Match>().Last().Value;
+                url = string.Format("http://wap.gamersky.com/news/Content-{0}.html", id);
+            }
+
+            return DetailAsync(url);
+        }
+
+        private static async Task<string> GetHtml(string url)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+                return await client.GetStringAsync(new Uri(url));
+            }
+        }
+
+        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
     }
 }

@@ -12,6 +12,7 @@ namespace SoftwareKobo.ACGNews.DatabaseModels
             set;
         }
 
+        [Unique]
         public string Url
         {
             get;

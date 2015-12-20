@@ -11,6 +11,14 @@ namespace SoftwareKobo.ACGNews.Models
 
         private string _summary;
 
+        private DateTime _publishTime;
+
+        private string _tag;
+
+        private string _author;
+
+        private string _originSource;
+
         public string Thumbnail
         {
             get
@@ -37,8 +45,14 @@ namespace SoftwareKobo.ACGNews.Models
 
         public DateTime PublishTime
         {
-            get;
-            set;
+            get
+            {
+                return _publishTime;
+            }
+            set
+            {
+                Set(ref _publishTime, value);
+            }
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -64,20 +78,38 @@ namespace SoftwareKobo.ACGNews.Models
 
         public string Tag
         {
-            get;
-            set;
+            get
+            {
+                return _tag;
+            }
+            set
+            {
+                Set(ref _tag, value);
+            }
         }
 
         public string Author
         {
-            get;
-            set;
+            get
+            {
+                return _author;
+            }
+            set
+            {
+                Set(ref _author, value);
+            }
         }
 
         public string OriginSource
         {
-            get;
-            set;
+            get
+            {
+                return _originSource;
+            }
+            set
+            {
+                Set(ref _originSource, value);
+            }
         }
     }
 }
