@@ -14,36 +14,31 @@
         <conv:ImageCacheConverter x:Key="ImageCacheConverter"></conv:ImageCacheConverter>
     </UserControl.Resources>
     <Grid>
-        <Polygon HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Points="0,0 20,0 0,20">
-            <Polygon.Fill>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-            </Polygon.Fill>
-        </Polygon>
-        <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+               Grid.Row="0"
+               Height="120"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Stretch="UniformToFill" />
+        <Grid Grid.Column="1"
+              Padding="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Padding="0,0,0,4">
-                <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
-                           Style="{ThemeResource ItemTitleStyle}" />
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="120" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0"
-                      Padding="0,0,4,0">
-                    <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
-                               Style="{ThemeResource ItemSummaryStyle}"></TextBlock>
-                </Grid>
-                <Image Grid.Column="1"
-                       Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
-                       Stretch="UniformToFill"></Image>
+            <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
+                       Style="{ThemeResource ItemTitleStyle}"
+                       MaxLines="2"
+                       TextTrimming="CharacterEllipsis" />
+            <Grid Grid.Row="1"
+                  Padding="0,4,0,0">
+                <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
+                           Style="{ThemeResource ItemSummaryStyle}"
+                           MaxLines="4"></TextBlock>
             </Grid>
         </Grid>
     </Grid>

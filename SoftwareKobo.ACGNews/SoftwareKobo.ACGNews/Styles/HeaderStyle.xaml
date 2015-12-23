@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="HeaderStyle"
+           TargetType="TextBlock">
+        <Setter Property="Foreground"
+                Value="#B5B5B5" />
+        <Setter Property="FontFamily"
+                Value="/Assets/Fonts/HYQiHei 105J.ttf#HYQiHei 105J" />
+    </Style>
+</ResourceDictionary>

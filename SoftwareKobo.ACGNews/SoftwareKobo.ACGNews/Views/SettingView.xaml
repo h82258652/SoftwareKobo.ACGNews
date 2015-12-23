@@ -10,7 +10,7 @@
     <Page.DataContext>
         <vm:SettingViewModel />
     </Page.DataContext>
-    <Grid>
+    <Grid Padding="8">
         <ScrollViewer>
             <StackPanel Orientation="Vertical">
                 <ToggleSwitch Header="右划后退"

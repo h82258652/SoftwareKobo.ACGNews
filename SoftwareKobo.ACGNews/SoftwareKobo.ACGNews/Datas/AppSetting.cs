@@ -29,7 +29,7 @@ namespace SoftwareKobo.ACGNews.Datas
         {
             get
             {
-                return Channel.Acg17173;
+                return Channel.TencentComic;
 
                 var value = ApplicationData.Current.LocalSettings.Values[nameof(CurrentChannel)];
                 if (value is int)

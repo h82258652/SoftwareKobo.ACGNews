@@ -96,6 +96,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Acg17173Header.xaml.cs">
+      <DependentUpon>Acg17173Header.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Acg17173Item.xaml.cs">
       <DependentUpon>Acg17173Item.xaml</DependentUpon>
     </Compile>
@@ -105,8 +108,14 @@
     <Compile Include="Controls\Acg178Item.xaml.cs">
       <DependentUpon>Acg178Item.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AcgdogeHeader.xaml.cs">
+      <DependentUpon>AcgdogeHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AcgdogeItem.xaml.cs">
       <DependentUpon>AcgdogeItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AcgGamerskyHeader.xaml.cs">
+      <DependentUpon>AcgGamerskyHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AcgGamerskyItem.xaml.cs">
       <DependentUpon>AcgGamerskyItem.xaml</DependentUpon>
@@ -119,6 +128,9 @@
     </Compile>
     <Compile Include="Controls\HeaderTemplateSelector.cs" />
     <Compile Include="Controls\ItemTemplateSelector.cs" />
+    <Compile Include="Controls\TencentComicHeader.xaml.cs">
+      <DependentUpon>TencentComicHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TencentComicItem.xaml.cs">
       <DependentUpon>TencentComicItem.xaml</DependentUpon>
     </Compile>
@@ -196,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Acg17173Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Acg17173Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,7 +224,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\AcgdogeHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AcgdogeItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AcgGamerskyHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,9 +248,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\TencentComicHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TencentComicItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\HeaderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Styles\ItemStyle.xaml">
       <SubType>Designer</SubType>

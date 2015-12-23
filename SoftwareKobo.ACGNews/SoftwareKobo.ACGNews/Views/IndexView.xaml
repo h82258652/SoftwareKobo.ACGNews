@@ -19,16 +19,7 @@
                  MinHeight="30"
                  MaxHeight="50"
                  HorizontalAlignment="Left">
-            <ContentControl>
-                <ContentControl.ContentTemplateSelector>
-                    <control:HeaderTemplateSelector />
-                </ContentControl.ContentTemplateSelector>
-            </ContentControl>
-            <!--<TextBlock Foreground="#B5B5B5"
-                       FontFamily="/Assets/Fonts/HYQiHei 105J.ttf#HYQiHei 105J">
-                <Run Text="178"
-                     FontSize="15"></Run><Run Text="动漫"
-                                              FontSize="12"></Run></TextBlock>-->
+            <control:AcgdogeHeader></control:AcgdogeHeader>
         </Viewbox>
         <ListView x:Name="NewsList"
                   Grid.Row="1"

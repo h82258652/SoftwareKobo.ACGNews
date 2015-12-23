@@ -50,13 +50,13 @@ namespace SoftwareKobo.ACGNews.Models
             }
             set
             {
-                if (_hasRead == value)
-                {
-                    return;
-                }
+                //if (_hasRead == value)
+                //{
+                //    return;
+                //}
 
                 Set(ref _hasRead, value);
-                MarkAsReaded();
+                //MarkAsReaded();
             }
         }
 

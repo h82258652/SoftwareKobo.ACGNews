@@ -20,10 +20,17 @@ namespace SoftwareKobo.ACGNews.Converters
             }
 
             var cacheFileName = WebUtility.UrlEncode(url);
-            var cacheImage = ImageCacheFolder.TryGetItemAsync(cacheFileName).GetAwaiter().GetResult();
-            if (cacheImage != null)
+            try
             {
-                return cacheImage.Path;
+                var cacheImage = ImageCacheFolder.TryGetItemAsync(cacheFileName).GetAwaiter().GetResult();
+                if (cacheImage != null)
+                {
+                    return cacheImage.Path;
+                }
+            }
+            catch
+            {
+                // ignored
             }
 
             DownloadImageAndCache(url, cacheFileName);

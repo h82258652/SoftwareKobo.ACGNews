@@ -3,7 +3,7 @@
     <Style x:Key="ItemStyle"
            TargetType="ListViewItem">
         <Setter Property="Background"
-                Value="#FF808080" />
+                Value="#DC222529" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Stretch" />
         <Setter Property="Margin"
@@ -14,7 +14,7 @@
     <Style x:Key="ItemTitleStyle"
            TargetType="TextBlock">
         <Setter Property="Foreground"
-                Value="#f0f0f0" />
+                Value="#F0F0F0" />
         <Setter Property="TextWrapping"
                 Value="Wrap" />
         <Setter Property="FontFamily"
@@ -29,7 +29,7 @@
     <Style x:Key="ItemSummaryStyle"
            TargetType="TextBlock">
         <Setter Property="Foreground"
-                Value="#333333" />
+                Value="#969699" />
         <Setter Property="TextWrapping"
                 Value="Wrap" />
         <Setter Property="TextTrimming"

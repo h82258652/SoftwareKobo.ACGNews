@@ -27,22 +27,31 @@ namespace SoftwareKobo.ACGNews.Views
 
         public void Hide()
         {
+            // 确保屏幕回到纵向。
             ExitFullScreen();
             VisualStateManager.GoToState(this, "HideState", true);
         }
 
         public async Task ShowAsync(FeedBase feed, string detail, Point? showAnimateCenter = null)
         {
+            // 将当前页面对应的 Feed 存储起来。
             _feed = feed;
+
+            // 设置动画中心。
             if (showAnimateCenter.HasValue == false)
             {
                 showAnimateCenter = new Point(0.5, 0.5);
             }
             ContentGrid.RenderTransformOrigin = showAnimateCenter.Value;
 
+            TypedEventHandler<WebView, WebViewDOMContentLoadedEventArgs> handler = null;
+            handler = (sender, e) =>
+            {
+                WebView.DOMContentLoaded -= handler;
+                VisualStateManager.GoToState(this, "ShowState", true);
+            };
+            WebView.DOMContentLoaded += handler;
             await SetContentAsync(detail);
-
-            VisualStateManager.GoToState(this, "ShowState", true);
         }
 
         private void BtnShare_Click(object sender, RoutedEventArgs e)
@@ -51,16 +60,8 @@ namespace SoftwareKobo.ACGNews.Views
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var h = await WebView.InvokeScriptAsync("eval", new string[] { "document.getElementsByTagName('html')[0].outerHTML" });
+            var h = await WebView.InvokeScriptAsync("eval", new[] { "document.getElementsByTagName('html')[0].outerHTML" });
             await new MessageDialog(h).ShowAsync();
-        }
-
-        private async void ButtonBase1_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_feed != null)
-            {
-                await Launcher.LaunchUriAsync(new Uri(_feed.DetailLink));
-            }
         }
 
         private void EnterFullScreen()
@@ -91,11 +92,13 @@ namespace SoftwareKobo.ACGNews.Views
 
         private async Task SetContentAsync(string content)
         {
+            // 加载模板。
             if (_template == null)
             {
                 var templateFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Web/Views/app.html"));
                 _template = await FileIO.ReadTextAsync(templateFile);
             }
+            // 填充内容。
             var html = string.Format(_template, content);
             WebView.NavigateToString(html);
         }
@@ -119,6 +122,14 @@ namespace SoftwareKobo.ACGNews.Views
                 case "exitFullScreen":
                     ExitFullScreen();
                     break;
+            }
+        }
+
+        private async void BtnOpenInBrowser_Click(object sender, RoutedEventArgs e)
+        {
+            if (_feed != null)
+            {
+                await Launcher.LaunchUriAsync(new Uri(_feed.DetailLink));
             }
         }
     }

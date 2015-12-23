@@ -1,9 +1,10 @@
 ﻿html {
-    background-color: #f0f0f0;
+    background-color: #F0F0F0;
     color: #333333;
 }
 
 * {
+    position: static !important;
     max-width: 100% !important;
     height: auto !important;
 }

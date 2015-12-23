@@ -105,6 +105,7 @@ namespace SoftwareKobo.ACGNews.DataSources
                 {
                     Merge(list, networkFeed);
                 }
+                _currentPage++;
             }
             catch
             {
