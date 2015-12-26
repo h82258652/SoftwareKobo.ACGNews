@@ -7,6 +7,7 @@
     "SQLite.Net-PCL": "3.1.1",
     "SQLite.Net.Async-PCL": "3.1.1",
     "UmengAnalytics": "3.1.0",
+    "UmengSocialWP": "2.0.2",
     "WinRTXamlToolkit.UWP": "1.9.4"
   },
   "frameworks": {

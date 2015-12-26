@@ -11,7 +11,7 @@ namespace SoftwareKobo.ACGNews.ViewModels
 
         public IndexViewModel()
         {
-            Feeds = AppSetting.CurrentChannel.CreateFeedCollection();
+            Feeds = AppSetting.Instance.CurrentChannel.CreateFeedCollection();
         }
 
         public IList Feeds

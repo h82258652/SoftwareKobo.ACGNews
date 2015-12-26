@@ -9,11 +9,11 @@ namespace SoftwareKobo.ACGNews.ViewModels
         {
             get
             {
-                return AppSetting.NavigateBackBySlideToRight;
+                return AppSetting.Instance.NavigateBackBySlideToRight;
             }
             set
             {
-                AppSetting.NavigateBackBySlideToRight = value;
+                AppSetting.Instance.NavigateBackBySlideToRight = value;
                 RaisePropertyChanged();
             }
         }

@@ -2,11 +2,13 @@
 using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Threading.Tasks;
+using UmengSocialSDK;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -54,8 +56,10 @@ namespace SoftwareKobo.ACGNews.Views
             await SetContentAsync(detail);
         }
 
-        private void BtnShare_Click(object sender, RoutedEventArgs e)
+        private async void BtnShare_Click(object sender, RoutedEventArgs e)
         {
+            UmengSocialSDK.MultiClient client = new MultiClient(null);
+            await client.ShareLinkAsync(new UmengLink(""));
         }
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -109,7 +113,7 @@ namespace SoftwareKobo.ACGNews.Views
             switch (value)
             {
                 case "goback":
-                    if (AppSetting.NavigateBackBySlideToRight)
+                    if (AppSetting.Instance.NavigateBackBySlideToRight)
                     {
                         Hide();
                     }

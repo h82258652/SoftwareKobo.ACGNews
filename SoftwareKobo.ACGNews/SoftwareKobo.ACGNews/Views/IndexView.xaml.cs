@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -50,11 +51,16 @@ namespace SoftwareKobo.ACGNews.Views
                 detailRenderTransformOrigin = new Point(0.5, 0.5);
             }
 
+            NotificationView.ShowLoading("hello world");
+            await Task.Delay(3000);
+
             var service = Service.GetService(e.ClickedItem as FeedBase);
             var detail = await service.DetailAsync(e.ClickedItem as FeedBase);
 
             await AppView.Instance.NavigateToDetail(e.ClickedItem as FeedBase, detail, detailRenderTransformOrigin);
             (e.ClickedItem as FeedBase).HasRead = true;
+
+            NotificationView.HideLoading();
         }
 
         private void NewsList_Loaded(object sender, RoutedEventArgs e)

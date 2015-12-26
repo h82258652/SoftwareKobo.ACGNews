@@ -5,10 +5,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:control="using:SoftwareKobo.ACGNews.Controls"
       xmlns:vm="using:SoftwareKobo.ACGNews.ViewModels"
+      xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
       mc:Ignorable="d">
     <Page.DataContext>
         <vm:IndexViewModel />
     </Page.DataContext>
+    <Page.Resources>
+        <localConv:HeaderConverter x:Key="HeaderConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,7 +23,7 @@
                  MinHeight="30"
                  MaxHeight="50"
                  HorizontalAlignment="Left">
-            <control:AcgdogeHeader></control:AcgdogeHeader>
+            <ContentControl Content="{Binding Source={StaticResource Setting},Path=CurrentChannel,Converter={StaticResource HeaderConverter}}" />
         </Viewbox>
         <ListView x:Name="NewsList"
                   Grid.Row="1"
@@ -27,16 +31,8 @@
                   SelectionMode="None"
                   IsItemClickEnabled="True"
                   ItemClick="NewsList_ItemClick"
-                  Loaded="NewsList_Loaded">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem"
-                       BasedOn="{StaticResource ItemStyle}">
-                    <Setter Property="BorderThickness"
-                            Value="0,0,0,4" />
-                    <Setter Property="BorderBrush"
-                            Value="#80000000" />
-                </Style>
-            </ListView.ItemContainerStyle>
+                  Loaded="NewsList_Loaded"
+                  ItemContainerStyle="{ThemeResource ItemStyle}">
             <ListView.ItemTemplateSelector>
                 <control:ItemTemplateSelector />
             </ListView.ItemTemplateSelector>

@@ -11,53 +11,53 @@
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=model:Acg17173Feed}">
     <UserControl.Resources>
-        <conv:BooleanToVisibilityConverter x:Key="UnReadConverter"
-                                           IsInversed="True" />
-        <conv:BooleanToVisibilityConverter x:Key="ReadedConverter" />
         <localConv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
         <localConv:ImageCacheConverter x:Key="ImageCacheConverter" />
     </UserControl.Resources>
     <Grid>
-        <Polygon HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Points="0,0 20,0 0,20">
-            <Polygon.Fill>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-            </Polygon.Fill>
-        </Polygon>
-        <Grid Margin="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Padding="0,0,0,4">
-                <TextBlock Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
-                           Style="{ThemeResource ItemTitleStyle}"
-                           Visibility="{Binding Path=HasRead,Converter={StaticResource UnReadConverter}}" />
-                <TextBlock Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
-                           Style="{ThemeResource ItemTitleStyle}"
-                           Visibility="{Binding Path=HasRead,Converter={StaticResource ReadedConverter}}"
-                           Foreground="Gray" />
-            </Grid>
-            <Grid Grid.Row="1"
-                  Height="75">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0"
-                      Padding="0,0,4,0">
-                    <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
-                               Style="{ThemeResource ItemSummaryStyle}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="4" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Polygon HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Points="0,0 20,0 0,20">
+                <Polygon.Fill>
+                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                </Polygon.Fill>
+            </Polygon>
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Padding="0,0,0,4">
+                    <TextBlock Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
+                               Style="{ThemeResource ItemTitleStyle}" />
                 </Grid>
-                <Image Grid.Column="1"
-                       Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
-                       Stretch="UniformToFill"
-                       ImageFailed="Image_ImageFailed"
-                       Width="110"
-                       Height="75" />
+                <Grid Grid.Row="1"
+                      Height="75">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"
+                          Padding="0,0,4,0">
+                        <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
+                                   Style="{ThemeResource ItemSummaryStyle}" />
+                    </Grid>
+                    <Image Grid.Column="1"
+                           Source="{Binding Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+                           Stretch="UniformToFill"
+                           ImageFailed="Image_ImageFailed"
+                           Width="110"
+                           Height="75" />
+                </Grid>
             </Grid>
         </Grid>
+        <Grid Grid.Row="1"
+              Background="#80000000" />
     </Grid>
 </UserControl>

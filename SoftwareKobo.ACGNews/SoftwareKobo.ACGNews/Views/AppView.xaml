@@ -24,5 +24,6 @@
         </FlipView>
         <view:DetailView x:Name="Detail"
                          Visibility="Collapsed" />
+        <view:NotificationView x:Name="Notification" />
     </Grid>
 </Page>

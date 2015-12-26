@@ -10,12 +10,14 @@
     <Page.DataContext>
         <vm:SettingViewModel />
     </Page.DataContext>
-    <Grid Padding="8">
+    <Grid>
         <ScrollViewer>
-            <StackPanel Orientation="Vertical">
-                <ToggleSwitch Header="右划后退"
-                              IsOn="{Binding Path=NavigateBackBySlideToRight}" />
-            </StackPanel>
+            <Grid Padding="8">
+                <StackPanel Orientation="Vertical">
+                    <ToggleSwitch Header="右划后退"
+                                  IsOn="{Binding Path=NavigateBackBySlideToRight}" />
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Page>

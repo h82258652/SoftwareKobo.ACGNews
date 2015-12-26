@@ -91,6 +91,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Assets\Fonts\HYQiHei 105J.ttf" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -128,13 +129,16 @@
     </Compile>
     <Compile Include="Controls\HeaderTemplateSelector.cs" />
     <Compile Include="Controls\ItemTemplateSelector.cs" />
+    <Compile Include="Controls\SlideInDirection.cs" />
     <Compile Include="Controls\TencentComicHeader.xaml.cs">
       <DependentUpon>TencentComicHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TencentComicItem.xaml.cs">
       <DependentUpon>TencentComicItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ToastPrompt.cs" />
     <Compile Include="Converters\CharacterWrapConverter.cs" />
+    <Compile Include="Converters\HeaderConverter.cs" />
     <Compile Include="Converters\ImageCacheConverter.cs" />
     <Compile Include="DatabaseModels\ArticleEntity.cs" />
     <Compile Include="DataModels\FeedCollection.cs" />
@@ -172,6 +176,9 @@
     </Compile>
     <Compile Include="Views\IndexView.xaml.cs">
       <DependentUpon>IndexView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingView.xaml.cs">
       <DependentUpon>SettingView.xaml</DependentUpon>
@@ -266,6 +273,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -279,6 +290,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\IndexView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

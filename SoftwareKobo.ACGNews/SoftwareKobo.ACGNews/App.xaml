@@ -1,6 +1,7 @@
 ﻿<Application x:Class="SoftwareKobo.ACGNews.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:data="using:SoftwareKobo.ACGNews.Datas"
              RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
@@ -8,6 +9,7 @@
                 <ResourceDictionary Source="/Styles/HeaderStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <data:AppSetting x:Key="Setting"></data:AppSetting>
             <Style TargetType="ListViewItem">
                 <Setter Property="Template">
                     <Setter.Value>
