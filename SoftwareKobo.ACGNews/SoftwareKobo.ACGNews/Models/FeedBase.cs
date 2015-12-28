@@ -9,6 +9,8 @@ namespace SoftwareKobo.ACGNews.Models
 
         private string _detailLink;
 
+        private string _thumbnail;
+
         private bool _hasRead;
 
         [PrimaryKey]
@@ -39,6 +41,18 @@ namespace SoftwareKobo.ACGNews.Models
             set
             {
                 Set(ref _detailLink, value);
+            }
+        }
+
+        public string Thumbnail
+        {
+            get
+            {
+                return _thumbnail;
+            }
+            set
+            {
+                Set(ref _thumbnail, value);
             }
         }
 

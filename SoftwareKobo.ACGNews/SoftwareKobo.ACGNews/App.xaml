@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/HeaderStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ItemStyle.xaml" />
+                <ResourceDictionary Source="/Styles/ToggleSwitchStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <data:AppSetting x:Key="Setting"></data:AppSetting>
             <Style TargetType="ListViewItem">

@@ -7,8 +7,6 @@ namespace SoftwareKobo.ACGNews.Models
 {
     public class Acg178Feed : FeedBase
     {
-        private string _thumbnail;
-
         private string _summary;
 
         private DateTime _publishTime;
@@ -18,18 +16,6 @@ namespace SoftwareKobo.ACGNews.Models
         private string _author;
 
         private string _originSource;
-
-        public string Thumbnail
-        {
-            get
-            {
-                return _thumbnail;
-            }
-            set
-            {
-                Set(ref _thumbnail, value);
-            }
-        }
 
         public string Summary
         {

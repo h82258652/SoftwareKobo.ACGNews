@@ -12,10 +12,11 @@
     </Page.DataContext>
     <Grid>
         <ScrollViewer>
-            <Grid Padding="8">
+            <Grid Padding="16">
                 <StackPanel Orientation="Vertical">
                     <ToggleSwitch Header="右划后退"
-                                  IsOn="{Binding Path=NavigateBackBySlideToRight}" />
+                                  IsOn="{Binding Path=NavigateBackBySlideToRight}"
+                                  HorizontalAlignment="Stretch" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

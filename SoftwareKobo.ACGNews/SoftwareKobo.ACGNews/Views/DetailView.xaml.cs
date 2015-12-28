@@ -8,7 +8,6 @@ using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -58,8 +57,13 @@ namespace SoftwareKobo.ACGNews.Views
 
         private async void BtnShare_Click(object sender, RoutedEventArgs e)
         {
-            UmengSocialSDK.MultiClient client = new MultiClient(null);
-            await client.ShareLinkAsync(new UmengLink(""));
+            // TODO
+            UmengLink link = new UmengLink();
+            link.Url = _feed.DetailLink;
+            link.Title = _feed.Title;
+
+            MultiClient client = new MultiClient(null);
+            var result = await client.ShareLinkAsync(new UmengLink(""));
         }
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)

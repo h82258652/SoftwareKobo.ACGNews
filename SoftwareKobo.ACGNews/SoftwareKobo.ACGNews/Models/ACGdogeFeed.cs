@@ -6,25 +6,11 @@ namespace SoftwareKobo.ACGNews.Models
 {
     public class AcgdogeFeed : FeedBase
     {
-        private string _thumbnail;
-
         private string _summary;
 
         private string _publishTime;
 
         private int _commentCount;
-
-        public string Thumbnail
-        {
-            get
-            {
-                return _thumbnail;
-            }
-            set
-            {
-                Set(ref _thumbnail, value);
-            }
-        }
 
         public string Summary
         {

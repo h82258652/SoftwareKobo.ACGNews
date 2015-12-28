@@ -4,12 +4,6 @@ namespace SoftwareKobo.ACGNews.Models
 {
     public class AcgGamerskyFeed : FeedBase
     {
-        public string Thumbnail
-        {
-            get;
-            set;
-        }
-
         public string Summary
         {
             get;

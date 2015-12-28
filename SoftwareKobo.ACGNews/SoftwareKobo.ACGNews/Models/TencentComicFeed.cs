@@ -6,23 +6,9 @@ namespace SoftwareKobo.ACGNews.Models
 {
     public class TencentComicFeed : FeedBase
     {
-        private string _thumbnail;
-
         private string _summary;
 
         private string _publishTime;
-
-        public string Thumbnail
-        {
-            get
-            {
-                return _thumbnail;
-            }
-            set
-            {
-                Set(ref _thumbnail, value);
-            }
-        }
 
         public string Summary
         {
