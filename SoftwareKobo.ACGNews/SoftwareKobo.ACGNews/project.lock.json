@@ -11,27 +11,6 @@
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         }
       },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -230,7 +209,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -1619,14 +1598,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -1643,27 +1614,6 @@
         },
         "runtime": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
-        }
-      },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.0": {
@@ -1907,7 +1857,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -3343,14 +3293,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -3367,27 +3309,6 @@
         },
         "runtime": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
-        }
-      },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.0": {
@@ -3617,7 +3538,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -5039,14 +4960,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -5063,27 +4976,6 @@
         },
         "runtime": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
-        }
-      },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.0": {
@@ -5332,7 +5224,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -6768,14 +6660,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -6792,27 +6676,6 @@
         },
         "runtime": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
-        }
-      },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.0": {
@@ -7042,7 +6905,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -8464,14 +8327,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -8488,27 +8343,6 @@
         },
         "runtime": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
-        }
-      },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.0": {
@@ -8757,7 +8591,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -10193,14 +10027,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -10217,27 +10043,6 @@
         },
         "runtime": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
-        }
-      },
-      "Comet/0.2.0": {
-        "dependencies": {
-          "System.Collections": "[4.0.10, )",
-          "System.Diagnostics.Debug": "[4.0.10, )",
-          "System.Diagnostics.Tools": "[4.0.0, )",
-          "System.ObjectModel": "[4.0.10, )",
-          "System.Runtime": "[4.0.20, )",
-          "System.Runtime.Extensions": "[4.0.10, )",
-          "System.Runtime.InteropServices.WindowsRuntime": "[4.0.0, )",
-          "System.Runtime.WindowsRuntime": "[4.0.10, )",
-          "System.Runtime.WindowsRuntime.UI.Xaml": "[4.0.0, )",
-          "System.Threading": "[4.0.10, )",
-          "System.Threading.Tasks": "[4.0.10, )"
-        },
-        "compile": {
-          "lib/uap10.0/Comet.dll": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Comet.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.0": {
@@ -10467,7 +10272,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.1": {
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
@@ -11889,14 +11694,6 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "UmengSocialWP/2.0.2": {
-        "compile": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        },
-        "runtime": {
-          "lib/wpa/UmengSocialWP.Winrt.dll": {}
-        }
-      },
       "WinRTXamlToolkit.UWP/1.9.4": {
         "compile": {
           "lib/uap10.0/WinRTXamlToolkit.dll": {}
@@ -11924,21 +11721,6 @@
         "lib/sl50/AngleSharp.dll",
         "lib/sl50/AngleSharp.xml",
         "package/services/metadata/core-properties/22b3c45c3d044ea09c0136d0155fdfbf.psmdcp"
-      ]
-    },
-    "Comet/0.2.0": {
-      "sha512": "xIargCBt6VZk2nOc1nN7hnt/pa+bAQ3nowo2aZFQXrTP2cfuswkZ3CaJILtCb33f+hTnEOYzsyfG5uGU8iILnQ==",
-      "type": "Package",
-      "files": [
-        "[Content_Types].xml",
-        "_rels/.rels",
-        "Comet.nuspec",
-        "lib/uap10.0/Comet.dll",
-        "lib/uap10.0/Comet.pri",
-        "lib/uap10.0/Comet/Comet.xr.xml",
-        "lib/uap10.0/Comet/Properties/Comet.rd.xml",
-        "lib/uap10.0/Comet/Themes/Generic.xbf",
-        "package/services/metadata/core-properties/436b0e550ce04179ba434b732fb4a907.psmdcp"
       ]
     },
     "Microsoft.CSharp/4.0.0": {
@@ -12594,8 +12376,8 @@
         "ref/xamarinmac20/_._"
       ]
     },
-    "Newtonsoft.Json/7.0.1": {
-      "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
+    "Newtonsoft.Json/8.0.1": {
+      "sha512": "qFzqzune1D7hDz8kNavFwrJ0fv8qkwANGyUOPjP0I67DmNH04nmSCRB0g0LCIqogMKrBXjsiP43Z0E1huBvxOg==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -12613,7 +12395,7 @@
         "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
         "Newtonsoft.Json.nuspec",
-        "package/services/metadata/core-properties/49e907fc018c4c7ab632e6d4ad4766f8.psmdcp",
+        "package/services/metadata/core-properties/ec951ab7a85848cfa5a19094817892b5.psmdcp",
         "tools/install.ps1"
       ]
     },
@@ -15387,51 +15169,6 @@
         "UmengAnalytics.nuspec"
       ]
     },
-    "UmengSocialWP/2.0.2": {
-      "sha512": "Bt1BPDqu4IlhSb0tjDdUtbiq7pMfLyPqfew388tEhT+o3seMAjw6VTEJT4knz/XXrMzGPeIuebk6cJSA5AQ7tw==",
-      "type": "Package",
-      "files": [
-        "[Content_Types].xml",
-        "_rels/.rels",
-        "content/UmImages/location.png",
-        "content/UmImages/share.png",
-        "content/UmImages/sns/douban.png",
-        "content/UmImages/sns/facebook.png",
-        "content/UmImages/sns/qzone.png",
-        "content/UmImages/sns/renren.png",
-        "content/UmImages/sns/sina.png",
-        "content/UmImages/sns/sms.png",
-        "content/UmImages/sns/tencent.png",
-        "content/UmImages/sns/twitter.png",
-        "content/UmImages/sns/wechat.png",
-        "content/UmImages/sns/wxcircle.png",
-        "lib/wp8/Google.ProtocolBuffersLite.dll",
-        "lib/wp8/MicroMsgSDK.dll",
-        "lib/wp8/UmengSocialWP.Silverlight.dll",
-        "lib/wp8/UmengSocialWP.Silverlight.XML",
-        "lib/wpa/UmengSocialWP.Winrt.dll",
-        "lib/wpa/UmengSocialWP.Winrt.pri",
-        "lib/wpa/UmengSocialWP.Winrt.XML",
-        "lib/wpa/UmengSocialWP.Winrt/UmengSocialWP.Winrt.xr.xml",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/location.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/share.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/douban.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/facebook.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/qzone.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/renren.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/sina.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/sms.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/tencent.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/twitter.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/wechat.png",
-        "lib/wpa/UmengSocialWP.Winrt/UmImages/sns/wxcircle.png",
-        "lib/wpa/UmengSocialWP.Winrt/View/ChoosePlatformPage.xbf",
-        "lib/wpa/UmengSocialWP.Winrt/View/OAuthPage.xbf",
-        "lib/wpa/UmengSocialWP.Winrt/View/ShareEditPage.xbf",
-        "package/services/metadata/core-properties/6a1cc78eb4ed4eea890794737b74e1ef.psmdcp",
-        "UmengSocialWP.nuspec"
-      ]
-    },
     "WinRTXamlToolkit.UWP/1.9.4": {
       "sha512": "CnX7Cpg+AzxUMBsSuAdwi5Bjh1Jp8Cy0PyCJnFVBmYxHujDoFAu5getRXvgLl4cIFw3BGUndFnrx7ws6GFoLWA==",
       "type": "Package",
@@ -15691,14 +15428,12 @@
   "projectFileDependencyGroups": {
     "": [
       "AngleSharp >= 0.9.3",
-      "Comet >= 0.2.0",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
-      "Newtonsoft.Json >= 7.0.1",
+      "Newtonsoft.Json >= 8.0.1",
       "PlatformSpecific.Analyzer >= 2.0.2",
       "SQLite.Net.Async-PCL >= 3.1.1",
       "SQLite.Net-PCL >= 3.1.1",
       "UmengAnalytics >= 3.1.0",
-      "UmengSocialWP >= 2.0.2",
       "WinRTXamlToolkit.UWP >= 1.9.4"
     ],
     "UAP,Version=v10.0": []

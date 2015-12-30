@@ -2,7 +2,6 @@
 using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Threading.Tasks;
-using UmengSocialSDK;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.Storage;
@@ -58,12 +57,6 @@ namespace SoftwareKobo.ACGNews.Views
         private async void BtnShare_Click(object sender, RoutedEventArgs e)
         {
             // TODO
-            UmengLink link = new UmengLink();
-            link.Url = _feed.DetailLink;
-            link.Title = _feed.Title;
-
-            MultiClient client = new MultiClient(null);
-            var result = await client.ShareLinkAsync(new UmengLink(""));
         }
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
