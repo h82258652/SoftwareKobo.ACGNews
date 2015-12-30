@@ -130,6 +130,10 @@
     </Compile>
     <Compile Include="Controls\HeaderTemplateSelector.cs" />
     <Compile Include="Controls\ItemTemplateSelector.cs" />
+    <Compile Include="Controls\PullProgressChangedEventArgs.cs" />
+    <Compile Include="Controls\PullToRefreshIndicator.cs" />
+    <Compile Include="Controls\PullToRefreshPanel.cs" />
+    <Compile Include="Controls\RefreshRequestedEventArgs.cs" />
     <Compile Include="Controls\SlideInDirection.cs" />
     <Compile Include="Controls\TencentComicHeader.xaml.cs">
       <DependentUpon>TencentComicHeader.xaml</DependentUpon>
@@ -183,6 +187,9 @@
     </Compile>
     <Compile Include="Views\SettingView.xaml.cs">
       <DependentUpon>SettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SplashScreenView.xaml.cs">
+      <DependentUpon>SplashScreenView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SplashScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

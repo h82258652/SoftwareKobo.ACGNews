@@ -25,24 +25,31 @@
                  HorizontalAlignment="Left">
             <ContentControl Content="{Binding Source={StaticResource Setting},Path=CurrentChannel,Converter={StaticResource HeaderConverter}}" />
         </Viewbox>
-        <ListView x:Name="NewsList"
-                  Grid.Row="1"
-                  ItemsSource="{Binding Feeds}"
-                  SelectionMode="None"
-                  IsItemClickEnabled="True"
-                  ItemClick="NewsList_ItemClick"
-                  Loaded="NewsList_Loaded"
-                  ItemContainerStyle="{ThemeResource ItemStyle}">
-            <ListView.ItemTemplateSelector>
-                <control:ItemTemplateSelector />
-            </ListView.ItemTemplateSelector>
-            <ListView.ItemContainerTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition IsStaggeringEnabled="True"
-                                             FromHorizontalOffset="0"
-                                             FromVerticalOffset="30" />
-                </TransitionCollection>
-            </ListView.ItemContainerTransitions>
-        </ListView>
+        <control:PullToRefreshPanel x:Name="Panel"
+                                    Grid.Row="1"
+                                    RefreshRequested="PullToRefreshPanel_OnRefreshRequested">
+            <control:PullToRefreshPanel.Indicator>
+                <control:PullToRefreshIndicator Progress="{Binding ElementName=Panel,Path=PullProgress}"
+                                                Margin="0,0,0,8" />
+            </control:PullToRefreshPanel.Indicator>
+            <ListView x:Name="NewsList"
+                      ItemsSource="{Binding Feeds}"
+                      SelectionMode="None"
+                      IsItemClickEnabled="True"
+                      ItemClick="NewsList_ItemClick"
+                      Loaded="NewsList_Loaded"
+                      ItemContainerStyle="{ThemeResource ItemStyle}">
+                <ListView.ItemTemplateSelector>
+                    <control:ItemTemplateSelector />
+                </ListView.ItemTemplateSelector>
+                <ListView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition IsStaggeringEnabled="True"
+                                                 FromHorizontalOffset="0"
+                                                 FromVerticalOffset="30" />
+                    </TransitionCollection>
+                </ListView.ItemContainerTransitions>
+            </ListView>
+        </control:PullToRefreshPanel>
     </Grid>
 </Page>

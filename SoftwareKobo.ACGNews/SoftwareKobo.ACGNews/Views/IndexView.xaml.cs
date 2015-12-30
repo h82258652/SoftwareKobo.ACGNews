@@ -1,4 +1,5 @@
-﻿using SoftwareKobo.ACGNews.DataModels;
+﻿using SoftwareKobo.ACGNews.Controls;
+using SoftwareKobo.ACGNews.DataModels;
 using SoftwareKobo.ACGNews.DataSources;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
@@ -85,6 +86,11 @@ namespace SoftwareKobo.ACGNews.Views
             {
                 Header.Height = value * -0.25d + 82.5d;
             }
+        }
+
+        private void PullToRefreshPanel_OnRefreshRequested(object sender, RefreshRequestedEventArgs e)
+        {
+            Debug.WriteLine("Req");
         }
     }
 }

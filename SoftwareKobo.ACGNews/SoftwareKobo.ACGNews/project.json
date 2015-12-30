@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "AngleSharp": "0.9.3",
+    "Comet": "0.2.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Newtonsoft.Json": "7.0.1",
     "PlatformSpecific.Analyzer": "2.0.2",
