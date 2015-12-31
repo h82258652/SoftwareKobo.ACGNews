@@ -16,6 +16,7 @@ namespace SoftwareKobo.ACGNews.Controls
         public static readonly DependencyProperty SlideInDirectionProperty = DependencyProperty.Register(nameof(SlideInDirection), typeof(SlideInDirection), typeof(ToastPrompt), new PropertyMetadata(SlideInDirection.Right, SlideInDirectionChanged));
 
         private static readonly DependencyProperty ContainerMarginProperty = DependencyProperty.Register(nameof(ContainerMargin), typeof(Thickness), typeof(ToastPrompt), new PropertyMetadata(default(Thickness)));
+
         private static readonly DependencyProperty ContainerOpacityProperty = DependencyProperty.Register(nameof(ContainerOpacity), typeof(double), typeof(ToastPrompt), new PropertyMetadata(0));
 
         private static readonly DependencyProperty ContainerPaddingProperty = DependencyProperty.Register(nameof(ContainerPadding), typeof(Thickness), typeof(ToastPrompt), new PropertyMetadata(default(Thickness)));
@@ -107,35 +108,35 @@ namespace SoftwareKobo.ACGNews.Controls
             }
         }
 
-        public async Task ShowAsync(double seconds = 1, double slideInDistance = 300)
+        public async Task ShowAsync(double seconds = 2, double slideInDistance = 300)
         {
             Storyboard storyboard = new Storyboard();
 
             {
-                var animation = new DoubleAnimationUsingKeyFrames()
+                var animation = new DoubleAnimationUsingKeyFrames
                 {
                     EnableDependentAnimation = true
                 };
                 Storyboard.SetTarget(animation, this);
                 Storyboard.SetTargetProperty(animation, nameof(ContainerOpacity));
-                animation.KeyFrames.Add(new LinearDoubleKeyFrame()
+                animation.KeyFrames.Add(new LinearDoubleKeyFrame
                 {
                     KeyTime = TimeSpan.FromSeconds(0),
                     Value = 0
                 });
-                animation.KeyFrames.Add(new LinearDoubleKeyFrame()
+                animation.KeyFrames.Add(new LinearDoubleKeyFrame
                 {
-                    KeyTime = TimeSpan.FromSeconds(0.3),
+                    KeyTime = TimeSpan.FromSeconds(0.5),
                     Value = 1
                 });
                 animation.KeyFrames.Add(new LinearDoubleKeyFrame
                 {
-                    KeyTime = TimeSpan.FromSeconds(seconds + 0.3),
+                    KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
                     Value = 1
                 });
                 animation.KeyFrames.Add(new LinearDoubleKeyFrame
                 {
-                    KeyTime = TimeSpan.FromSeconds(seconds + 0.6),
+                    KeyTime = TimeSpan.FromSeconds(seconds + 1),
                     Value = 0
                 });
                 storyboard.Children.Add(animation);
@@ -180,7 +181,7 @@ namespace SoftwareKobo.ACGNews.Controls
 
                 animation.KeyFrames.Add(new EasingDoubleKeyFrame
                 {
-                    KeyTime = TimeSpan.FromSeconds(0.3),
+                    KeyTime = TimeSpan.FromSeconds(0.5),
                     Value = 0,
                     EasingFunction = new BackEase
                     {
@@ -191,7 +192,7 @@ namespace SoftwareKobo.ACGNews.Controls
 
                 animation.KeyFrames.Add(new EasingDoubleKeyFrame
                 {
-                    KeyTime = TimeSpan.FromSeconds(seconds + 0.3),
+                    KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
                     Value = 0
                 });
 
@@ -201,7 +202,7 @@ namespace SoftwareKobo.ACGNews.Controls
                     case SlideInDirection.Bottom:
                         animation.KeyFrames.Add(new EasingDoubleKeyFrame
                         {
-                            KeyTime = TimeSpan.FromSeconds(seconds + 0.6),
+                            KeyTime = TimeSpan.FromSeconds(seconds + 1),
                             Value = slideInDistance,
                             EasingFunction = new BackEase
                             {
@@ -215,7 +216,7 @@ namespace SoftwareKobo.ACGNews.Controls
                     case SlideInDirection.Top:
                         animation.KeyFrames.Add(new EasingDoubleKeyFrame
                         {
-                            KeyTime = TimeSpan.FromSeconds(seconds + 0.6),
+                            KeyTime = TimeSpan.FromSeconds(seconds + 1),
                             Value = 0 - slideInDistance,
                             EasingFunction = new BackEase
                             {
@@ -275,28 +276,28 @@ namespace SoftwareKobo.ACGNews.Controls
             switch (SlideInDirection)
             {
                 case SlideInDirection.Right:
-                    RootGridClip = new RectangleGeometry()
+                    RootGridClip = new RectangleGeometry
                     {
                         Rect = new Rect(-100, 0, ActualWidth + 100, ActualHeight)
                     };
                     break;
 
                 case SlideInDirection.Left:
-                    RootGridClip = new RectangleGeometry()
+                    RootGridClip = new RectangleGeometry
                     {
                         Rect = new Rect(0, 0, ActualWidth + 100, ActualHeight)
                     };
                     break;
 
                 case SlideInDirection.Top:
-                    RootGridClip = new RectangleGeometry()
+                    RootGridClip = new RectangleGeometry
                     {
                         Rect = new Rect(0, -100, ActualWidth, ActualHeight + 100)
                     };
                     break;
 
                 case SlideInDirection.Bottom:
-                    RootGridClip = new RectangleGeometry()
+                    RootGridClip = new RectangleGeometry
                     {
                         Rect = new Rect(0, 0, ActualWidth, ActualHeight + 100)
                     };

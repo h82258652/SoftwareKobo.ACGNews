@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 
 namespace SoftwareKobo.ACGNews.DataModels
 {
-    public class FeedCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading where T : FeedBase
+    public class FeedCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading, IFeedCollection where T : FeedBase
     {
         private readonly FeedSource<T> _feedSource;
 
@@ -24,6 +24,10 @@ namespace SoftwareKobo.ACGNews.DataModels
         }
 
         public bool HasMoreItems => true;
+
+        public event EventHandler LoadMoreCompleted;
+
+        public event EventHandler LoadMoreStarted;
 
         public bool IsLoading
         {
@@ -38,6 +42,12 @@ namespace SoftwareKobo.ACGNews.DataModels
             }
         }
 
+        public async void Refresh()
+        {
+            _feedSource.Refresh();
+            await LoadMoreItemsAsync(1);
+        }
+
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
             if (IsLoading)
@@ -49,6 +59,7 @@ namespace SoftwareKobo.ACGNews.DataModels
             }
 
             IsLoading = true;
+            LoadMoreStarted?.Invoke(this, EventArgs.Empty);
             return AsyncInfo.Run(async c =>
             {
                 try
@@ -65,6 +76,7 @@ namespace SoftwareKobo.ACGNews.DataModels
                 finally
                 {
                     IsLoading = false;
+                    LoadMoreCompleted?.Invoke(this, EventArgs.Empty);
                 }
             });
         }

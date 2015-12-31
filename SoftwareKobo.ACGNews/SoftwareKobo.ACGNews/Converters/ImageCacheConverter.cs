@@ -3,10 +3,12 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 using Windows.Storage;
 using Windows.UI.Xaml.Data;
 using Windows.Web.Http;
+using WinRTXamlToolkit.IO.Extensions;
 
 namespace SoftwareKobo.ACGNews.Converters
 {
@@ -69,15 +71,14 @@ namespace SoftwareKobo.ACGNews.Converters
                 {
                     client.DefaultRequestHeaders.Referer = uri;
                     var buffer = await client.GetBufferAsync(uri);
-                    var bytes = buffer.ToArray();
-                    if (bytes.Length > 0)
+                    if (buffer.Length > 0)
                     {
                         if (_imageCacheFolder == null)
                         {
                             _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
                         }
                         var cacheImage = await _imageCacheFolder.CreateFileAsync(cacheFileName, CreationCollisionOption.ReplaceExisting);
-                        await FileIO.WriteBytesAsync(cacheImage, bytes);
+                        await FileIO.WriteBufferAsync(cacheImage, buffer);
                     }
                 }
             }
@@ -91,6 +92,19 @@ namespace SoftwareKobo.ACGNews.Converters
         {
             var profile = NetworkInformation.GetInternetConnectionProfile();
             return profile != null && profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+        }
+
+        /// <summary>
+        /// 获取图片缓存文件夹的大小。单位是字节。
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ulong> GetCachedImagesSizeAsync()
+        {
+            if (_imageCacheFolder == null)
+            {
+                _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
+            }
+            return await _imageCacheFolder.GetSize();
         }
     }
 }

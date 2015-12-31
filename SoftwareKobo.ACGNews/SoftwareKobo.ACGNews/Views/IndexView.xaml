@@ -6,12 +6,14 @@
       xmlns:control="using:SoftwareKobo.ACGNews.Controls"
       xmlns:vm="using:SoftwareKobo.ACGNews.ViewModels"
       xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
+      xmlns:conv="using:WinRTXamlToolkit.Converters"
       mc:Ignorable="d">
     <Page.DataContext>
         <vm:IndexViewModel />
     </Page.DataContext>
     <Page.Resources>
         <localConv:HeaderConverter x:Key="HeaderConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -25,31 +27,35 @@
                  HorizontalAlignment="Left">
             <ContentControl Content="{Binding Source={StaticResource Setting},Path=CurrentChannel,Converter={StaticResource HeaderConverter}}" />
         </Viewbox>
-        <control:PullToRefreshPanel x:Name="Panel"
-                                    Grid.Row="1"
-                                    RefreshRequested="PullToRefreshPanel_OnRefreshRequested">
-            <control:PullToRefreshPanel.Indicator>
-                <control:PullToRefreshIndicator Progress="{Binding ElementName=Panel,Path=PullProgress}"
-                                                Margin="0,0,0,8" />
-            </control:PullToRefreshPanel.Indicator>
-            <ListView x:Name="NewsList"
-                      ItemsSource="{Binding Feeds}"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      ItemClick="NewsList_ItemClick"
-                      Loaded="NewsList_Loaded"
-                      ItemContainerStyle="{ThemeResource ItemStyle}">
-                <ListView.ItemTemplateSelector>
-                    <control:ItemTemplateSelector />
-                </ListView.ItemTemplateSelector>
-                <ListView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition IsStaggeringEnabled="True"
-                                                 FromHorizontalOffset="0"
-                                                 FromVerticalOffset="30" />
-                    </TransitionCollection>
-                </ListView.ItemContainerTransitions>
-            </ListView>
-        </control:PullToRefreshPanel>
+        <Grid Grid.Row="1">
+            <control:PullToRefreshPanel x:Name="Panel"
+                                        RefreshRequested="PullToRefreshPanel_OnRefreshRequested">
+                <control:PullToRefreshPanel.Indicator>
+                    <control:PullToRefreshIndicator Progress="{Binding ElementName=Panel,Path=PullProgress}"
+                                                    Margin="0,0,0,8" />
+                </control:PullToRefreshPanel.Indicator>
+                <ListView x:Name="NewsList"
+                          ItemsSource="{Binding Feeds}"
+                          SelectionMode="None"
+                          IsItemClickEnabled="True"
+                          ItemClick="NewsList_ItemClick"
+                          Loaded="NewsList_Loaded"
+                          ItemContainerStyle="{ThemeResource ItemStyle}">
+                    <ListView.ItemTemplateSelector>
+                        <control:ItemTemplateSelector />
+                    </ListView.ItemTemplateSelector>
+                    <ListView.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition IsStaggeringEnabled="True"
+                                                     FromHorizontalOffset="0"
+                                                     FromVerticalOffset="30" />
+                        </TransitionCollection>
+                    </ListView.ItemContainerTransitions>
+                </ListView>
+            </control:PullToRefreshPanel>
+            <ProgressBar VerticalAlignment="Top"
+                         IsIndeterminate="True"
+                         Visibility="{Binding Feeds.IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
     </Grid>
 </Page>

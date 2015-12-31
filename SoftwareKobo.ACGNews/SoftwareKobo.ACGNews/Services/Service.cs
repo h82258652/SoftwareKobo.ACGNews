@@ -31,7 +31,7 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        public static IList CreateFeedCollection(this Channel channel)
+        public static IFeedCollection CreateFeedCollection(this Channel channel)
         {
             switch (channel)
             {

@@ -1,7 +1,6 @@
 ﻿using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +12,11 @@ namespace SoftwareKobo.ACGNews.DataSources
         private readonly IService<T> _service;
 
         private int _currentPage;
+
+        public void Refresh()
+        {
+            _currentPage = 0;
+        }
 
         public FeedSource(IService<T> service)
         {
@@ -51,84 +55,56 @@ namespace SoftwareKobo.ACGNews.DataSources
             }
         }
 
-        public async Task LoadMoreItemsAsync(IList<T> list)
+        private static void Merge(IList<T> list, IEnumerable<T> feeds)
         {
-            var networkTask = LoadNetworkFeedsAsync(list);
-            var cacheTask = LoadCacheFeedsAsync(list);
-            await Task.WhenAll(networkTask, cacheTask);
-
-            //List<T> networkFeeds;
-            //try
-            //{
-            //    networkFeeds = (await _service.GetAsync(_currentPage)).ToList();
-            //    foreach (var networkFeed in networkFeeds)
-            //    {
-            //        Merge(list, networkFeed);
-            //    }
-            //    _currentPage++;
-            //}
-            //catch
-            //{
-            //    networkFeeds = new List<T>();
-            //}
-
-            //List<T> cacheFeeds;
-            //var lastFeed = list.LastOrDefault();
-            //if (lastFeed == null)
-            //{
-            //    // 网络加载失败。
-            //    cacheFeeds = AppDatabase.GetFeeds<T>(30).ToList();
-            //}
-            //else
-            //{
-            //    cacheFeeds = AppDatabase.GetFeeds<T>(30, lastFeed.Id).ToList();
-            //}
-
-            //foreach (var cacheFeed in cacheFeeds)
-            //{
-            //    Merge(list, cacheFeed);
-            //}
-
-            //if (networkFeeds.Count > 0)
-            //{
-            //    AppDatabase.InsertOrUpdateFeeds(networkFeeds);
-            //}
+            foreach (var feed in feeds)
+            {
+                Merge(list, feed);
+            }
         }
 
-        private async Task LoadNetworkFeedsAsync(IList<T> list)
+        public async Task LoadMoreItemsAsync(IList<T> list)
+        {
+            // 同时呼起两个任务。
+            var networkTask = LoadNetworkFeedsAsync();
+            var cacheFeeds = await LoadCacheFeedsAsync(list);
+
+            // 先将 Cache 合并。
+            Merge(list, cacheFeeds);
+
+            // 再合并 Network。
+            var networkFeeds = await networkTask;
+            Merge(list, networkFeeds);
+        }
+
+        private async Task<List<T>> LoadCacheFeedsAsync(IList<T> list)
+        {
+            var lastFeed = list.LastOrDefault();
+            var cacheFeeds = (await AppDatabase.GetFeedsAsync<T>(30, lastFeed?.Id)).ToList();
+            return cacheFeeds;
+        }
+
+        private async Task<List<T>> LoadNetworkFeedsAsync()
         {
             List<T> networkFeeds;
             try
             {
                 networkFeeds = (await _service.GetAsync(_currentPage)).ToList();
-                foreach (var networkFeed in networkFeeds)
-                {
-                    Merge(list, networkFeed);
-                }
                 _currentPage++;
+
+                // 缓存网络数据。
+                CacheNetworkFeeds(networkFeeds);
             }
             catch
             {
                 networkFeeds = new List<T>();
             }
-
-            #region
-            // save to db.
-            #endregion
-        }
-
-        private async Task LoadCacheFeedsAsync(IList<T> list)
-        {
-            var lastFeed = list.LastOrDefault();
-            var cacheFeeds = await AppDatabase.GetFeedsAsync<T>(30, lastFeed?.Id);
-            foreach (var cacheFeed in cacheFeeds)
-            {
-                Merge(list, cacheFeed);
-            }
+            return networkFeeds;
         }
 
         private async void CacheNetworkFeeds(IList<T> networkFeeds)
         {
+            await AppDatabase.InsertOrUpdateFeedsAsync(networkFeeds);
         }
     }
 }

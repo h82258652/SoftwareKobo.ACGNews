@@ -7,7 +7,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Grid Background="#006A94">
-        <FlipView SelectedIndex="1"
+        <FlipView x:Name="FlipView"
+                  SelectedIndex="1"
                   Background="Transparent">
             <Grid>
                 <control:BubblePanel Margin="0,0,-100,0" />

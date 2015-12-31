@@ -64,19 +64,19 @@ namespace SoftwareKobo.ACGNews.Models
             }
             set
             {
-                //if (_hasRead == value)
-                //{
-                //    return;
-                //}
-
+                // 请改为调用 MarkAsReaded，set 方法仅被数据库和 MarkAsReaded 方法使用。
                 Set(ref _hasRead, value);
-                //MarkAsReaded();
             }
         }
 
-        private async void MarkAsReaded()
+        public virtual async void MarkAsReaded()
         {
-            await AppDatabase.InsertOrUpdateFeedAsync(this);
+            if (HasRead == false)
+            {
+                HasRead = true;
+                await AppDatabase.InsertOrUpdateFeedAsync(this);
+            }
+            HasRead = true;
         }
     }
 }

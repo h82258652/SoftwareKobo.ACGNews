@@ -14,9 +14,9 @@ using Windows.Web.Http;
 
 namespace SoftwareKobo.ACGNews.Services
 {
-    public class Acg17173Service : IService<Acg17173Feed>
+    public class Acg17173Service : ServiceBase<Acg17173Feed>
     {
-        public async Task<IEnumerable<Acg17173Feed>> GetAsync(int page = 0)
+        public override async Task<IEnumerable<Acg17173Feed>> GetAsync(int page = 0)
         {
             if (page < 0)
             {
@@ -72,19 +72,13 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        public async Task<string> DetailAsync(FeedBase feed)
+        private async Task<string> CacheDetailAsync(string url)
         {
-            if (feed == null)
-            {
-                throw new ArgumentNullException(nameof(feed));
-            }
+            return null;
+        }
 
-            if (feed is Acg17173Feed == false)
-            {
-                throw new InvalidOperationException("feed 类型错误");
-            }
-
-            var url = feed.DetailLink;
+        private async Task<string> NetworkDetailAsync(string url)
+        {
             const string userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
             // 最大尝试 3 次，17173 第一次时可能会失败。
             for (var errorTimes = 0; errorTimes < 3; errorTimes++)
@@ -124,6 +118,28 @@ namespace SoftwareKobo.ACGNews.Services
             }
 
             return "抱歉，解析错误";
+        }
+
+        public override async Task<string> DetailAsync(FeedBase feed)
+        {
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is Acg17173Feed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            var detail = await LoadArticleAsync(url);
+            if (string.IsNullOrEmpty(detail))
+            {
+                detail = await NetworkDetailAsync(url);
+            }
+            detail = await SetImgSrcToLocalSrcAsync(detail);
+            return detail;
         }
     }
 }

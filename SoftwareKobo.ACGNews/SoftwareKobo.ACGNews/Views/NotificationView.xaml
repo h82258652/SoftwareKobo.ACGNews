@@ -4,6 +4,7 @@
       xmlns:local="using:SoftwareKobo.ACGNews.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:control="using:SoftwareKobo.ACGNews.Controls"
       mc:Ignorable="d">
     <Grid>
         <ProgressBar HorizontalAlignment="Stretch"
@@ -20,5 +21,6 @@
                    TextAlignment="Right"
                    Margin="0,0,8,0"
                    Loaded="LocalTime_OnLoaded" />
+        <Grid x:Name="ToastPromptContainer"></Grid>
     </Grid>
 </Page>

@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SoftwareKobo.ACGNews.Views
 {
-    public sealed partial class AppView
+    public partial class AppView
     {
         public AppView()
         {
@@ -38,6 +38,13 @@ namespace SoftwareKobo.ACGNews.Views
                 {
                     e.Handled = true;
                     Detail.Hide();
+                    return;
+                }
+                if (FlipView.SelectedIndex == 0 || FlipView.SelectedIndex == 2)
+                {
+                    e.Handled = true;
+                    FlipView.SelectedIndex = 1;
+                    return;
                 }
             }
         }

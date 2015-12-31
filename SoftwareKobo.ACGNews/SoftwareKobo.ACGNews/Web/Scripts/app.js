@@ -2,20 +2,20 @@
 /// <reference path="~/Web/Scripts/hammer.min.js" />
 
 (function () {
-    var rawSrcSetter = HTMLScriptElement.prototype.__lookupSetter__("src");
+    var rawScriptSrcSetter = HTMLScriptElement.prototype.__lookupSetter__("src");
     HTMLScriptElement.prototype.__defineSetter__("src", function (src) {
         if (src.indexOf("//") === 0) {
             src = "http:" + src;
         }
-        rawSrcSetter.call(this, src);
+        rawScriptSrcSetter.call(this, src);
     });
 
-    var rawHrefSetter = HTMLLinkElement.prototype.__lookupSetter__("src");
+    var rawLinkHrefSetter = HTMLLinkElement.prototype.__lookupSetter__("src");
     HTMLLinkElement.prototype.__defineSetter__("href", function (href) {
         if (href.indexOf("//") === 0) {
             href = "http:" + href;
         }
-        rawHrefSetter.call(this, href);
+        rawLinkHrefSetter.call(this, href);
     });
 })();
 

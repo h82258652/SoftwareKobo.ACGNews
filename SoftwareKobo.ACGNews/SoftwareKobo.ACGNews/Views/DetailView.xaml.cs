@@ -28,7 +28,7 @@ namespace SoftwareKobo.ACGNews.Views
         public void Hide()
         {
             // 确保屏幕回到纵向。
-            ExitFullScreen();
+            OnExitFullScreen();
             VisualStateManager.GoToState(this, "HideState", true);
         }
 
@@ -65,29 +65,33 @@ namespace SoftwareKobo.ACGNews.Views
             await new MessageDialog(h).ShowAsync();
         }
 
-        private void EnterFullScreen()
+        private void OnEnterFullScreen()
         {
             if (_isFullScreen == false)
             {
                 _isFullScreen = true;
+                // 转到横屏。
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape |
                                                              DisplayOrientations.LandscapeFlipped;
                 AppBar.Visibility = Visibility.Collapsed;
+                NotificationView.Instance.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void ExitFullScreen()
+        private void OnExitFullScreen()
         {
             if (_isFullScreen)
             {
                 _isFullScreen = false;
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
                 AppBar.Visibility = Visibility.Visible;
+                NotificationView.Instance.Visibility = Visibility.Visible;
             }
         }
 
         private void HideStoryboard_Completed(object sender, object e)
         {
+            // 后退时清空内容。这是为了防止隐藏时仍然播放视频产生声音。
             WebView.Navigate(new Uri("about:blank"));
         }
 
@@ -101,7 +105,10 @@ namespace SoftwareKobo.ACGNews.Views
             }
             // 填充内容。
             var html = string.Format(_template, content);
-            WebView.NavigateToString(html);
+            // WebView.NavigateToString(html);
+
+            var uri = WebView.BuildLocalStreamUri("Cache", "/");
+            WebView.NavigateToLocalStreamUri(uri, new Web.UriToStreamResolver(html));
         }
 
         private void WebView_ScriptNotify(object sender, NotifyEventArgs e)
@@ -117,11 +124,11 @@ namespace SoftwareKobo.ACGNews.Views
                     break;
 
                 case "enterFullScreen":
-                    EnterFullScreen();
+                    OnEnterFullScreen();
                     break;
 
                 case "exitFullScreen":
-                    ExitFullScreen();
+                    OnExitFullScreen();
                     break;
             }
         }

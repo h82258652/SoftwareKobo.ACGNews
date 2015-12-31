@@ -1,44 +1,38 @@
 ﻿using SoftwareKobo.ACGNews.Controls;
-using SoftwareKobo.ACGNews.DataModels;
-using SoftwareKobo.ACGNews.DataSources;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
 using SoftwareKobo.ACGNews.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Windows.Web;
 using WinRTXamlToolkit.Controls.Extensions;
-
-// “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
 namespace SoftwareKobo.ACGNews.Views
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
-    public sealed partial class IndexView : Page
+    public sealed partial class IndexView
     {
         public IndexView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
+
+        public IndexViewModel ViewModel => (IndexViewModel)DataContext;
 
         private async void NewsList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var container = NewsList.ContainerFromItem(e.ClickedItem);
+            var feed = (FeedBase)e.ClickedItem;
+            if (feed == null)
+            {
+                return;
+            }
+
+            var container = NewsList.ContainerFromItem(feed);
             var image = container.GetFirstDescendantOfType<Image>();
             Point detailRenderTransformOrigin;
             if (image != null)
@@ -53,13 +47,11 @@ namespace SoftwareKobo.ACGNews.Views
             }
 
             NotificationView.ShowLoading("hello world");
-            await Task.Delay(3000);
 
-            var service = Service.GetService(e.ClickedItem as FeedBase);
-            var detail = await service.DetailAsync(e.ClickedItem as FeedBase);
+            var detail = await Service.GetService(feed).DetailAsync(feed);
 
-            await AppView.Instance.NavigateToDetail(e.ClickedItem as FeedBase, detail, detailRenderTransformOrigin);
-            (e.ClickedItem as FeedBase).HasRead = true;
+            await AppView.Instance.NavigateToDetail(feed, detail, detailRenderTransformOrigin);
+            feed.MarkAsReaded();
 
             NotificationView.HideLoading();
         }
@@ -73,6 +65,7 @@ namespace SoftwareKobo.ACGNews.Views
 
         private void ScrollBar_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
+            // TODO
             var value = e.NewValue;
             if (value <= 10)
             {
@@ -90,7 +83,19 @@ namespace SoftwareKobo.ACGNews.Views
 
         private void PullToRefreshPanel_OnRefreshRequested(object sender, RefreshRequestedEventArgs e)
         {
-            Debug.WriteLine("Req");
+            var feeds = ViewModel.Feeds;
+            if (feeds != null)
+            {
+                EventHandler handler = null;
+                handler = async delegate
+                {
+                    feeds.LoadMoreCompleted -= handler;
+
+                    await NotificationView.ShowToastMessage("刷新完成");
+                };
+                feeds.LoadMoreCompleted += handler;
+                feeds.Refresh();
+            }
         }
     }
 }

@@ -5,11 +5,13 @@ using SQLite.Net.Async;
 using SQLite.Net.Platform.WinRT;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Windows.Storage;
+using WinRTXamlToolkit.IO.Extensions;
 
 namespace SoftwareKobo.ACGNews.Datas
 {
@@ -59,6 +61,23 @@ namespace SoftwareKobo.ACGNews.Datas
             }
         }
 
+        public static async Task<int> SaveArticleAsync(string url, string html)
+        {
+            var conn = await GetDbConnectionAsync<ArticleEntity>();
+            return await conn.InsertOrReplaceAsync(new ArticleEntity()
+            {
+                Url = url,
+                Html = html
+            });
+        }
+
+        public static async Task<string> LoadArticleAsync(string url)
+        {
+            var conn = await GetDbConnectionAsync<ArticleEntity>();
+            var article = await conn.Table<ArticleEntity>().Where(temp => temp.Url == url).FirstOrDefaultAsync();
+            return article?.Html;
+        }
+
         private static SQLiteConnection GetDbConnection<T>()
         {
             var conn = new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
@@ -95,6 +114,16 @@ namespace SoftwareKobo.ACGNews.Datas
         {
             var conn = await GetDbConnectionAsync<T>();
             await conn.InsertOrReplaceAllAsync(feeds);
+        }
+
+        public static async Task<ulong> GetDatabaseSize()
+        {
+            var database = await StorageFile.GetFileFromPathAsync(DbPath);
+            if (database == null)
+            {
+                return 0;
+            }
+            return await database.GetSize();
         }
     }
 }
