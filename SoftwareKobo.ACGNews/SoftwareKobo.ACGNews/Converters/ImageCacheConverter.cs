@@ -26,6 +26,19 @@ namespace SoftwareKobo.ACGNews.Converters
 
         private static StorageFolder _imageCacheFolder;
 
+        /// <summary>
+        /// 获取图片缓存文件夹的大小。单位是字节。
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ulong> GetCachedImagesSizeAsync()
+        {
+            if (_imageCacheFolder == null)
+            {
+                _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
+            }
+            return await _imageCacheFolder.GetSize();
+        }
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var url = value as string;
@@ -91,19 +104,6 @@ namespace SoftwareKobo.ACGNews.Converters
         {
             var profile = NetworkInformation.GetInternetConnectionProfile();
             return profile != null && profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
-        }
-
-        /// <summary>
-        /// 获取图片缓存文件夹的大小。单位是字节。
-        /// </summary>
-        /// <returns></returns>
-        public static async Task<ulong> GetCachedImagesSizeAsync()
-        {
-            if (_imageCacheFolder == null)
-            {
-                _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
-            }
-            return await _imageCacheFolder.GetSize();
         }
     }
 }

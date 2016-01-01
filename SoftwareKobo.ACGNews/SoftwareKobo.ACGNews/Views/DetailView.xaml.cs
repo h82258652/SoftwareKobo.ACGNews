@@ -16,9 +16,13 @@ namespace SoftwareKobo.ACGNews.Views
     {
         private FeedBase _feed;
 
-        private bool _isFullScreen;
-
         private string _template;
+
+        public bool IsFullScreen
+        {
+            get;
+            private set;
+        }
 
         public DetailView()
         {
@@ -54,7 +58,7 @@ namespace SoftwareKobo.ACGNews.Views
             await SetContentAsync(detail);
         }
 
-        private async void BtnShare_Click(object sender, RoutedEventArgs e)
+        private void BtnShare_Click(object sender, RoutedEventArgs e)
         {
             // TODO
         }
@@ -65,11 +69,16 @@ namespace SoftwareKobo.ACGNews.Views
             await new MessageDialog(h).ShowAsync();
         }
 
+        public async Task ExitFullScreen()
+        {
+            await WebView.InvokeScriptAsync("eval", new[] { "document.exitFullscreen()" });
+        }
+
         private void OnEnterFullScreen()
         {
-            if (_isFullScreen == false)
+            if (IsFullScreen == false)
             {
-                _isFullScreen = true;
+                IsFullScreen = true;
                 // 转到横屏。
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape |
                                                              DisplayOrientations.LandscapeFlipped;
@@ -80,9 +89,9 @@ namespace SoftwareKobo.ACGNews.Views
 
         private void OnExitFullScreen()
         {
-            if (_isFullScreen)
+            if (IsFullScreen)
             {
-                _isFullScreen = false;
+                IsFullScreen = false;
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
                 AppBar.Visibility = Visibility.Visible;
                 NotificationView.Instance.Visibility = Visibility.Visible;

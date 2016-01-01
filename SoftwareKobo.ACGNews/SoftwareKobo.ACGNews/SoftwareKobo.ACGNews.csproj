@@ -128,7 +128,6 @@
     <Compile Include="Controls\BubblePanel.xaml.cs">
       <DependentUpon>BubblePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\HeaderTemplateSelector.cs" />
     <Compile Include="Controls\ItemTemplateSelector.cs" />
     <Compile Include="Controls\PullProgressChangedEventArgs.cs" />
     <Compile Include="Controls\PullToRefreshIndicator.cs" />
@@ -146,13 +145,11 @@
     <Compile Include="Converters\HeaderConverter.cs" />
     <Compile Include="Converters\ImageCacheConverter.cs" />
     <Compile Include="DatabaseModels\ArticleEntity.cs" />
-    <Compile Include="DatabaseModels\UrlMap.cs" />
     <Compile Include="DataModels\FeedCollection.cs" />
     <Compile Include="DataModels\IFeedCollection.cs" />
     <Compile Include="DataSources\FeedSource.cs" />
     <Compile Include="Datas\AppDatabase.cs" />
     <Compile Include="Datas\AppSetting.cs" />
-    <Compile Include="Extensions\RandomAccessStreamExtension.cs" />
     <Compile Include="Models\Acg17173Feed.cs" />
     <Compile Include="Models\Acg178Feed.cs" />
     <Compile Include="Models\AcgdogeFeed.cs" />
@@ -172,7 +169,6 @@
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\TencentComicService.cs" />
     <Compile Include="Utils\Hash.cs" />
-    <Compile Include="Utils\RandomAccessStreamWithContentType.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />

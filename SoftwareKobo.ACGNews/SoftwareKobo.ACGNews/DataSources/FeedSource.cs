@@ -13,14 +13,31 @@ namespace SoftwareKobo.ACGNews.DataSources
 
         private int _currentPage;
 
-        public void Refresh()
-        {
-            _currentPage = 0;
-        }
-
         public FeedSource(IService<T> service)
         {
             _service = service;
+        }
+
+        public async Task LoadMoreItemsAsync(IList<T> list)
+        {
+            // 同时呼起两个任务。
+            var networkTask = LoadNetworkFeedsAsync();
+            var cacheFeeds = await LoadCacheFeedsAsync(list);
+
+            // 先将 Cache 合并。
+            Merge(list, cacheFeeds);
+
+            // 再合并 Network。
+            var networkFeeds = await networkTask;
+            Merge(list, networkFeeds);
+
+            // 缓存网络数据。
+            await CacheNetworkFeeds(networkFeeds);
+        }
+
+        public void Refresh()
+        {
+            _currentPage = 0;
         }
 
         private static void Merge(IList<T> list, T feed)
@@ -63,21 +80,9 @@ namespace SoftwareKobo.ACGNews.DataSources
             }
         }
 
-        public async Task LoadMoreItemsAsync(IList<T> list)
+        private async Task CacheNetworkFeeds(IList<T> networkFeeds)
         {
-            // 同时呼起两个任务。
-            var networkTask = LoadNetworkFeedsAsync();
-            var cacheFeeds = await LoadCacheFeedsAsync(list);
-
-            // 先将 Cache 合并。
-            Merge(list, cacheFeeds);
-
-            // 再合并 Network。
-            var networkFeeds = await networkTask;
-            Merge(list, networkFeeds);
-
-            // 缓存网络数据。
-            await CacheNetworkFeeds(networkFeeds);
+            await AppDatabase.InsertOrUpdateFeedsAsync(networkFeeds);
         }
 
         private async Task<List<T>> LoadCacheFeedsAsync(IList<T> list)
@@ -100,11 +105,6 @@ namespace SoftwareKobo.ACGNews.DataSources
                 networkFeeds = new List<T>();
             }
             return networkFeeds;
-        }
-
-        private async Task CacheNetworkFeeds(IList<T> networkFeeds)
-        {
-            await AppDatabase.InsertOrUpdateFeedsAsync(networkFeeds);
         }
     }
 }

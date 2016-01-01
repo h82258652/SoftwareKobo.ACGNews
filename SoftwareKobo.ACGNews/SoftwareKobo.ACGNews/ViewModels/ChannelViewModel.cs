@@ -16,7 +16,7 @@ namespace SoftwareKobo.ACGNews.ViewModels
         public ObservableCollection<Channel> Channels
         {
             get;
-            set;
+            private set;
         }
     }
 }

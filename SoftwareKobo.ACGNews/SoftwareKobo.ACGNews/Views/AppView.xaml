@@ -12,15 +12,15 @@
                   Background="Transparent">
             <Grid>
                 <control:BubblePanel Margin="0,0,-100,0" />
-                <view:ChannelView />
+                <view:ChannelView  x:Name="Channel" />
             </Grid>
             <Grid>
                 <control:BubblePanel Margin="100,0,-100,0" />
-                <view:IndexView />
+                <view:IndexView  x:Name="Index" />
             </Grid>
             <Grid>
                 <control:BubblePanel Margin="100,0,0,0" />
-                <view:SettingView />
+                <view:SettingView  x:Name="Setting" />
             </Grid>
         </FlipView>
         <view:DetailView x:Name="Detail"

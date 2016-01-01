@@ -5,10 +5,12 @@ using SoftwareKobo.ACGNews.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using UmengSDK;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.Web;
 using WinRTXamlToolkit.Controls.Extensions;
 
 namespace SoftwareKobo.ACGNews.Views
@@ -37,33 +39,40 @@ namespace SoftwareKobo.ACGNews.Views
             {
                 var position = image.TransformToVisual(null).TransformPoint(new Point());
                 var center = new Point(position.X + image.ActualWidth / 2, position.Y + image.ActualHeight / 2);
-                detailRenderTransformOrigin = new Point(center.X / this.ActualWidth, center.Y / this.ActualHeight);
+                detailRenderTransformOrigin = new Point(center.X / ActualWidth, center.Y / ActualHeight);
             }
             else
             {
                 detailRenderTransformOrigin = new Point(0.5, 0.5);
             }
 
-            NotificationView.ShowLoading("hello world");
-
             var service = Service.GetService(feed);
+            NotificationView.ShowLoading("正在加载" + feed.Title);
             try
             {
                 var detail = await service.DetailAsync(feed);
                 await AppView.Instance.NavigateToDetail(feed, detail, detailRenderTransformOrigin);
-                feed.MarkAsReaded();
+                await feed.MarkAsReadedAsync();
             }
             catch (Exception ex)
             {
-                var rr = Windows.Web.WebError.GetStatus(ex.HResult);
+                var error = WebError.GetStatus(ex.HResult);
+                if (error == WebErrorStatus.Unknown)
+                {
+                    await UmengAnalytics.TrackException(ex);
 
-                NotificationView.ShowToastMessage("加载失败");
-                Debug.WriteLine(ex);
-                //Debugger.Break();
+                    if (Debugger.IsAttached)
+                    {
+                        Debugger.Break();
+                    }
+                }
+
+                NotificationView.ShowToastMessage("加载失败，请检查网络连接");
             }
-            //var detail = await Service.GetService(feed).DetailAsync(feed);
-
-            NotificationView.HideLoading();
+            finally
+            {
+                NotificationView.HideLoading();
+            }
         }
 
         private void NewsList_Loaded(object sender, RoutedEventArgs e)
@@ -93,18 +102,22 @@ namespace SoftwareKobo.ACGNews.Views
 
         private void PullToRefreshPanel_OnRefreshRequested(object sender, RefreshRequestedEventArgs e)
         {
-            var feeds = ViewModel.Feeds;
-            if (feeds != null)
+            if (AppView.Instance.CurrentView == this)
             {
-                EventHandler handler = null;
-                handler = async delegate
+                var feeds = ViewModel.Feeds;
+                if (feeds != null)
                 {
-                    feeds.LoadMoreCompleted -= handler;
+                    EventHandler handler = null;
+                    handler = delegate
+                    {
+                        // TODO
+                        feeds.LoadMoreCompleted -= handler;
 
-                    await NotificationView.ShowToastMessage("刷新完成");
-                };
-                feeds.LoadMoreCompleted += handler;
-                feeds.Refresh();
+                        NotificationView.ShowToastMessage("刷新完成");
+                    };
+                    feeds.LoadMoreCompleted += handler;
+                    feeds.Refresh();
+                }
             }
         }
     }

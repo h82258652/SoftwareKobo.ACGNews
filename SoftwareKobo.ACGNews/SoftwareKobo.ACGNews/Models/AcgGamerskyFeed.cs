@@ -4,28 +4,46 @@ namespace SoftwareKobo.ACGNews.Models
 {
     public class AcgGamerskyFeed : FeedBase
     {
-        public string Summary
-        {
-            get;
-            set;
-        }
+        private DateTime _publishTime;
+
+        private int _viewCount;
+
+        private int _commentCount;
 
         public DateTime PublishTime
         {
-            get;
-            set;
+            get
+            {
+                return _publishTime;
+            }
+            set
+            {
+                Set(ref _publishTime, value);
+            }
         }
 
         public int ViewCount
         {
-            get;
-            set;
+            get
+            {
+                return _viewCount;
+            }
+            set
+            {
+                Set(ref _viewCount, value);
+            }
         }
 
         public int CommentCount
         {
-            get;
-            set;
+            get
+            {
+                return _commentCount;
+            }
+            set
+            {
+                Set(ref _commentCount, value);
+            }
         }
     }
 }

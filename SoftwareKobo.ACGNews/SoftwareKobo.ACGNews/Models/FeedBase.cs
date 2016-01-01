@@ -12,6 +12,8 @@ namespace SoftwareKobo.ACGNews.Models
 
         private string _thumbnail;
 
+        private string _summary;
+
         private bool _hasRead;
 
         [PrimaryKey]
@@ -57,6 +59,18 @@ namespace SoftwareKobo.ACGNews.Models
             }
         }
 
+        public string Summary
+        {
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                Set(ref _summary, value);
+            }
+        }
+
         public bool HasRead
         {
             get
@@ -70,14 +84,13 @@ namespace SoftwareKobo.ACGNews.Models
             }
         }
 
-        public virtual async Task MarkAsReaded()
+        public virtual async Task MarkAsReadedAsync()
         {
             if (HasRead == false)
             {
                 HasRead = true;
                 await AppDatabase.InsertOrUpdateFeedAsync(this);
             }
-            HasRead = true;
         }
     }
 }

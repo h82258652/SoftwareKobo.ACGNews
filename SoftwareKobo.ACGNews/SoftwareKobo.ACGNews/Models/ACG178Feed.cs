@@ -7,8 +7,6 @@ namespace SoftwareKobo.ACGNews.Models
 {
     public class Acg178Feed : FeedBase
     {
-        private string _summary;
-
         private DateTime _publishTime;
 
         private string _tag;
@@ -16,18 +14,6 @@ namespace SoftwareKobo.ACGNews.Models
         private string _author;
 
         private string _originSource;
-
-        public string Summary
-        {
-            get
-            {
-                return _summary;
-            }
-            set
-            {
-                Set(ref _summary, value);
-            }
-        }
 
         public DateTime PublishTime
         {

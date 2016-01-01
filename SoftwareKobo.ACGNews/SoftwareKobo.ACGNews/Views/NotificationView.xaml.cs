@@ -44,7 +44,7 @@ namespace SoftwareKobo.ACGNews.Views
             timer.Start();
         }
 
-        public static async Task ShowToastMessage(string message)
+        public static async void ShowToastMessage(string message)
         {
             var toastPrompt = new ToastPrompt
             {

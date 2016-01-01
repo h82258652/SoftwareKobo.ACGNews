@@ -17,11 +17,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class TencentComicHeader : UserControl
+    public partial class TencentComicHeader
     {
         public TencentComicHeader()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

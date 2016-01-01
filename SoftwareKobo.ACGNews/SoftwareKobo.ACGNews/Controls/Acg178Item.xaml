@@ -45,7 +45,7 @@
                 <Image Grid.Column="1"
                        Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
                        Stretch="UniformToFill"
-                       ImageFailed="Thumbnail_ImageFailed"></Image>
+                       ImageFailed="Thumbnail_Failed"></Image>
             </Grid>
         </Grid>
     </Grid>
