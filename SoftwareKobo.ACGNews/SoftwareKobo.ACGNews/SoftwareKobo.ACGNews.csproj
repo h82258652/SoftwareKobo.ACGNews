@@ -128,6 +128,9 @@
     <Compile Include="Controls\BubblePanel.xaml.cs">
       <DependentUpon>BubblePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChannelItem.xaml.cs">
+      <DependentUpon>ChannelItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemTemplateSelector.cs" />
     <Compile Include="Controls\PullProgressChangedEventArgs.cs" />
     <Compile Include="Controls\PullToRefreshIndicator.cs" />
@@ -141,6 +144,7 @@
       <DependentUpon>TencentComicItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ToastPrompt.cs" />
+    <Compile Include="Converters\ChannelToFeedCollectionConverter.cs" />
     <Compile Include="Converters\CharacterWrapConverter.cs" />
     <Compile Include="Converters\HeaderConverter.cs" />
     <Compile Include="Converters\ImageCacheConverter.cs" />
@@ -263,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\BubblePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ChannelItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

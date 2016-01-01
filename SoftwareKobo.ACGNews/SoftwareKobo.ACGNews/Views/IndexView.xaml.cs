@@ -1,4 +1,5 @@
 ﻿using SoftwareKobo.ACGNews.Controls;
+using SoftwareKobo.ACGNews.DataModels;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
 using SoftwareKobo.ACGNews.ViewModels;
@@ -104,7 +105,7 @@ namespace SoftwareKobo.ACGNews.Views
         {
             if (AppView.Instance.CurrentView == this)
             {
-                var feeds = ViewModel.Feeds;
+                var feeds = NewsList.ItemsSource as IFeedCollection;
                 if (feeds != null)
                 {
                     EventHandler handler = null;

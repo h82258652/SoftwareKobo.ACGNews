@@ -13,6 +13,7 @@
     </Page.DataContext>
     <Page.Resources>
         <localConv:HeaderConverter x:Key="HeaderConverter" />
+        <localConv:ChannelToFeedCollectionConverter x:Key="ChannelToFeedCollectionConverter" />
         <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid>

@@ -8,22 +8,19 @@ namespace SoftwareKobo.ACGNews.ViewModels
 {
     public class IndexViewModel : BindableBase
     {
-        private IFeedCollection _feeds;
-
         public IndexViewModel()
         {
-            Feeds = AppSetting.Instance.CurrentChannel.CreateFeedCollection();
+            AppSetting.Instance.CurrentChannelChanged += delegate
+            {
+                RaisePropertyChanged(nameof(Feeds));
+            };
         }
 
         public IFeedCollection Feeds
         {
             get
             {
-                return _feeds;
-            }
-            set
-            {
-                Set(ref _feeds, value);
+                return AppSetting.Instance.CurrentChannel.CreateFeedCollection();
             }
         }
     }

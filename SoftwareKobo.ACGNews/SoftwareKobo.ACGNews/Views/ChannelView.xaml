@@ -5,17 +5,38 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:SoftwareKobo.ACGNews.ViewModels"
+      xmlns:control="using:SoftwareKobo.ACGNews.Controls"
       mc:Ignorable="d">
     <Page.DataContext>
         <vm:ChannelViewModel />
     </Page.DataContext>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Accept"
+                          Label="Test"
+                          Click="ButtonBase_OnClick"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
     <Grid>
-        <ListView CanReorderItems="True"
+        <ListView x:Name="ChannelsList"
+                  CanReorderItems="True"
                   CanDragItems="True"
-                  AllowDrop="True">
-            <ListViewItem>ACG178</ListViewItem>
-            <ListViewItem>ACGDoge</ListViewItem>
-            <ListViewItem>Acg17173</ListViewItem>
+                  AllowDrop="True"
+                  IsItemClickEnabled="True"
+                  SelectionMode="None"
+                  ItemsSource="{Binding Channels}"
+                  ItemClick="ListViewBase_OnItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <control:ChannelItem></control:ChannelItem>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Page>

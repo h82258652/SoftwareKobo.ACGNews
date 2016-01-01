@@ -16,13 +16,12 @@ namespace SoftwareKobo.ACGNews.Datas
             Instances.Add(this);
         }
 
+        public event EventHandler<Channel> CurrentChannelChanged;
+
         public Channel CurrentChannel
         {
             get
             {
-                return Channel.Acgdoge;
-                ;
-
                 var value = ApplicationData.Current.LocalSettings.Values[nameof(CurrentChannel)];
                 if (value is int)
                 {
@@ -38,6 +37,7 @@ namespace SoftwareKobo.ACGNews.Datas
                 {
                     instance.RaisePropertyChanged(nameof(CurrentChannel));
                 }
+                CurrentChannelChanged?.Invoke(this, value);
             }
         }
 
