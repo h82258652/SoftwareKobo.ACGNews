@@ -75,12 +75,15 @@ namespace SoftwareKobo.ACGNews.DataSources
             // 再合并 Network。
             var networkFeeds = await networkTask;
             Merge(list, networkFeeds);
+
+            // 缓存网络数据。
+            await CacheNetworkFeeds(networkFeeds);
         }
 
         private async Task<List<T>> LoadCacheFeedsAsync(IList<T> list)
         {
             var lastFeed = list.LastOrDefault();
-            var cacheFeeds = (await AppDatabase.GetFeedsAsync<T>(30, lastFeed?.Id)).ToList();
+            var cacheFeeds = await AppDatabase.GetFeedsAsync<T>(30, lastFeed?.Id);
             return cacheFeeds;
         }
 
@@ -91,9 +94,6 @@ namespace SoftwareKobo.ACGNews.DataSources
             {
                 networkFeeds = (await _service.GetAsync(_currentPage)).ToList();
                 _currentPage++;
-
-                // 缓存网络数据。
-                CacheNetworkFeeds(networkFeeds);
             }
             catch
             {
@@ -102,7 +102,7 @@ namespace SoftwareKobo.ACGNews.DataSources
             return networkFeeds;
         }
 
-        private async void CacheNetworkFeeds(IList<T> networkFeeds)
+        private async Task CacheNetworkFeeds(IList<T> networkFeeds)
         {
             await AppDatabase.InsertOrUpdateFeedsAsync(networkFeeds);
         }

@@ -1,12 +1,10 @@
-﻿using SoftwareKobo.ACGNews.Datas;
-using SoftwareKobo.ACGNews.DataSources;
+﻿using SoftwareKobo.ACGNews.DataSources;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 
@@ -50,18 +48,19 @@ namespace SoftwareKobo.ACGNews.DataModels
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            if (IsLoading)
-            {
-                return Task.FromResult(new LoadMoreItemsResult
-                {
-                    Count = 0
-                }).AsAsyncOperation();
-            }
-
-            IsLoading = true;
-            LoadMoreStarted?.Invoke(this, EventArgs.Empty);
             return AsyncInfo.Run(async c =>
             {
+                if (IsLoading)
+                {
+                    return new LoadMoreItemsResult
+                    {
+                        Count = 0
+                    };
+                }
+
+                IsLoading = true;
+                LoadMoreStarted?.Invoke(this, EventArgs.Empty);
+
                 try
                 {
                     var beforLoadCount = Count;

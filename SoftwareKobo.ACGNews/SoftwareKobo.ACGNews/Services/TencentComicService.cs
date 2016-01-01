@@ -5,7 +5,6 @@ using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,9 +14,33 @@ using Windows.Web.Http;
 
 namespace SoftwareKobo.ACGNews.Services
 {
-    public class TencentComicService : IService<TencentComicFeed>
+    public class TencentComicService : ServiceBase<TencentComicFeed>
     {
-        public async Task<IEnumerable<TencentComicFeed>> GetAsync(int page = 0)
+        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+
+        public override async Task<string> DetailAsync(FeedBase feed)
+        {
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is TencentComicFeed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            var detail = await LoadArticleAsync(url);
+            if (string.IsNullOrEmpty(detail))
+            {
+                detail = await NetworkDetailAsync(url);
+            }
+            detail = await ConvertImgSrcToLocalSrcAsync(detail);
+            return detail;
+        }
+
+        public override async Task<IEnumerable<TencentComicFeed>> GetAsync(int page = 0)
         {
             if (page < 0)
             {
@@ -69,44 +92,17 @@ namespace SoftwareKobo.ACGNews.Services
                             buffer.AppendLine("当前Item:" + topic.OuterHtml);
                             buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                             await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                            if (Debugger.IsAttached)
+                            {
+                                Debugger.Break();
+                            }
                         }
                     }
                     return feeds;
                 }
             }
         }
-
-        public async Task<string> DetailAsync(FeedBase feed)
-        {
-            if (feed == null)
-            {
-                throw new ArgumentNullException(nameof(feed));
-            }
-
-            if (feed is TencentComicFeed == false)
-            {
-                throw new InvalidOperationException("feed 类型错误");
-            }
-
-            var url = feed.DetailLink;
-            var html = await GetHtml(url);
-            var parser = new HtmlParser();
-            using (var document = await parser.ParseAsync(html))
-            {
-                try
-                {
-                    return document.QuerySelector(".content").OuterHtml;
-                }
-                catch (Exception ex)
-                {
-                    Debugger.Break();
-
-                    return "抱歉，解析错误";
-                }
-            }
-        }
-
-        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
 
         private static async Task<string> GetHtml(string url)
         {
@@ -119,6 +115,37 @@ namespace SoftwareKobo.ACGNews.Services
             {
                 client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
                 return await client.GetStringAsync(new Uri(url));
+            }
+        }
+
+        private async Task<string> NetworkDetailAsync(string url)
+        {
+            var html = await GetHtml(url);
+            var parser = new HtmlParser();
+            using (var document = await parser.ParseAsync(html))
+            {
+                try
+                {
+                    var detail = document.QuerySelector(".content").OuterHtml;
+                    await SaveArticleAsync(url, detail);
+                    return detail;
+                }
+                catch (Exception ex)
+                {
+                    var buffer = new StringBuilder();
+                    buffer.AppendLine("TencentComic 内容解析错误");
+                    buffer.AppendLine("Url:" + url);
+                    buffer.AppendLine("UserAgent:" + UserAgent);
+                    buffer.AppendLine("Document:" + document.ToHtml());
+                    await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                    if (Debugger.IsAttached)
+                    {
+                        Debugger.Break();
+                    }
+
+                    return "抱歉，解析错误";
+                }
             }
         }
     }

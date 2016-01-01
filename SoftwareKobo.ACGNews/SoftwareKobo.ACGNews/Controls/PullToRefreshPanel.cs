@@ -112,8 +112,10 @@ namespace SoftwareKobo.ACGNews.Controls
             }
             else
             {
-                if (scrollViewerVerticalOffset <= indicatorContainerHeight - RefreshThreshold)
+                if (scrollViewerVerticalOffset - 1 <= indicatorContainerHeight - RefreshThreshold)
                 {
+                    // 到达顶部然后松手，VerticalOffset 会是一个非常接近 0 的浮点数。
+
                     SetIndicatorVisualState(IndicatorRefreshingStateName);
 
                     if (RefreshRequested != null)

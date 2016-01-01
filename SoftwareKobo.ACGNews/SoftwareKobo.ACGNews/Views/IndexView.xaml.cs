@@ -3,14 +3,12 @@ using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
 using SoftwareKobo.ACGNews.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.Web;
 using WinRTXamlToolkit.Controls.Extensions;
 
 namespace SoftwareKobo.ACGNews.Views
@@ -48,10 +46,22 @@ namespace SoftwareKobo.ACGNews.Views
 
             NotificationView.ShowLoading("hello world");
 
-            var detail = await Service.GetService(feed).DetailAsync(feed);
+            var service = Service.GetService(feed);
+            try
+            {
+                var detail = await service.DetailAsync(feed);
+                await AppView.Instance.NavigateToDetail(feed, detail, detailRenderTransformOrigin);
+                feed.MarkAsReaded();
+            }
+            catch (Exception ex)
+            {
+                var rr = Windows.Web.WebError.GetStatus(ex.HResult);
 
-            await AppView.Instance.NavigateToDetail(feed, detail, detailRenderTransformOrigin);
-            feed.MarkAsReaded();
+                NotificationView.ShowToastMessage("加载失败");
+                Debug.WriteLine(ex);
+                //Debugger.Break();
+            }
+            //var detail = await Service.GetService(feed).DetailAsync(feed);
 
             NotificationView.HideLoading();
         }

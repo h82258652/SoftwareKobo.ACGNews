@@ -46,7 +46,7 @@ namespace SoftwareKobo.ACGNews.Views
 
         public static async Task ShowToastMessage(string message)
         {
-            var toastPrompt = new ToastPrompt()
+            var toastPrompt = new ToastPrompt
             {
                 Content = message,
                 SlideInDirection = SlideInDirection.Right,

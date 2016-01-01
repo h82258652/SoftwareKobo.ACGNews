@@ -1,5 +1,6 @@
 ﻿using SoftwareKobo.ACGNews.Datas;
 using SQLite.Net.Attributes;
+using System.Threading.Tasks;
 
 namespace SoftwareKobo.ACGNews.Models
 {
@@ -69,7 +70,7 @@ namespace SoftwareKobo.ACGNews.Models
             }
         }
 
-        public virtual async void MarkAsReaded()
+        public virtual async Task MarkAsReaded()
         {
             if (HasRead == false)
             {

@@ -16,6 +16,31 @@ namespace SoftwareKobo.ACGNews.Services
 {
     public class Acg17173Service : ServiceBase<Acg17173Feed>
     {
+        public override async Task<string> DetailAsync(FeedBase feed)
+        {
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is Acg17173Feed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            // 加载缓存。
+            var detail = await LoadArticleAsync(url);
+            if (string.IsNullOrEmpty(detail))
+            {
+                // 缓存不存在，加载网络数据。
+                detail = await NetworkDetailAsync(url);
+            }
+            // 转换 img 标签的 src 为本地临时路径。
+            detail = await ConvertImgSrcToLocalSrcAsync(detail);
+            return detail;
+        }
+
         public override async Task<IEnumerable<Acg17173Feed>> GetAsync(int page = 0)
         {
             if (page < 0)
@@ -72,11 +97,6 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        private async Task<string> CacheDetailAsync(string url)
-        {
-            return null;
-        }
-
         private async Task<string> NetworkDetailAsync(string url)
         {
             const string userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
@@ -92,14 +112,16 @@ namespace SoftwareKobo.ACGNews.Services
                     {
                         try
                         {
-                            return document.QuerySelector(".art-bd").OuterHtml;
+                            var detail = document.QuerySelector(".art-bd").OuterHtml;
+                            // 缓存内容。
+                            await SaveArticleAsync(url, detail);
+                            return detail;
                         }
                         catch (Exception ex)
                         {
                             if (errorTimes == 2)
                             {
                                 // 最后一次解析也失败了。
-
                                 var buffer = new StringBuilder();
                                 buffer.AppendLine("Acg17173 内容解析错误");
                                 buffer.AppendLine("Url:" + url);
@@ -118,28 +140,6 @@ namespace SoftwareKobo.ACGNews.Services
             }
 
             return "抱歉，解析错误";
-        }
-
-        public override async Task<string> DetailAsync(FeedBase feed)
-        {
-            if (feed == null)
-            {
-                throw new ArgumentNullException(nameof(feed));
-            }
-
-            if (feed is Acg17173Feed == false)
-            {
-                throw new InvalidOperationException("feed 类型错误");
-            }
-
-            var url = feed.DetailLink;
-            var detail = await LoadArticleAsync(url);
-            if (string.IsNullOrEmpty(detail))
-            {
-                detail = await NetworkDetailAsync(url);
-            }
-            detail = await SetImgSrcToLocalSrcAsync(detail);
-            return detail;
         }
     }
 }

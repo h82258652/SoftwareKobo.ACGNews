@@ -15,9 +15,80 @@ using Windows.Web.Http;
 
 namespace SoftwareKobo.ACGNews.Services
 {
-    public class AcgdogeService : IService<AcgdogeFeed>
+    public class AcgdogeService : ServiceBase<AcgdogeFeed>
     {
-        public async Task<IEnumerable<AcgdogeFeed>> GetAsync(int page = 0)
+        private async Task<string> NetworkDetailAsync(string url)
+        {
+            const string userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+                var byteArray = (await client.GetBufferAsync(new Uri(url))).ToArray();
+                var html = Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
+                var parser = new HtmlParser();
+                using (var document = await parser.ParseAsync(html))
+                {
+                    try
+                    {
+                        var imgs = document.GetElementsByTagName("img").Cast<IHtmlImageElement>();
+                        foreach (var img in imgs)
+                        {
+                            string realSrc = img.GetAttribute("data-lazy-src");
+                            if (string.IsNullOrEmpty(realSrc) == false)
+                            {
+                                img.Source = img.GetAttribute("data-lazy-src");
+                            }
+                        }
+                        var detalElement = document.QuerySelector(".post_t");
+                        var quote = detalElement.QuerySelector(".post_h_quote");
+                        quote?.Remove();
+                        var detail = detalElement.OuterHtml;
+                        await SaveArticleAsync(url, detail);
+                        return detail;
+                    }
+                    catch (Exception ex)
+                    {
+                        var buffer = new StringBuilder();
+                        buffer.AppendLine("Acgdoge 内容解析错误");
+                        buffer.AppendLine("Url:" + url);
+                        buffer.AppendLine("UserAgent:" + userAgent);
+                        buffer.AppendLine("Document:" + document.ToHtml());
+                        await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                        if (Debugger.IsAttached)
+                        {
+                            Debugger.Break();
+                        }
+
+                        return "抱歉，解析错误";
+                    }
+                }
+            }
+        }
+
+        public override async Task<string> DetailAsync(FeedBase feed)
+        {
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is AcgdogeFeed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            var detail = await LoadArticleAsync(url);
+            if (string.IsNullOrEmpty(detail))
+            {
+                detail = await NetworkDetailAsync(url);
+            }
+            detail = await ConvertImgSrcToLocalSrcAsync(detail);
+            return detail;
+        }
+
+        public override async Task<IEnumerable<AcgdogeFeed>> GetAsync(int page = 0)
         {
             if (page < 0)
             {
@@ -79,67 +150,14 @@ namespace SoftwareKobo.ACGNews.Services
                             buffer.AppendLine("当前Item:" + article.OuterHtml);
                             buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                             await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                            if (Debugger.IsAttached)
+                            {
+                                Debugger.Break();
+                            }
                         }
                     }
                     return feeds;
-                }
-            }
-        }
-
-        public async Task<string> DetailAsync(FeedBase feed)
-        {
-            if (feed == null)
-            {
-                throw new ArgumentNullException(nameof(feed));
-            }
-
-            if (feed is AcgdogeFeed == false)
-            {
-                throw new InvalidOperationException("feed 类型错误");
-            }
-
-            var url = feed.DetailLink;
-            const string userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
-                var byteArray = (await client.GetBufferAsync(new Uri(url))).ToArray();
-                var html = Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
-                var parser = new HtmlParser();
-                using (var document = await parser.ParseAsync(html))
-                {
-                    try
-                    {
-                        var imgs = document.GetElementsByTagName("img").Cast<IHtmlImageElement>();
-                        foreach (var img in imgs)
-                        {
-                            string realSrc = img.GetAttribute("data-lazy-src");
-                            if (string.IsNullOrEmpty(realSrc) == false)
-                            {
-                                img.Source = img.GetAttribute("data-lazy-src");
-                            }
-                        }
-                        var detal = document.QuerySelector(".post_t");
-                        var quote = detal.QuerySelector(".post_h_quote");
-                        quote?.Remove();
-                        return detal.OuterHtml;
-                    }
-                    catch (Exception ex)
-                    {
-                        var buffer = new StringBuilder();
-                        buffer.AppendLine("Acgdoge 内容解析错误");
-                        buffer.AppendLine("Url:" + url);
-                        buffer.AppendLine("UserAgent:" + userAgent);
-                        buffer.AppendLine("Document:" + document.ToHtml());
-                        await UmengAnalytics.TrackException(ex, buffer.ToString());
-
-                        if (Debugger.IsAttached)
-                        {
-                            Debugger.Break();
-                        }
-
-                        return "抱歉，解析错误";
-                    }
                 }
             }
         }

@@ -14,22 +14,29 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class Acg178Item : UserControl
+    public sealed partial class Acg178Item
     {
         public Acg178Item()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Thumbnail_ImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
-            Image img = (Image)sender;
-            var bind = img.GetBindingExpression(Image.SourceProperty);
-            Debugger.Break();
+            var img = (Image)sender;
+            var binding = img.GetBindingExpression(Image.SourceProperty);
+            if (binding != null)
+            {
+                img.SetBinding(Image.SourceProperty, binding.ParentBinding);
+            }
+            else
+            {
+                var temp = img.Source;
+                img.Source = null;
+                img.Source = temp;
+            }
         }
     }
 }

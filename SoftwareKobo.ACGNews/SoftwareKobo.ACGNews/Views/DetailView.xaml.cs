@@ -105,7 +105,7 @@ namespace SoftwareKobo.ACGNews.Views
             }
             // 填充内容。
             var html = string.Format(_template, content);
-            // WebView.NavigateToString(html);
+            //WebView.NavigateToString(html);
 
             var uri = WebView.BuildLocalStreamUri("Cache", "/");
             WebView.NavigateToLocalStreamUri(uri, new Web.UriToStreamResolver(html));

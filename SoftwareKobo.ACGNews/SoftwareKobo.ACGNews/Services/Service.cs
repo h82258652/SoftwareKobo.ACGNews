@@ -1,7 +1,6 @@
 ﻿using SoftwareKobo.ACGNews.DataModels;
 using SoftwareKobo.ACGNews.Models;
 using System;
-using System.Collections;
 
 namespace SoftwareKobo.ACGNews.Services
 {

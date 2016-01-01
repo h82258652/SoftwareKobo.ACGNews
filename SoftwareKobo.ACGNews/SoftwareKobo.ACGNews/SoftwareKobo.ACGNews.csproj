@@ -146,6 +146,7 @@
     <Compile Include="Converters\HeaderConverter.cs" />
     <Compile Include="Converters\ImageCacheConverter.cs" />
     <Compile Include="DatabaseModels\ArticleEntity.cs" />
+    <Compile Include="DatabaseModels\UrlMap.cs" />
     <Compile Include="DataModels\FeedCollection.cs" />
     <Compile Include="DataModels\IFeedCollection.cs" />
     <Compile Include="DataSources\FeedSource.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\TencentComicService.cs" />
+    <Compile Include="Utils\Hash.cs" />
     <Compile Include="Utils\RandomAccessStreamWithContentType.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />

@@ -1,11 +1,11 @@
-﻿using AngleSharp;
-using AngleSharp.Dom.Html;
+﻿using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -16,9 +16,33 @@ using Windows.Web.Http;
 
 namespace SoftwareKobo.ACGNews.Services
 {
-    public class AcgGamerskyService : IService<AcgGamerskyFeed>
+    public class AcgGamerskyService : ServiceBase<AcgGamerskyFeed>
     {
-        public async Task<IEnumerable<AcgGamerskyFeed>> GetAsync(int page = 0)
+        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+
+        public override async Task<string> DetailAsync(FeedBase feed)
+        {
+            if (feed == null)
+            {
+                throw new ArgumentNullException(nameof(feed));
+            }
+
+            if (feed is AcgGamerskyFeed == false)
+            {
+                throw new InvalidOperationException("feed 类型错误");
+            }
+
+            var url = feed.DetailLink;
+            var detail = await LoadArticleAsync(url);
+            if (string.IsNullOrEmpty(detail))
+            {
+                detail = await NetworkDetailAsync(url);
+            }
+            detail = await ConvertImgSrcToLocalSrcAsync(detail);
+            return detail;
+        }
+
+        public override async Task<IEnumerable<AcgGamerskyFeed>> GetAsync(int page = 0)
         {
             if (page < 0)
             {
@@ -89,6 +113,11 @@ namespace SoftwareKobo.ACGNews.Services
                             buffer.AppendLine("当前Item:" + li.OuterHtml);
                             buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                             await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                            if (Debugger.IsAttached)
+                            {
+                                Debugger.Break();
+                            }
                         }
                     }
                     return feeds;
@@ -96,43 +125,8 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        private async Task<string> DetailAsync(string url)
+        private async Task<string> GetHtml(string url)
         {
-            var html = await GetHtml(url);
-            var parser = new HtmlParser();
-            using (var document = await parser.ParseAsync(html))
-            {
-                var pagerElement = document.QuerySelector(".Page");
-                IHtmlAnchorElement nextPageElement = null;
-                if (pagerElement != null)
-                {
-                    nextPageElement = (IHtmlAnchorElement)pagerElement.QuerySelector(".page-next");
-                }
-                var nextPageDetail = string.Empty;
-                if (nextPageElement != null)
-                {
-                    nextPageDetail =
-                        await DetailAsync(string.Format("http://wap.gamersky.com/news{0}", nextPageElement.PathName));
-                }
-                pagerElement?.Remove();
-                var thisPageDetail = document.QuerySelector(".Mid_2").OuterHtml;
-                return thisPageDetail + nextPageDetail;
-            }
-        }
-
-        public Task<string> DetailAsync(FeedBase feed)
-        {
-            if (feed == null)
-            {
-                throw new ArgumentNullException(nameof(feed));
-            }
-
-            if (feed is AcgGamerskyFeed == false)
-            {
-                throw new InvalidOperationException("feed 类型错误");
-            }
-
-            var url = feed.DetailLink;
             if (url.Contains("wap.gamersky.com") == false)
             {
                 // 转换为手机版网页。
@@ -140,11 +134,6 @@ namespace SoftwareKobo.ACGNews.Services
                 url = string.Format("http://wap.gamersky.com/news/Content-{0}.html", id);
             }
 
-            return DetailAsync(url);
-        }
-
-        private static async Task<string> GetHtml(string url)
-        {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
@@ -152,6 +141,57 @@ namespace SoftwareKobo.ACGNews.Services
             }
         }
 
-        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+        private async Task<string> NetworkDetailAsync(string url)
+        {
+            var builder = new StringBuilder();
+            var originUrl = url;
+            while (true)
+            {
+                var html = await GetHtml(url);
+                var parser = new HtmlParser();
+                using (var document = await parser.ParseAsync(html))
+                {
+                    try
+                    {
+                        var pagerElement = document.QuerySelector(".Page");
+                        IHtmlAnchorElement nextPageElement = null;
+                        if (pagerElement != null)
+                        {
+                            nextPageElement = (IHtmlAnchorElement)pagerElement.QuerySelector(".page-next");
+                        }
+                        pagerElement?.Remove();
+                        var detail = document.QuerySelector(".Mid_2").OuterHtml;
+                        builder.Append(detail);
+                        if (nextPageElement != null)
+                        {
+                            url = string.Format("http://wap.gamersky.com/news{0}", nextPageElement.PathName);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var buffer = new StringBuilder();
+                        buffer.AppendLine("AcgGamersky 内容解析错误");
+                        buffer.AppendLine("Url:" + url);
+                        buffer.AppendLine("UserAgent:" + UserAgent);
+                        buffer.AppendLine("Document:" + document.ToHtml());
+                        await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                        if (Debugger.IsAttached)
+                        {
+                            Debugger.Break();
+                        }
+
+                        return "抱歉，解析错误";
+                    }
+                }
+            }
+            var totalDetail = builder.ToString();
+            await SaveArticleAsync(originUrl, totalDetail);
+            return totalDetail;
+        }
     }
 }

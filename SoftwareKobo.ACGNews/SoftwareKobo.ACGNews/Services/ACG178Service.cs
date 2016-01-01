@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using SoftwareKobo.ACGNews.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,11 +14,11 @@ using Windows.Web.Http;
 
 namespace SoftwareKobo.ACGNews.Services
 {
-    public class Acg178Service : IService<Acg178Feed>
+    public class Acg178Service : ServiceBase<Acg178Feed>
     {
         private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
 
-        public Task<string> DetailAsync(FeedBase feed)
+        public override async Task<string> DetailAsync(FeedBase feed)
         {
             if (feed == null)
             {
@@ -29,10 +30,17 @@ namespace SoftwareKobo.ACGNews.Services
                 throw new InvalidOperationException("feed 类型错误");
             }
 
-            return DetailAsync(feed.DetailLink);
+            var url = feed.DetailLink;
+            var detail = await LoadArticleAsync(url);
+            if (string.IsNullOrEmpty(detail))
+            {
+                detail = await NetworkDetailAsync(url);
+            }
+            detail = await ConvertImgSrcToLocalSrcAsync(detail);
+            return detail;
         }
 
-        public async Task<IEnumerable<Acg178Feed>> GetAsync(int page = 0)
+        public override async Task<IEnumerable<Acg178Feed>> GetAsync(int page = 0)
         {
             if (page < 0)
             {
@@ -94,48 +102,14 @@ namespace SoftwareKobo.ACGNews.Services
                             buffer.AppendLine("当前Item:" + news.OuterHtml);
                             buffer.AppendLine("已解析:" + JsonConvert.SerializeObject(feed));
                             await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                            if (Debugger.IsAttached)
+                            {
+                                Debugger.Break();
+                            }
                         }
                     }
                     return feeds;
-                }
-            }
-        }
-
-        private async Task<string> DetailAsync(string url)
-        {
-            var html = await GetHtml(url);
-            var parser = new HtmlParser();
-            using (var document = await parser.ParseAsync(html))
-            {
-                try
-                {
-                    var detail = document.QuerySelector("#txt");
-
-                    var hasMore = document.QuerySelector("#getMore");
-                    if (hasMore != null)
-                    {
-                        var totalPageSpan = hasMore.QuerySelector("span:last-child");
-                        var totalPage = int.Parse(totalPageSpan.TextContent);
-
-                        for (var page = 2; page <= totalPage; page++)
-                        {
-                            string thisPageUrl = url.Replace(".html", $"_{page}.html");
-                            string thisPageDetail = await GetHtml(thisPageUrl);
-                            detail.InnerHtml += thisPageDetail;
-                        }
-                    }
-
-                    return detail.OuterHtml;
-                }
-                catch (Exception ex)
-                {
-                    var buffer = new StringBuilder();
-                    buffer.AppendLine("Acg178 内容解析错误");
-                    buffer.AppendLine("Url:" + url);
-                    buffer.AppendLine("UserAgent:" + UserAgent);
-                    buffer.AppendLine("Document:" + document.ToHtml());
-                    await UmengAnalytics.TrackException(ex, buffer.ToString());
-                    return "抱歉，解析错误";
                 }
             }
         }
@@ -152,6 +126,53 @@ namespace SoftwareKobo.ACGNews.Services
             {
                 client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
                 return await client.GetStringAsync(new Uri(url));
+            }
+        }
+
+        private async Task<string> NetworkDetailAsync(string url)
+        {
+            var html = await GetHtml(url);
+            var parser = new HtmlParser();
+            using (var document = await parser.ParseAsync(html))
+            {
+                try
+                {
+                    var detailElement = document.QuerySelector("#txt");
+
+                    var hasMore = document.QuerySelector("#getMore");
+                    if (hasMore != null)
+                    {
+                        var totalPageSpan = hasMore.QuerySelector("span:last-child");
+                        var totalPage = int.Parse(totalPageSpan.TextContent);
+
+                        for (var page = 2; page <= totalPage; page++)
+                        {
+                            var thisPageUrl = url.Replace(".html", $"_{page}.html");
+                            var thisPageDetail = await GetHtml(thisPageUrl);
+                            detailElement.InnerHtml += thisPageDetail;
+                        }
+                    }
+
+                    var detail = detailElement.OuterHtml;
+                    await SaveArticleAsync(url, detail);
+                    return detail;
+                }
+                catch (Exception ex)
+                {
+                    var buffer = new StringBuilder();
+                    buffer.AppendLine("Acg178 内容解析错误");
+                    buffer.AppendLine("Url:" + url);
+                    buffer.AppendLine("UserAgent:" + UserAgent);
+                    buffer.AppendLine("Document:" + document.ToHtml());
+                    await UmengAnalytics.TrackException(ex, buffer.ToString());
+
+                    if (Debugger.IsAttached)
+                    {
+                        Debugger.Break();
+                    }
+
+                    return "抱歉，解析错误";
+                }
             }
         }
     }

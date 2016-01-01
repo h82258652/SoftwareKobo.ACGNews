@@ -1,8 +1,7 @@
-﻿using System;
+﻿using SoftwareKobo.ACGNews.Utils;
+using System;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 using Windows.Storage;
@@ -39,7 +38,7 @@ namespace SoftwareKobo.ACGNews.Converters
             {
                 // 网络 url。
 
-                var cacheFileName = WebUtility.UrlEncode(url);
+                var cacheFileName = Hash.GetMd5(url);
                 var cacheFilePath = Path.Combine(CacheFolderName, cacheFileName);
 
                 if (IsoLocalFolder.FileExists(cacheFilePath))
@@ -69,7 +68,6 @@ namespace SoftwareKobo.ACGNews.Converters
                 var uri = new Uri(url);
                 using (var client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Referer = uri;
                     var buffer = await client.GetBufferAsync(uri);
                     if (buffer.Length > 0)
                     {
@@ -77,8 +75,9 @@ namespace SoftwareKobo.ACGNews.Converters
                         {
                             _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
                         }
-                        var cacheImage = await _imageCacheFolder.CreateFileAsync(cacheFileName, CreationCollisionOption.ReplaceExisting);
-                        await FileIO.WriteBufferAsync(cacheImage, buffer);
+                        var tempFile = await _imageCacheFolder.CreateFileAsync(Guid.NewGuid().ToString(), CreationCollisionOption.GenerateUniqueName);
+                        await FileIO.WriteBufferAsync(tempFile, buffer);
+                        await tempFile.RenameAsync(cacheFileName, NameCollisionOption.ReplaceExisting);
                     }
                 }
             }

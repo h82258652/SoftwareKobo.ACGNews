@@ -1,12 +1,10 @@
-﻿using SoftwareKobo.ACGNews.Converters;
+﻿using SoftwareKobo.ACGNews.Utils;
 using System;
-using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Networking.Connectivity;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web;
@@ -16,6 +14,13 @@ namespace SoftwareKobo.ACGNews.Web
 {
     public class UriToStreamResolver : IUriToStreamResolver
     {
+        /// <summary>
+        /// WebView 缓存文件夹名称。
+        /// </summary>
+        private const string CacheFolderName = @"WebViewCache";
+
+        private static StorageFolder _webViewCacheFolder;
+
         private readonly string _html;
 
         public UriToStreamResolver(string html)
@@ -27,10 +32,6 @@ namespace SoftwareKobo.ACGNews.Web
         {
             return GetContent(uri).AsAsyncOperation();
         }
-
-        private static StorageFolder _webViewCacheFolder;
-
-        private const string CacheFolderName = @"WebViewCache";
 
         private async Task<IInputStream> GetContent(Uri uri)
         {
@@ -50,44 +51,45 @@ namespace SoftwareKobo.ACGNews.Web
 
             if (url.StartsWith("localhttps"))
             {
+                // 转换 localhttps 回 https:
                 url = url.Substring(10);
                 url = "https:" + url;
             }
             else if (url.StartsWith("localhttp"))
             {
+                // 转换 localhttp 回 http:
                 url = url.Substring(9);
                 url = "http:" + url;
             }
 
-            var cacheFileName = WebUtility.UrlEncode(url);
+            var cacheFileName = Hash.GetMd5(url);
 
             if (_webViewCacheFolder == null)
             {
                 _webViewCacheFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
             }
 
-            var file = await _webViewCacheFolder.TryGetItemAsync(cacheFileName) as StorageFile;
-            if (file != null)
+            var cacheFile = await _webViewCacheFolder.TryGetItemAsync(cacheFileName) as StorageFile;
+            if (cacheFile != null)
             {
-                return await file.OpenAsync(FileAccessMode.Read);
+                return await cacheFile.OpenAsync(FileAccessMode.Read);
             }
 
+            var originUri = new Uri(url);
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Referer = new Uri(url);
-                var buffer = await client.GetBufferAsync(new Uri(url));
-                var bytes = buffer.ToArray();
-                if (bytes.Length > 0)
+                var buffer = await client.GetBufferAsync(originUri);
+                if (buffer.Length > 0)
                 {
-                    var fileC = await _webViewCacheFolder.CreateFileAsync(cacheFileName, CreationCollisionOption.ReplaceExisting);
-                    await FileIO.WriteBufferAsync(fileC, buffer);
-                    return await fileC.OpenAsync(FileAccessMode.Read);
+                    var file = await _webViewCacheFolder.CreateFileAsync(cacheFileName, CreationCollisionOption.ReplaceExisting);
+                    await FileIO.WriteBufferAsync(file, buffer);
+                    return await file.OpenAsync(FileAccessMode.Read);
                 }
             }
 
+            // 返回空。
             using (var memoryStream = new InMemoryRandomAccessStream())
             {
-                await memoryStream.WriteAsync(Encoding.UTF8.GetBytes("").AsBuffer());
                 return memoryStream.GetInputStreamAt(0);
             }
         }
