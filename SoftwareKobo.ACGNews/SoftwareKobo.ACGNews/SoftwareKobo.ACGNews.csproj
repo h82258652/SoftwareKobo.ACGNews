@@ -173,6 +173,8 @@
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\TencentComicService.cs" />
     <Compile Include="Utils\Hash.cs" />
+    <Compile Include="Utils\NetworkManager.cs" />
+    <Compile Include="Utils\NetworkState.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />

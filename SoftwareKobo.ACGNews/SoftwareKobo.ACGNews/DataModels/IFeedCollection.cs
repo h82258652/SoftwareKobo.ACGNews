@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using Windows.UI.Xaml.Data;
 
 namespace SoftwareKobo.ACGNews.DataModels
 {
-    public interface IFeedCollection : IList
+    public interface IFeedCollection : IList, ISupportIncrementalLoading
     {
         event EventHandler LoadMoreCompleted;
 
@@ -12,7 +13,6 @@ namespace SoftwareKobo.ACGNews.DataModels
         bool IsLoading
         {
             get;
-            set;
         }
 
         void Refresh();

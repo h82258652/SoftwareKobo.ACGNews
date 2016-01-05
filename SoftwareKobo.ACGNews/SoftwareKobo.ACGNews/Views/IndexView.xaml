@@ -7,6 +7,7 @@
       xmlns:vm="using:SoftwareKobo.ACGNews.ViewModels"
       xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
       xmlns:conv="using:WinRTXamlToolkit.Converters"
+      xmlns:util="using:SoftwareKobo.ACGNews.Utils"
       mc:Ignorable="d">
     <Page.DataContext>
         <vm:IndexViewModel />
@@ -15,6 +16,7 @@
         <localConv:HeaderConverter x:Key="HeaderConverter" />
         <localConv:ChannelToFeedCollectionConverter x:Key="ChannelToFeedCollectionConverter" />
         <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <util:NetworkManager x:Key="NetworkManager"></util:NetworkManager>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,6 +30,10 @@
                  HorizontalAlignment="Left">
             <ContentControl Content="{Binding Source={StaticResource Setting},Path=CurrentChannel,Converter={StaticResource HeaderConverter}}" />
         </Viewbox>
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Source={StaticResource NetworkManager},Path=NetworkState}"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"></TextBlock>
         <Grid Grid.Row="1">
             <control:PullToRefreshPanel x:Name="Panel"
                                         RefreshRequested="PullToRefreshPanel_OnRefreshRequested">

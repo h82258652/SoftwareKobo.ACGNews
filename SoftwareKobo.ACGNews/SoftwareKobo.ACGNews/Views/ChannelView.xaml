@@ -10,13 +10,6 @@
     <Page.DataContext>
         <vm:ChannelViewModel />
     </Page.DataContext>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Icon="Accept"
-                          Label="Test"
-                          Click="ButtonBase_OnClick"></AppBarButton>
-        </CommandBar>
-    </Page.BottomAppBar>
     <Grid>
         <ListView x:Name="ChannelsList"
                   CanReorderItems="True"

@@ -70,7 +70,7 @@ namespace SoftwareKobo.ACGNews.Controls
             if (_ellipse != null)
             {
                 var circumference = CalculateEllipseCircumference();
-                _ellipse.StrokeDashArray = new DoubleCollection()
+                _ellipse.StrokeDashArray = new DoubleCollection
                 {
                     circumference * Progress,
                     double.MaxValue

@@ -40,7 +40,7 @@
                 <StackPanel HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
                             Orientation="Horizontal">
-                    <Image Source="../Assets/Images/bubble.png" />
+                    <!--<Image Source="../Assets/Images/bubble.png" />-->
                     <TextBlock Text="{Binding}"
                                Margin="8"
                                TextAlignment="Left" />

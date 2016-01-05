@@ -1,7 +1,7 @@
 ﻿using SoftwareKobo.ACGNews.Controls;
 using System;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using WinRTXamlToolkit.AwaitableUI;
 
 namespace SoftwareKobo.ACGNews.Views
 {
@@ -56,7 +56,9 @@ namespace SoftwareKobo.ACGNews.Views
                 Padding = new Thickness(8, 8, 32, 8)
             };
             Instance.ToastPromptContainer.Children.Add(toastPrompt);
+            await toastPrompt.WaitForLoadedAsync();
             await toastPrompt.ShowAsync();
+            Instance.ToastPromptContainer.Children.Remove(toastPrompt);
         }
     }
 }

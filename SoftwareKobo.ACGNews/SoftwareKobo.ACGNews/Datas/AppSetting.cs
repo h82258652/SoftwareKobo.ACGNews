@@ -28,7 +28,9 @@ namespace SoftwareKobo.ACGNews.Datas
                     return (Channel)value;
                 }
                 var array = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToArray();
-                return array[App.GlobalRand.Next(array.Length)];
+                var channel = array[App.GlobalRand.Next(array.Length)];
+                CurrentChannel = channel;
+                return channel;
             }
             set
             {

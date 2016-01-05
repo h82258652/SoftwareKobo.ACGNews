@@ -23,5 +23,9 @@
                    Margin="0,0,8,0"
                    Loaded="LocalTime_OnLoaded" />
         <Grid x:Name="ToastPromptContainer"></Grid>
+        <control:ToastPrompt x:Name="ToastPrompt"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top"
+                             Content="Hello world"></control:ToastPrompt>
     </Grid>
 </Page>

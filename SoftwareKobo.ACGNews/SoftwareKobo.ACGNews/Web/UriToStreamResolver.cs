@@ -1,6 +1,6 @@
 ﻿using SoftwareKobo.ACGNews.Utils;
 using System;
-using System.Net;
+using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +18,8 @@ namespace SoftwareKobo.ACGNews.Web
         /// WebView 缓存文件夹名称。
         /// </summary>
         private const string CacheFolderName = @"WebViewCache";
+
+        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
 
         private static StorageFolder _webViewCacheFolder;
 
@@ -62,7 +64,7 @@ namespace SoftwareKobo.ACGNews.Web
                 url = "http:" + url;
             }
 
-            var cacheFileName = Hash.GetMd5(url);
+            var cacheFileName = Hash.GetMd5(url) + url.Length + Hash.GetSha1(url) + Path.GetExtension(url);
 
             if (_webViewCacheFolder == null)
             {
@@ -75,10 +77,10 @@ namespace SoftwareKobo.ACGNews.Web
                 return await cacheFile.OpenAsync(FileAccessMode.Read);
             }
 
-            var originUri = new Uri(url);
             using (var client = new HttpClient())
             {
-                var buffer = await client.GetBufferAsync(originUri);
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+                var buffer = await client.GetBufferAsync(new Uri(url));
                 if (buffer.Length > 0)
                 {
                     var file = await _webViewCacheFolder.CreateFileAsync(cacheFileName, CreationCollisionOption.ReplaceExisting);

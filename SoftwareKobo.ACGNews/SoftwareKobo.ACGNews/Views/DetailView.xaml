@@ -115,7 +115,7 @@
                 </AppBarButton.Icon>
             </AppBarButton>
             <AppBarButton Icon="World"
-                          Label="在浏览器打开"
+                          Label="在浏览器&#x0a;打开"
                           Click="BtnOpenInBrowser_Click" />
             <AppBarButton Icon="Accept"
                           Label="Test"

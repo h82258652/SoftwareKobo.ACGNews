@@ -59,7 +59,7 @@ namespace SoftwareKobo.ACGNews.Datas
         public static async Task<int> SaveArticleAsync(string url, string html)
         {
             var conn = await GetDbConnectionAsync<ArticleEntity>();
-            return await conn.InsertOrReplaceAsync(new ArticleEntity()
+            return await conn.InsertOrReplaceAsync(new ArticleEntity
             {
                 Url = url,
                 Html = html

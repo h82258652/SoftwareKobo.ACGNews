@@ -51,7 +51,7 @@ namespace SoftwareKobo.ACGNews.Converters
             {
                 // 网络 url。
 
-                var cacheFileName = Hash.GetMd5(url);
+                var cacheFileName = Hash.GetMd5(url) + url.Length + Hash.GetSha1(url) + Path.GetExtension(url);
                 var cacheFilePath = Path.Combine(CacheFolderName, cacheFileName);
 
                 if (IsoLocalFolder.FileExists(cacheFilePath))

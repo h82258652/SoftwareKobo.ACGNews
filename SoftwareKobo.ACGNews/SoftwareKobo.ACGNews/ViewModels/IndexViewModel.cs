@@ -2,7 +2,6 @@
 using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
 using SoftwareKobo.ACGNews.Services;
-using System.Collections;
 
 namespace SoftwareKobo.ACGNews.ViewModels
 {
@@ -16,12 +15,6 @@ namespace SoftwareKobo.ACGNews.ViewModels
             };
         }
 
-        public IFeedCollection Feeds
-        {
-            get
-            {
-                return AppSetting.Instance.CurrentChannel.CreateFeedCollection();
-            }
-        }
+        public IFeedCollection Feeds => AppSetting.Instance.CurrentChannel.CreateFeedCollection();
     }
 }

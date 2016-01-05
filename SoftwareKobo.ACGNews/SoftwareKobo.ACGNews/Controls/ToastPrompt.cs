@@ -110,37 +110,38 @@ namespace SoftwareKobo.ACGNews.Controls
 
         public async Task ShowAsync(double seconds = 2, double slideInDistance = 300)
         {
-            Storyboard storyboard = new Storyboard();
+            var storyboard = new Storyboard();
 
-            {
-                var animation = new DoubleAnimationUsingKeyFrames
-                {
-                    EnableDependentAnimation = true
-                };
-                Storyboard.SetTarget(animation, this);
-                Storyboard.SetTargetProperty(animation, nameof(ContainerOpacity));
-                animation.KeyFrames.Add(new LinearDoubleKeyFrame
-                {
-                    KeyTime = TimeSpan.FromSeconds(0),
-                    Value = 0
-                });
-                animation.KeyFrames.Add(new LinearDoubleKeyFrame
-                {
-                    KeyTime = TimeSpan.FromSeconds(0.5),
-                    Value = 1
-                });
-                animation.KeyFrames.Add(new LinearDoubleKeyFrame
-                {
-                    KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
-                    Value = 1
-                });
-                animation.KeyFrames.Add(new LinearDoubleKeyFrame
-                {
-                    KeyTime = TimeSpan.FromSeconds(seconds + 1),
-                    Value = 0
-                });
-                storyboard.Children.Add(animation);
-            }
+            ContainerOpacity = 1;
+            //{
+            //    var animation = new DoubleAnimationUsingKeyFrames
+            //    {
+            //        EnableDependentAnimation = true
+            //    };
+            //    Storyboard.SetTarget(animation, this);
+            //    Storyboard.SetTargetProperty(animation, nameof(ContainerOpacity));
+            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
+            //    {
+            //        KeyTime = TimeSpan.FromSeconds(0),
+            //        Value = 0
+            //    });
+            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
+            //    {
+            //        KeyTime = TimeSpan.FromSeconds(0.5),
+            //        Value = 1
+            //    });
+            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
+            //    {
+            //        KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
+            //        Value = 1
+            //    });
+            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
+            //    {
+            //        KeyTime = TimeSpan.FromSeconds(seconds + 1),
+            //        Value = 0
+            //    });
+            //    storyboard.Children.Add(animation);
+            //}
 
             {
                 var animation = new DoubleAnimationUsingKeyFrames();
@@ -162,7 +163,7 @@ namespace SoftwareKobo.ACGNews.Controls
                 {
                     case SlideInDirection.Right:
                     case SlideInDirection.Bottom:
-                        animation.KeyFrames.Add(new EasingDoubleKeyFrame
+                        animation.KeyFrames.Add(new DiscreteDoubleKeyFrame
                         {
                             KeyTime = TimeSpan.FromSeconds(0),
                             Value = slideInDistance
@@ -171,7 +172,7 @@ namespace SoftwareKobo.ACGNews.Controls
 
                     case SlideInDirection.Left:
                     case SlideInDirection.Top:
-                        animation.KeyFrames.Add(new EasingDoubleKeyFrame
+                        animation.KeyFrames.Add(new DiscreteDoubleKeyFrame
                         {
                             KeyTime = TimeSpan.FromSeconds(0),
                             Value = 0 - slideInDistance
@@ -190,7 +191,7 @@ namespace SoftwareKobo.ACGNews.Controls
                     }
                 });
 
-                animation.KeyFrames.Add(new EasingDoubleKeyFrame
+                animation.KeyFrames.Add(new DiscreteDoubleKeyFrame
                 {
                     KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
                     Value = 0

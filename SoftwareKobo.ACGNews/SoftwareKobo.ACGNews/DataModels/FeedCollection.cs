@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Data;
 
 namespace SoftwareKobo.ACGNews.DataModels
 {
-    public class FeedCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading, IFeedCollection where T : FeedBase
+    public class FeedCollection<T> : ObservableCollection<T>, IFeedCollection where T : FeedBase
     {
         private readonly FeedSource<T> _feedSource;
 
@@ -33,7 +33,7 @@ namespace SoftwareKobo.ACGNews.DataModels
             {
                 return _isLoading;
             }
-            set
+            private set
             {
                 _isLoading = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsLoading)));
@@ -66,7 +66,7 @@ namespace SoftwareKobo.ACGNews.DataModels
                     var beforLoadCount = Count;
                     await _feedSource.LoadMoreItemsAsync(this);
                     var afterLoadCount = Count;
-                    uint loadCount = afterLoadCount >= beforLoadCount ? (uint)(afterLoadCount - beforLoadCount) : 0;
+                    var loadCount = afterLoadCount >= beforLoadCount ? (uint)(afterLoadCount - beforLoadCount) : 0;
                     return new LoadMoreItemsResult
                     {
                         Count = loadCount
