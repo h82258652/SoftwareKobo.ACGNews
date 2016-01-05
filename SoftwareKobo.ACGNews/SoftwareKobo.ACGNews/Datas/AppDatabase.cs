@@ -46,7 +46,7 @@ namespace SoftwareKobo.ACGNews.Datas
         public static async Task InsertOrUpdateFeedsAsync<T>(IEnumerable<T> feeds) where T : FeedBase
         {
             var conn = await GetDbConnectionAsync<T>();
-            await conn.InsertOrReplaceAllAsync(feeds);
+            await conn.InsertOrIgnoreAllAsync(feeds);
         }
 
         public static async Task<string> LoadArticleAsync(string url)

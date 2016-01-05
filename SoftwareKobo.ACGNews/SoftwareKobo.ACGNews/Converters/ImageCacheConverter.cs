@@ -26,6 +26,8 @@ namespace SoftwareKobo.ACGNews.Converters
 
         private static StorageFolder _imageCacheFolder;
 
+        private const string UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)";
+
         /// <summary>
         /// 获取图片缓存文件夹的大小。单位是字节。
         /// </summary>
@@ -81,6 +83,7 @@ namespace SoftwareKobo.ACGNews.Converters
                 var uri = new Uri(url);
                 using (var client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
                     var buffer = await client.GetBufferAsync(uri);
                     if (buffer.Length > 0)
                     {
