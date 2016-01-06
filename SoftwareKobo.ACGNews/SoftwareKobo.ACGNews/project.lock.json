@@ -3,7 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -1608,7 +1608,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -3303,7 +3303,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -4970,7 +4970,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -6670,7 +6670,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -8337,7 +8337,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -10037,7 +10037,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "AngleSharp/0.9.3": {
+      "AngleSharp/0.9.4": {
         "compile": {
           "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.dll": {}
         },
@@ -11705,8 +11705,8 @@
     }
   },
   "libraries": {
-    "AngleSharp/0.9.3": {
-      "sha512": "SAJvQpZhEfxnI9bEX2jAgbMy0HVxtGRvY3uJ8ZXpgliXNf9NVTO2TYWoqI6b56eUYGCvXxpHuKEY1lwQCUrqfg==",
+    "AngleSharp/0.9.4": {
+      "sha512": "xcLGPAP3aAVbFvVQDOv+G2BTVKwVsdx0SFYh9eIQzS6+fIPE+m/gJItj12zkrYa6c0Trjp2tu3b2Tfn5XeEGJg==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -11720,7 +11720,7 @@
         "lib/portable-windows8+net45+windowsphone8+wpa/AngleSharp.xml",
         "lib/sl50/AngleSharp.dll",
         "lib/sl50/AngleSharp.xml",
-        "package/services/metadata/core-properties/22b3c45c3d044ea09c0136d0155fdfbf.psmdcp"
+        "package/services/metadata/core-properties/cb63e2da8ef84d968546a37cafda8a62.psmdcp"
       ]
     },
     "Microsoft.CSharp/4.0.0": {
@@ -15427,7 +15427,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "AngleSharp >= 0.9.3",
+      "AngleSharp >= 0.9.4",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Newtonsoft.Json >= 8.0.1",
       "PlatformSpecific.Analyzer >= 2.0.2",

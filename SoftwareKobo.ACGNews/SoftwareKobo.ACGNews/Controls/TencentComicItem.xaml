@@ -5,14 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="using:SoftwareKobo.ACGNews.Models"
-             xmlns:conv="using:SoftwareKobo.ACGNews.Converters"
+             xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
+             xmlns:conv="using:WinRTXamlToolkit.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=model:TencentComicFeed}">
     <UserControl.Resources>
-        <conv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
-        <conv:ImageCacheConverter x:Key="ImageCacheConverter" />
+        <localConv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
+        <localConv:ImageCacheConverter x:Key="ImageCacheConverter" />
     </UserControl.Resources>
     <Grid>
         <Polygon HorizontalAlignment="Left"

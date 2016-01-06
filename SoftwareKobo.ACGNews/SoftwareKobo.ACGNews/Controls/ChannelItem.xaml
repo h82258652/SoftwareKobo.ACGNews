@@ -10,7 +10,7 @@
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="UnSelected" />
+                <!--<VisualState x:Name="UnSelected" />
                 <VisualState x:Name="Selected">
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="Translate"
@@ -23,10 +23,10 @@
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
                     </Storyboard>
-                </VisualState>
+                </VisualState>-->
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="RootGrid"
+        <!--<Grid x:Name="RootGrid"
               Margin="0,0,48,0">
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="Translate" />
@@ -40,7 +40,9 @@
                 <StackPanel HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
                             Orientation="Horizontal">
-                    <!--<Image Source="../Assets/Images/bubble.png" />-->
+                    -->
+        <!--<Image Source="../Assets/Images/bubble.png" />-->
+        <!--
                     <TextBlock Text="{Binding}"
                                Margin="8"
                                TextAlignment="Left" />
@@ -51,6 +53,41 @@
                 <Polygon Points="0,0 0,1 0.707,0.5"
                          Fill="Green" />
             </Viewbox>
+        </Grid>-->
+        <Grid Visibility="Visible">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.5,0"
+                                     EndPoint="0.5,1">
+                    <GradientStop Offset="0"
+                                  Color="#80000000"></GradientStop>
+                    <GradientStop Offset="1"
+                                  Color="#C0000000"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Background="LightBlue"></Grid>
+            <Grid Grid.Row="1"
+                  SizeChanged="FrameworkElement_OnSizeChanged">
+                <Polygon HorizontalAlignment="Left"
+                         x:Name="Polygon"
+                         Fill="LightBlue"></Polygon>
+                <TextBlock Margin="8"
+                           Text="{Binding}"
+                           Foreground="White"></TextBlock>
+                <SymbolIcon Symbol="Accept"
+                            HorizontalAlignment="Right"></SymbolIcon>
+            </Grid>
+        </Grid>
+        <Grid BorderThickness="1"
+              BorderBrush="LightGray"
+              Background="White"
+              Visibility="Collapsed">
+            <TextBlock Margin="8"
+                       Text="{Binding}"
+                       Foreground="#242424"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>

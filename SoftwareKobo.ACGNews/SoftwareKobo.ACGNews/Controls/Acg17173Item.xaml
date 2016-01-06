@@ -36,13 +36,13 @@
                      Points="0,0 20,0 0,20"
                      Fill="Gray"
                      Visibility="{Binding Path=HasRead,Converter={StaticResource HasReadConverter}}" />
-            <Grid Margin="4">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                      Padding="0,0,0,4">
+                      Padding="4">
                     <TextBlock Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
                                Style="{ThemeResource ItemTitleStyle}"
                                Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}" />
@@ -58,7 +58,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0"
-                          Padding="0,0,4,0">
+                          Padding="4,0,4,4">
                         <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
                                    Style="{ThemeResource ItemSummaryStyle}" />
                     </Grid>

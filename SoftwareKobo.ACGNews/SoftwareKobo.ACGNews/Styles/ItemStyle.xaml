@@ -13,6 +13,8 @@
            TargetType="TextBlock">
         <Setter Property="Foreground"
                 Value="#F0F0F0" />
+        <Setter Property="TextAlignment"
+                Value="Left" />
         <Setter Property="TextWrapping"
                 Value="Wrap" />
         <Setter Property="FontFamily"

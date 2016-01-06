@@ -112,36 +112,35 @@ namespace SoftwareKobo.ACGNews.Controls
         {
             var storyboard = new Storyboard();
 
-            ContainerOpacity = 1;
-            //{
-            //    var animation = new DoubleAnimationUsingKeyFrames
-            //    {
-            //        EnableDependentAnimation = true
-            //    };
-            //    Storyboard.SetTarget(animation, this);
-            //    Storyboard.SetTargetProperty(animation, nameof(ContainerOpacity));
-            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
-            //    {
-            //        KeyTime = TimeSpan.FromSeconds(0),
-            //        Value = 0
-            //    });
-            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
-            //    {
-            //        KeyTime = TimeSpan.FromSeconds(0.5),
-            //        Value = 1
-            //    });
-            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
-            //    {
-            //        KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
-            //        Value = 1
-            //    });
-            //    animation.KeyFrames.Add(new LinearDoubleKeyFrame
-            //    {
-            //        KeyTime = TimeSpan.FromSeconds(seconds + 1),
-            //        Value = 0
-            //    });
-            //    storyboard.Children.Add(animation);
-            //}
+            {
+                var animation = new DoubleAnimationUsingKeyFrames
+                {
+                    EnableDependentAnimation = true
+                };
+                Storyboard.SetTarget(animation, this);
+                Storyboard.SetTargetProperty(animation, nameof(ContainerOpacity));
+                animation.KeyFrames.Add(new LinearDoubleKeyFrame
+                {
+                    KeyTime = TimeSpan.FromSeconds(0),
+                    Value = 0
+                });
+                animation.KeyFrames.Add(new LinearDoubleKeyFrame
+                {
+                    KeyTime = TimeSpan.FromSeconds(0.5),
+                    Value = 1
+                });
+                animation.KeyFrames.Add(new LinearDoubleKeyFrame
+                {
+                    KeyTime = TimeSpan.FromSeconds(seconds + 0.5),
+                    Value = 1
+                });
+                animation.KeyFrames.Add(new LinearDoubleKeyFrame
+                {
+                    KeyTime = TimeSpan.FromSeconds(seconds + 1),
+                    Value = 0
+                });
+                storyboard.Children.Add(animation);
+            }
 
             {
                 var animation = new DoubleAnimationUsingKeyFrames();

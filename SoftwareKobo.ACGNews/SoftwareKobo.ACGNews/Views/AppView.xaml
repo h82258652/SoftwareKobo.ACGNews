@@ -10,18 +10,24 @@
         <FlipView x:Name="FlipView"
                   SelectedIndex="1"
                   Background="Transparent">
-            <Grid>
-                <control:BubblePanel Margin="0,0,-100,0" />
-                <view:ChannelView  x:Name="Channel" />
-            </Grid>
-            <Grid>
-                <control:BubblePanel Margin="100,0,-100,0" />
-                <view:IndexView  x:Name="Index" />
-            </Grid>
-            <Grid>
-                <control:BubblePanel Margin="100,0,0,0" />
-                <view:SettingView  x:Name="Setting" />
-            </Grid>
+            <FlipViewItem>
+                <Grid>
+                    <control:BubblePanel Margin="0,0,-100,0" />
+                    <view:ChannelView  x:Name="Channel" />
+                </Grid>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Grid>
+                    <control:BubblePanel Margin="100,0,-100,0" />
+                    <view:IndexView  x:Name="Index" />
+                </Grid>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Grid>
+                    <control:BubblePanel Margin="100,0,0,0" />
+                    <view:SettingView  x:Name="Setting" />
+                </Grid>
+            </FlipViewItem>
         </FlipView>
         <view:DetailView x:Name="Detail"
                          Visibility="Collapsed" />

@@ -4,41 +4,57 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="using:SoftwareKobo.ACGNews.Models"
-             xmlns:conv="using:SoftwareKobo.ACGNews.Converters"
+             xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
+             xmlns:conv="using:WinRTXamlToolkit.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=model:AcgdogeFeed}">
     <UserControl.Resources>
-        <conv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
-        <conv:ImageCacheConverter x:Key="ImageCacheConverter"></conv:ImageCacheConverter>
+        <localConv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
+        <localConv:ImageCacheConverter x:Key="ImageCacheConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="HasReadConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="UnreadConverter"
+                                           IsInversed="True" />
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
-               Grid.Row="0"
-               Height="120"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Stretch="UniformToFill" />
-        <Grid Grid.Column="1"
-              Padding="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
-                       Style="{ThemeResource ItemTitleStyle}"
-                       MaxLines="2"
-                       TextTrimming="CharacterEllipsis" />
-            <Grid Grid.Row="1"
-                  Padding="0,4,0,0">
-                <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
-                           Style="{ThemeResource ItemSummaryStyle}"
-                           MaxLines="4"></TextBlock>
+    <Grid Height="120"
+          Background="#DC222529">
+        <Grid HorizontalAlignment="Stretch"
+              VerticalAlignment="Bottom"
+              Height="1"
+              Background="#80C0C0C0" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+                       Height="120"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Stretch="UniformToFill" />
+            </Grid>
+            <Grid Grid.Column="1"
+                  Padding="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
+                               Style="{ThemeResource ItemTitleStyle}"
+                               Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}" />
+                    <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
+                               Style="{ThemeResource ItemTitleStyle}"
+                               Foreground="#969699"
+                               Visibility="{Binding Path=HasRead,Converter={StaticResource HasReadConverter}}" />
+                </Grid>
+                <Grid Grid.Row="1"
+                      Padding="0,4,0,0">
+                    <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
+                               Style="{ThemeResource ItemSummaryStyle}" />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
