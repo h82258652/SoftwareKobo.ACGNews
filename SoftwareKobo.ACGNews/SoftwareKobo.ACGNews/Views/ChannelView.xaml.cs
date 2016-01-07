@@ -11,7 +11,7 @@ namespace SoftwareKobo.ACGNews.Views
     {
         public ChannelView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

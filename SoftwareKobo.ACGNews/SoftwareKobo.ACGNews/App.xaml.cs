@@ -30,9 +30,9 @@ namespace SoftwareKobo.ACGNews
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Resuming += OnResuming;
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Resuming += OnResuming;
+            Suspending += OnSuspending;
         }
 
         private async void OnResuming(object sender, object e)

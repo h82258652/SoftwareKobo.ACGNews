@@ -11,7 +11,7 @@ namespace SoftwareKobo.ACGNews.Views
     {
         public SettingView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

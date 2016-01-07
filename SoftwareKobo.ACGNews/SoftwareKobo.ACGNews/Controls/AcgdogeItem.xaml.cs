@@ -1,14 +1,32 @@
-﻿using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
+﻿using System;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class AcgdogeItem : UserControl
+    public partial class AcgdogeItem
     {
         public AcgdogeItem()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private async void Thumbnail_Failed(object sender, ExceptionRoutedEventArgs e)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            var img = (Image)sender;
+            var binding = img.GetBindingExpression(Image.SourceProperty);
+            if (binding != null)
+            {
+                img.SetBinding(Image.SourceProperty, binding.ParentBinding);
+            }
+            else
+            {
+                var temp = img.Source;
+                img.Source = null;
+                img.Source = temp;
+            }
         }
     }
 }

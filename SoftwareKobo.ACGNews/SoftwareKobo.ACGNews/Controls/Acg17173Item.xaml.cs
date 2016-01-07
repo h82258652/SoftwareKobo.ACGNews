@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace SoftwareKobo.ACGNews.Controls
@@ -10,8 +12,9 @@ namespace SoftwareKobo.ACGNews.Controls
             InitializeComponent();
         }
 
-        private void Thumbnail_Failed(object sender, ExceptionRoutedEventArgs e)
+        private async void Thumbnail_Failed(object sender, ExceptionRoutedEventArgs e)
         {
+            await Task.Delay(TimeSpan.FromSeconds(1));
             var img = (Image)sender;
             var binding = img.GetBindingExpression(Image.SourceProperty);
             if (binding != null)

@@ -30,10 +30,11 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
-                       Height="120"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Stretch="UniformToFill" />
+                       Stretch="UniformToFill"
+                       ImageFailed="Thumbnail_Failed"
+                       Height="120" />
             </Grid>
             <Grid Grid.Column="1"
                   Padding="4">

@@ -2,15 +2,13 @@
 using Windows.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls.Extensions;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class Bubble : UserControl
+    public partial class Bubble
     {
         public Bubble()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Bubble_Loaded(object sender, RoutedEventArgs e)

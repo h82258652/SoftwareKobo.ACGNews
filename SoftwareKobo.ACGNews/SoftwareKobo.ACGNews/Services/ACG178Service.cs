@@ -1,4 +1,5 @@
-﻿using AngleSharp.Dom.Html;
+﻿using AngleSharp;
+using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
 using Newtonsoft.Json;
 using SoftwareKobo.ACGNews.Models;

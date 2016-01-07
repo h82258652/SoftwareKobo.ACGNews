@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class BubblePanel
+    public partial class BubblePanel
     {
         private readonly DispatcherTimer _timer = new DispatcherTimer();
 

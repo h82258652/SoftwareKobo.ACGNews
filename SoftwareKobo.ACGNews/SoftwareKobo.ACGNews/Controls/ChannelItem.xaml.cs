@@ -3,15 +3,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace SoftwareKobo.ACGNews.Controls
 {
-    public sealed partial class ChannelItem : UserControl
+    public partial class ChannelItem
     {
         public ChannelItem()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)

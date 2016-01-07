@@ -11,7 +11,7 @@ namespace SoftwareKobo.ACGNews.Views
     {
         public SplashScreenView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }
