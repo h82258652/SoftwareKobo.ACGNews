@@ -1,0 +1,6 @@
+MainPackage=D:\Projects\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\bin\ARM\Release\Upload\SoftwareKobo.ACGNews_1.1.0.0_ARM.appx
+SymbolPackage=D:\Projects\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\AppPackages\SoftwareKobo.ACGNews_1.1.0.0\SoftwareKobo.ACGNews_1.1.0.0_ARM.appxsym
+ResourcePack=D:\Projects\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\_scale-100.appx
+ResourcePack=D:\Projects\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\_scale-125.appx
+ResourcePack=D:\Projects\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\_scale-150.appx
+ResourcePack=D:\Projects\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\SoftwareKobo.ACGNews\_scale-400.appx
