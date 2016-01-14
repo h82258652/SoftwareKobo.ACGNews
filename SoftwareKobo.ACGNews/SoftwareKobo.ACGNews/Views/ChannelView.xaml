@@ -11,7 +11,21 @@
         <vm:ChannelViewModel />
     </Page.DataContext>
     <Grid>
-        <ListView x:Name="ChannelsList"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Viewbox Height="50"
+                     HorizontalAlignment="Left"
+                     Margin="-5,-10,0,0">
+                <TextBlock Style="{ThemeResource HeaderStyle}"><Run Text="频"
+                                                                    FontSize="15" /><Run Text="道"
+                                                                                         FontSize="12" /></TextBlock>
+            </Viewbox>
+        </Grid>
+        <ListView Grid.Row="1"
+                  x:Name="ChannelsList"
                   CanReorderItems="True"
                   CanDragItems="True"
                   AllowDrop="True"
@@ -25,10 +39,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch"></Setter>
-                </Style>
+                <Style TargetType="ListViewItem"
+                       BasedOn="{StaticResource ItemStyle}"></Style>
             </ListView.ItemContainerStyle>
         </ListView>
     </Grid>

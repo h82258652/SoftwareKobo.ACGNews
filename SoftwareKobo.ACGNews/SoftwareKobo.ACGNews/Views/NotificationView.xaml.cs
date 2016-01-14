@@ -19,29 +19,14 @@ namespace SoftwareKobo.ACGNews.Views
             Instance = this;
         }
 
-        public static void ShowLoading(string message)
+        public static void ShowLoading()
         {
             Instance.LoadingProgressBar.Visibility = Visibility.Visible;
-            Instance.LoadingMessage.Text = message;
         }
 
         public static void HideLoading()
         {
             Instance.LoadingProgressBar.Visibility = Visibility.Collapsed;
-            Instance.LoadingMessage.Text = string.Empty;
-        }
-
-        private void LocalTime_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1)
-            };
-            timer.Tick += delegate
-            {
-                LocalTime.Text = DateTime.Now.ToString("t");
-            };
-            timer.Start();
         }
 
         public static async void ShowToastMessage(string message)

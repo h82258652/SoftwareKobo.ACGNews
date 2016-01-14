@@ -1,7 +1,10 @@
 ﻿using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
 using System;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using UmengSocialSDK;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.Storage;
@@ -58,15 +61,21 @@ namespace SoftwareKobo.ACGNews.Views
             await SetContentAsync(detail);
         }
 
-        private void BtnShare_Click(object sender, RoutedEventArgs e)
+        private async void BtnShare_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-        }
-
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            var h = await WebView.InvokeScriptAsync("eval", new[] { "document.getElementsByTagName('html')[0].outerHTML" });
-            await new MessageDialog(h).ShowAsync();
+            SinaWeiboClient client = new SinaWeiboClient(App.UmengAppkey);
+            UmengLink link = new UmengLink()
+            {
+                Text = _feed.Summary,
+                ThumbnailUrl = _feed.Thumbnail,
+                Title = _feed.Title,
+                Url = _feed.DetailLink
+            };
+            var result = await client.ShareLinkAsync(link, false);
+            if (result.Error == null)
+            {
+                NotificationView.ShowToastMessage("分享成功");
+            }
         }
 
         public async Task ExitFullScreen()

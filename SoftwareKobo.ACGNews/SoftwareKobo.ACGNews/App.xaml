@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Styles/ToggleSwitchStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <data:AppSetting x:Key="Setting"></data:AppSetting>
+            <Color x:Key="PhoneBackgroundColor">Black</Color>
             <Style TargetType="ListViewItem">
                 <Setter Property="Template">
                     <Setter.Value>

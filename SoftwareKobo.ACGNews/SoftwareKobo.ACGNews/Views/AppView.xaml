@@ -9,7 +9,8 @@
     <Grid Background="#006A94">
         <FlipView x:Name="FlipView"
                   SelectedIndex="1"
-                  Background="Transparent">
+                  Background="Transparent"
+                  SelectionChanged="FlipView_SelectionChanged">
             <FlipViewItem>
                 <Grid>
                     <control:BubblePanel Margin="0,0,-100,0" />

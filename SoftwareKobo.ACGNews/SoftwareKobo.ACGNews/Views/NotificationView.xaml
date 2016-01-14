@@ -12,20 +12,6 @@
                      Visibility="Collapsed"
                      VerticalAlignment="Top"
                      IsIndeterminate="True" />
-        <TextBlock x:Name="LoadingMessage"
-                   TextAlignment="Left"
-                   VerticalAlignment="Top"
-                   Margin="8,0,0,0"
-                   TextWrapping="Wrap" />
-        <TextBlock x:Name="LocalTime"
-                   VerticalAlignment="Top"
-                   TextAlignment="Right"
-                   Margin="0,0,8,0"
-                   Loaded="LocalTime_OnLoaded" />
         <Grid x:Name="ToastPromptContainer"></Grid>
-        <control:ToastPrompt x:Name="ToastPrompt"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Top"
-                             Content="Hello world"></control:ToastPrompt>
     </Grid>
 </Page>

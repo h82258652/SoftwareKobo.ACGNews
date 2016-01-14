@@ -89,6 +89,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\acgnews_logo.png" />
     <Content Include="Assets\Fonts\HYQiHei 105J.ttf" />
     <Content Include="Assets\Fonts\FontAwesome.otf" />
     <None Include="project.json" />
@@ -143,6 +144,8 @@
     <Compile Include="Controls\TencentComicItem.xaml.cs">
       <DependentUpon>TencentComicItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ChannelNameConverter.cs" />
+    <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Controls\ToastPrompt.cs" />
     <Compile Include="Converters\ChannelToFeedCollectionConverter.cs" />
     <Compile Include="Converters\CharacterWrapConverter.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="DataSources\FeedSource.cs" />
     <Compile Include="Datas\AppDatabase.cs" />
     <Compile Include="Datas\AppSetting.cs" />
+    <Compile Include="Extensions\StorageFolderExtension.cs" />
     <Compile Include="Models\Acg17173Feed.cs" />
     <Compile Include="Models\Acg178Feed.cs" />
     <Compile Include="Models\AcgdogeFeed.cs" />
@@ -213,12 +217,38 @@
     <Content Include="Assets\Images\bubble.png" />
     <Content Include="Assets\Images\tempbackground.jpg" />
     <Content Include="Assets\Images\background.jpg" />
+    <Content Include="Assets\NewStoreLogo.scale-100.png" />
+    <Content Include="Assets\NewStoreLogo.scale-125.png" />
+    <Content Include="Assets\NewStoreLogo.scale-150.png" />
+    <Content Include="Assets\NewStoreLogo.scale-200.png" />
+    <Content Include="Assets\NewStoreLogo.scale-400.png" />
+    <Content Include="Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Square310x310Logo.scale-200.png" />
+    <Content Include="Assets\Square310x310Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
+    <Content Include="Assets\Square71x71Logo.scale-100.png" />
+    <Content Include="Assets\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\Square71x71Logo.scale-400.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Web\Content\app.css" />

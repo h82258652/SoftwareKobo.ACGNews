@@ -4,48 +4,78 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="using:SoftwareKobo.ACGNews.Models"
-             xmlns:conv="using:SoftwareKobo.ACGNews.Converters"
+             xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
+             xmlns:conv="using:WinRTXamlToolkit.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=model:Acg178Feed}">
     <UserControl.Resources>
-        <conv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
-        <conv:ImageCacheConverter x:Key="ImageCacheConverter" />
+        <localConv:CharacterWrapConverter x:Key="CharacterWrapConverter" />
+        <localConv:ImageCacheConverter x:Key="ImageCacheConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="HasReadConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="UnreadConverter"
+                                           IsInversed="True" />
     </UserControl.Resources>
-    <Grid>
-        <Polygon HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Points="0,0 20,0 0,20">
-            <Polygon.Fill>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-            </Polygon.Fill>
-        </Polygon>
-        <Grid Margin="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Padding="0,0,0,4">
-                <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
-                           Style="{ThemeResource ItemTitleStyle}" />
+    <Grid Margin="0,4,4,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid x:Name="UnreadIndicator"
+                  VerticalAlignment="Top"
+                  Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}">
+                <Grid.Background>
+                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                </Grid.Background>
             </Grid>
-            <Grid Grid.Row="1"
-                  MaxHeight="100">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="120" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0"
-                      Padding="0,0,4,0">
-                    <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
-                               Style="{ThemeResource ItemSummaryStyle}"></TextBlock>
+            <Grid x:Name="HasReadIndicator"
+                  VerticalAlignment="Top"
+                  Background="Gray"
+                  Visibility="{Binding Path=HasRead,Converter={StaticResource HasReadConverter}}" />
+        </Grid>
+        <Grid Grid.Column="1">
+            <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+                   Stretch="UniformToFill"
+                   ImageFailed="Thumbnail_Failed" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid Padding="4,4,4,16">
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0.5,0"
+                                                 EndPoint="0.5,1">
+                                <GradientStop Offset="0"
+                                              Color="#C0000000"></GradientStop>
+                                <GradientStop Offset="0.75"
+                                              Color="#80000000"></GradientStop>
+                                <GradientStop Offset="1"
+                                              Color="#00FFFFFF"></GradientStop>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock x:Name="TitleTextBlock"
+                                   Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
+                                   Style="{ThemeResource ItemTitleStyle}"
+                                   Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}" />
+                        <TextBlock Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
+                                   Style="{ThemeResource ItemTitleStyle}"
+                                   Foreground="#969699"
+                                   Visibility="{Binding Path=HasRead,Converter={StaticResource HasReadConverter}}"></TextBlock>
+                    </Grid>
                 </Grid>
-                <Image Grid.Column="1"
-                       Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
-                       Stretch="UniformToFill"
-                       ImageFailed="Thumbnail_Failed"></Image>
+                <Grid Grid.Row="2"
+                      Background="#C0222529"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Padding="4">
+                    <TextBlock Text="{Binding Path=Summary}"
+                               Style="{ThemeResource ItemSummaryStyle}" />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

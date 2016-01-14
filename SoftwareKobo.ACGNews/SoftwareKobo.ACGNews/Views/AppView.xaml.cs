@@ -92,5 +92,10 @@ namespace SoftwareKobo.ACGNews.Views
         {
             return Detail.ShowAsync(feed, detail, showAnimateCenter);
         }
+
+        private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Setting.SetCacheSizeTextBlockText();
+        }
     }
 }

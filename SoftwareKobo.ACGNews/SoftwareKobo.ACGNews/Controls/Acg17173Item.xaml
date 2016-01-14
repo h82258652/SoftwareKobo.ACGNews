@@ -59,11 +59,11 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0"
                           Padding="4,0,4,4">
-                        <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
+                        <TextBlock Text="{Binding Path=Summary,Converter={StaticResource CharacterWrapConverter}}"
                                    Style="{ThemeResource ItemSummaryStyle}" />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Image Source="{Binding Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+                        <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
                                Stretch="UniformToFill"
                                ImageFailed="Thumbnail_Failed"
                                Width="110"

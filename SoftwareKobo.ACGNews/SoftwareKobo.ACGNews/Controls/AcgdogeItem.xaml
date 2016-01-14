@@ -6,6 +6,7 @@
              xmlns:model="using:SoftwareKobo.ACGNews.Models"
              xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
              xmlns:conv="using:WinRTXamlToolkit.Converters"
+             xmlns:controls="using:WinRTXamlToolkit.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400"
@@ -17,46 +18,85 @@
         <conv:BooleanToVisibilityConverter x:Key="UnreadConverter"
                                            IsInversed="True" />
     </UserControl.Resources>
-    <Grid Height="120"
+    <Grid Margin="4,4,4,0"
           Background="#DC222529">
-        <Grid HorizontalAlignment="Stretch"
-              VerticalAlignment="Bottom"
-              Height="1"
-              Background="#80C0C0C0" />
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="4" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Stretch="UniformToFill"
-                       ImageFailed="Thumbnail_Failed"
-                       Height="120" />
+                <Grid x:Name="UnreadIndicator"
+                      VerticalAlignment="Top"
+                      Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}">
+                    <Grid.Background>
+                        <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="HasReadIndicator"
+                      VerticalAlignment="Top"
+                      Background="Gray"
+                      Visibility="{Binding Path=HasRead,Converter={StaticResource HasReadConverter}}"></Grid>
             </Grid>
-            <Grid Grid.Column="1"
-                  Padding="4">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
+                <Grid Grid.Row="0"
+                      Padding="4,4,4,4">
+                    <TextBlock x:Name="TitleTextBlock"
+                               Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
                                Style="{ThemeResource ItemTitleStyle}"
                                Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}" />
-                    <TextBlock Text="{Binding Title,Converter={StaticResource CharacterWrapConverter}}"
+                    <TextBlock Text="{Binding Path=Title,Converter={StaticResource CharacterWrapConverter}}"
                                Style="{ThemeResource ItemTitleStyle}"
                                Foreground="#969699"
                                Visibility="{Binding Path=HasRead,Converter={StaticResource HasReadConverter}}" />
                 </Grid>
                 <Grid Grid.Row="1"
-                      Padding="0,4,0,0">
-                    <TextBlock Text="{Binding Summary,Converter={StaticResource CharacterWrapConverter}}"
-                               Style="{ThemeResource ItemSummaryStyle}" />
+                      Padding="4,0,4,0">
+                    <ItemsControl ItemsSource="{Binding Path=Tags}">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Margin"
+                                        Value="0,0,4,4" />
+                                <Setter Property="Padding"
+                                        Value="4,0,4,0" />
+                                <Setter Property="Background"
+                                        Value="White" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource CharacterWrapConverter}}"
+                                           Style="{ThemeResource ItemTagStyle}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </Grid>
             </Grid>
+        </Grid>
+        <Grid Grid.Row="1"
+              Padding="4,0,4,4">
+            <Image Source="{Binding Path=Thumbnail,Converter={StaticResource ImageCacheConverter}}"
+                   Stretch="UniformToFill"
+                   ImageFailed="Thumbnail_Failed" />
+        </Grid>
+        <Grid Grid.Row="2"
+              Padding="4,0,4,4">
+            <TextBlock Text="{Binding Path=Summary,Converter={StaticResource CharacterWrapConverter}}"
+                       Style="{ThemeResource ItemSummaryStyle}" />
         </Grid>
     </Grid>
 </UserControl>

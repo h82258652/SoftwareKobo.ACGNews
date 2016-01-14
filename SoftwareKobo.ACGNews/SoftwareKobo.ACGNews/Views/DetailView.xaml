@@ -104,7 +104,7 @@
             <CommandBar.RenderTransform>
                 <TranslateTransform x:Name="Translate" />
             </CommandBar.RenderTransform>
-            <AppBarButton Label="分享"
+            <AppBarButton Label="分享到&#x0a;新浪微博"
                           Click="BtnShare_Click">
                 <AppBarButton.Icon>
                     <PathIcon Width="24"
@@ -117,9 +117,6 @@
             <AppBarButton Icon="World"
                           Label="在浏览器&#x0a;打开"
                           Click="BtnOpenInBrowser_Click" />
-            <AppBarButton Icon="Accept"
-                          Label="Test"
-                          Click="ButtonBase_OnClick"></AppBarButton>
         </CommandBar>
     </Grid>
 </Page>

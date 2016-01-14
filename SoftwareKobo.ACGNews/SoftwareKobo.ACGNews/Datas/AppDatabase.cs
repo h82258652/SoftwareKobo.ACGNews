@@ -18,12 +18,31 @@ namespace SoftwareKobo.ACGNews.Datas
 
         public static async Task<ulong> GetDatabaseSize()
         {
-            var database = await StorageFile.GetFileFromPathAsync(DbPath);
-            if (database == null)
+            try
+            {
+                var database = await StorageFile.GetFileFromPathAsync(DbPath);
+                return await database.GetSize();
+            }
+            catch (FileNotFoundException)
             {
                 return 0;
             }
-            return await database.GetSize();
+        }
+
+        public static void DeleteDatabase()
+        {
+            try
+            {
+                SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
+                foreach (var tableMapping in conn.TableMappings)
+                {
+                    conn.DropTable(tableMapping.MappedType);
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public static async Task<List<T>> GetFeedsAsync<T>(int count, long? idLessThan = null) where T : FeedBase

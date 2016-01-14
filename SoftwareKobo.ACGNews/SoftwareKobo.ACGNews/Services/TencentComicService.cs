@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UmengSDK;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 namespace SoftwareKobo.ACGNews.Services
 {
@@ -112,7 +113,11 @@ namespace SoftwareKobo.ACGNews.Services
                 url = "http://xw.qq.com/comic/" + string.Join(string.Empty, Regex.Matches(url, @"\d+").Cast<Match>().Select(temp => temp.Value));
             }
 
-            using (var client = new HttpClient())
+            var filter = new HttpBaseProtocolFilter
+            {
+                AllowAutoRedirect = false
+            };
+            using (var client = new HttpClient(filter))
             {
                 client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
                 return await client.GetStringAsync(new Uri(url));

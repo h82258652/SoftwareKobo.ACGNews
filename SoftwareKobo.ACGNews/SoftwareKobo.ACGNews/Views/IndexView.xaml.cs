@@ -48,7 +48,7 @@ namespace SoftwareKobo.ACGNews.Views
             }
 
             var service = Service.GetService(feed);
-            NotificationView.ShowLoading("正在加载" + feed.Title);
+            NotificationView.ShowLoading();
             try
             {
                 var detail = await service.DetailAsync(feed);

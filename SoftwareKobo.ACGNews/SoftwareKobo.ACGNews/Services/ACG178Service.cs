@@ -72,6 +72,8 @@ namespace SoftwareKobo.ACGNews.Services
                             feed.Thumbnail = img.Source;
 
                             var summary = news.QuerySelector(".newstext");
+                            var moreLink = (IHtmlAnchorElement)summary.QuerySelector("a");
+                            moreLink?.Remove();
                             feed.Summary = summary.TextContent;
 
                             var titleData = ((IHtmlDivElement)news.QuerySelector(".title_data")).TextContent;

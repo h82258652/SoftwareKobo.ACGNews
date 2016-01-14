@@ -1,4 +1,5 @@
-﻿using SoftwareKobo.ACGNews.Utils;
+﻿using SoftwareKobo.ACGNews.Extensions;
+using SoftwareKobo.ACGNews.Utils;
 using System;
 using System.IO;
 using System.IO.IsolatedStorage;
@@ -38,7 +39,15 @@ namespace SoftwareKobo.ACGNews.Converters
             {
                 _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
             }
-            return await _imageCacheFolder.GetSize();
+            return await _imageCacheFolder.GetSizeAsync();
+        }
+
+        public static async Task CleanUpCacheAsync()
+        {
+            if (_imageCacheFolder != null)
+            {
+                await _imageCacheFolder.DeleteFilesAsync(true);
+            }
         }
 
         public object Convert(object value, Type targetType, object parameter, string language)

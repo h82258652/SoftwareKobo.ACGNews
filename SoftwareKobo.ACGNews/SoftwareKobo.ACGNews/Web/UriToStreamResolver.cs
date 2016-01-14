@@ -1,4 +1,5 @@
-﻿using SoftwareKobo.ACGNews.Utils;
+﻿using SoftwareKobo.ACGNews.Extensions;
+using SoftwareKobo.ACGNews.Utils;
 using System;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -9,6 +10,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web;
 using Windows.Web.Http;
+using WinRTXamlToolkit.IO.Extensions;
 
 namespace SoftwareKobo.ACGNews.Web
 {
@@ -93,6 +95,23 @@ namespace SoftwareKobo.ACGNews.Web
             using (var memoryStream = new InMemoryRandomAccessStream())
             {
                 return memoryStream.GetInputStreamAt(0);
+            }
+        }
+
+        public static async Task<ulong> GetCachedImagesSizeAsync()
+        {
+            if (_webViewCacheFolder == null)
+            {
+                return 0;
+            }
+            return await _webViewCacheFolder.GetSizeAsync();
+        }
+
+        public static async Task CleanUpCacheAsync()
+        {
+            if (_webViewCacheFolder != null)
+            {
+                await _webViewCacheFolder.DeleteFilesAsync(true);
             }
         }
     }

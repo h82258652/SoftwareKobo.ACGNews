@@ -14,9 +14,8 @@
     </Page.DataContext>
     <Page.Resources>
         <localConv:HeaderConverter x:Key="HeaderConverter" />
-        <localConv:ChannelToFeedCollectionConverter x:Key="ChannelToFeedCollectionConverter" />
         <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <util:NetworkManager x:Key="NetworkManager"></util:NetworkManager>
+        <!--<util:NetworkManager x:Key="NetworkManager"></util:NetworkManager>-->
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -30,10 +29,10 @@
                  HorizontalAlignment="Left">
             <ContentControl Content="{Binding Source={StaticResource Setting},Path=CurrentChannel,Converter={StaticResource HeaderConverter}}" />
         </Viewbox>
-        <TextBlock Grid.Row="0"
+        <!--<TextBlock Grid.Row="0"
                    Text="{Binding Source={StaticResource NetworkManager},Path=NetworkState}"
                    HorizontalAlignment="Right"
-                   VerticalAlignment="Bottom"></TextBlock>
+                   VerticalAlignment="Bottom"></TextBlock>-->
         <Grid Grid.Row="1">
             <control:PullToRefreshPanel x:Name="Panel"
                                         RefreshRequested="PullToRefreshPanel_OnRefreshRequested">
@@ -62,7 +61,7 @@
             </control:PullToRefreshPanel>
             <ProgressBar VerticalAlignment="Top"
                          IsIndeterminate="True"
-                         Visibility="{Binding Feeds.IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" />
+                         Visibility="{Binding Path=Feeds.IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
     </Grid>
 </Page>

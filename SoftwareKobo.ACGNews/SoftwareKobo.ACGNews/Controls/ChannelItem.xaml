@@ -4,56 +4,14 @@
              xmlns:local="using:SoftwareKobo.ACGNews.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:localConv="using:SoftwareKobo.ACGNews.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400">
+    <UserControl.Resources>
+        <localConv:ChannelNameConverter x:Key="ChannelNameConverter" />
+    </UserControl.Resources>
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <!--<VisualState x:Name="UnSelected" />
-                <VisualState x:Name="Selected">
-                    <Storyboard>
-                        <DoubleAnimation Storyboard.TargetName="Translate"
-                                         Storyboard.TargetProperty="X"
-                                         From="0"
-                                         To="48"
-                                         Duration="0:0:0.5">
-                            <DoubleAnimation.EasingFunction>
-                                <CircleEase EasingMode="EaseOut" />
-                            </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                    </Storyboard>
-                </VisualState>-->
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <!--<Grid x:Name="RootGrid"
-              Margin="0,0,48,0">
-            <Grid.RenderTransform>
-                <TranslateTransform x:Name="Translate" />
-            </Grid.RenderTransform>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0"
-                  Background="Green">
-                <StackPanel HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"
-                            Orientation="Horizontal">
-                    -->
-        <!--<Image Source="../Assets/Images/bubble.png" />-->
-        <!--
-                    <TextBlock Text="{Binding}"
-                               Margin="8"
-                               TextAlignment="Left" />
-                </StackPanel>
-            </Grid>
-            <Viewbox Grid.Column="1"
-                     Width="{Binding ElementName=RootGrid,Path=ActualHeight}">
-                <Polygon Points="0,0 0,1 0.707,0.5"
-                         Fill="Green" />
-            </Viewbox>
-        </Grid>-->
         <Grid Visibility="Visible">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0.5,0"
@@ -74,20 +32,22 @@
                 <Polygon HorizontalAlignment="Left"
                          x:Name="Polygon"
                          Fill="LightBlue"></Polygon>
-                <TextBlock Margin="8"
-                           Text="{Binding}"
+                <TextBlock Margin="32,8,8,8"
+                           Text="{Binding Converter={StaticResource ChannelNameConverter}}"
                            Foreground="White"></TextBlock>
-                <SymbolIcon Symbol="Accept"
-                            HorizontalAlignment="Right"></SymbolIcon>
+                <Grid HorizontalAlignment="Right"
+                      Margin="0,0,8,0"
+                      x:Name="IsSetAsCurrentChannel"
+                      Visibility="Collapsed"
+                      Loaded="IsSetAsCurrentChannel_OnLoaded">
+                    <Ellipse Width="16"
+                             Height="16"
+                             Fill="White" />
+                    <Ellipse Width="12"
+                             Height="12"
+                             Fill="OrangeRed" />
+                </Grid>
             </Grid>
-        </Grid>
-        <Grid BorderThickness="1"
-              BorderBrush="LightGray"
-              Background="White"
-              Visibility="Collapsed">
-            <TextBlock Margin="8"
-                       Text="{Binding}"
-                       Foreground="#242424"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>
