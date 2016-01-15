@@ -112,7 +112,7 @@ namespace SoftwareKobo.ACGNews.Services
                     {
                         try
                         {
-                            var detail = document.QuerySelector(".art-bd").OuterHtml;
+                            var detail = document.QuerySelector(".detail").OuterHtml;
                             // 缓存内容。
                             await SaveArticleAsync(url, detail);
                             return detail;

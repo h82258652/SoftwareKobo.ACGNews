@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="18174h82258652.376376A31EA2A" Publisher="CN=D8CBB42C-5DD4-4A02-8424-31AF9627DADA" Version="1.1.0.0" />
+  <Identity Name="18174h82258652.376376A31EA2A" Publisher="CN=D8CBB42C-5DD4-4A02-8424-31AF9627DADA" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="8b04164c-7e03-45f9-b444-0fabcca9b9bc" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>冻鳗牛屎</DisplayName>
