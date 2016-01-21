@@ -2,12 +2,11 @@
 using SoftwareKobo.ACGNews.Utils;
 using System;
 using System.IO;
-using System.IO.IsolatedStorage;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 using Windows.Storage;
 using Windows.UI.Xaml.Data;
-using Windows.Web.Http;
 using WinRTXamlToolkit.IO.Extensions;
 
 namespace SoftwareKobo.ACGNews.Converters
@@ -18,8 +17,6 @@ namespace SoftwareKobo.ACGNews.Converters
         /// 缓存图片文件夹名称。
         /// </summary>
         private const string CacheFolderName = @"ImageCache";
-
-        private static readonly IsolatedStorageFile IsoLocalFolder = IsolatedStorageFile.GetUserStoreForApplication();
 
         private static readonly StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
 
@@ -63,17 +60,16 @@ namespace SoftwareKobo.ACGNews.Converters
                 // 网络 url。
 
                 var cacheFileName = Hash.GetMd5(url) + url.Length + Hash.GetSha1(url) + Path.GetExtension(url);
-                var cacheFilePath = Path.Combine(CacheFolderName, cacheFileName);
-
-                if (IsoLocalFolder.FileExists(cacheFilePath))
+                var cacheFilePath = Path.Combine(LocalFolderPath, CacheFolderName, cacheFileName);
+                if (File.Exists(cacheFilePath))
                 {
                     // 缓存文件存在，拼接路径。
-                    return Path.Combine(LocalFolderPath, cacheFilePath);
+                    return cacheFilePath;
                 }
                 if (IsNetworkAvailable())
                 {
                     // 当前网络可用，缓存图片。
-                    DownloadImageAndCache(url, cacheFileName);
+                    DownloadImageAndCache(url, cacheFilePath);
                 }
             }
 
@@ -85,24 +81,24 @@ namespace SoftwareKobo.ACGNews.Converters
             throw new NotImplementedException();
         }
 
-        private static async void DownloadImageAndCache(string url, string cacheFileName)
+        private static async void DownloadImageAndCache(string url, string cacheFilePath)
         {
             try
             {
-                var uri = new Uri(url);
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
-                    var buffer = await client.GetBufferAsync(uri);
-                    if (buffer.Length > 0)
+                    var bytes = await client.GetByteArrayAsync(url);
+                    if (bytes.Length > 0)
                     {
                         if (_imageCacheFolder == null)
                         {
                             _imageCacheFolder = await LocalFolder.CreateFolderAsync(CacheFolderName, CreationCollisionOption.OpenIfExists);
                         }
-                        var tempFile = await _imageCacheFolder.CreateFileAsync(Guid.NewGuid().ToString(), CreationCollisionOption.GenerateUniqueName);
-                        await FileIO.WriteBufferAsync(tempFile, buffer);
-                        await tempFile.RenameAsync(cacheFileName, NameCollisionOption.ReplaceExisting);
+                        await Task.Run(() =>
+                        {
+                            File.WriteAllBytes(cacheFilePath, bytes);
+                        });
                     }
                 }
             }
