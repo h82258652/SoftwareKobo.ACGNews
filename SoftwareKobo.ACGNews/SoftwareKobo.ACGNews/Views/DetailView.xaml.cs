@@ -1,7 +1,9 @@
 ﻿using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
+using SoftwareKobo.Social.Sina.Weibo;
 using System;
 using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using UmengSocialSDK;
@@ -12,6 +14,7 @@ using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
 
 namespace SoftwareKobo.ACGNews.Views
 {
@@ -63,18 +66,39 @@ namespace SoftwareKobo.ACGNews.Views
 
         private async void BtnShare_Click(object sender, RoutedEventArgs e)
         {
-            SinaWeiboClient client = new SinaWeiboClient(App.UmengAppkey);
-            UmengLink link = new UmengLink()
+            byte[] bytes;
+            try
             {
-                Text = _feed.Summary,
-                ThumbnailUrl = _feed.Thumbnail,
-                Title = _feed.Title,
-                Url = _feed.DetailLink
-            };
-            var result = await client.ShareLinkAsync(link, false);
-            if (result.Error == null)
+                using (var client = new HttpClient())
+                {
+                    var buffer = await client.GetBufferAsync(new Uri(_feed.Thumbnail));
+                    bytes = buffer.ToArray();
+                }
+            }
+            catch
             {
-                NotificationView.ShowToastMessage("分享成功");
+                bytes = null;
+            }
+
+            try
+            {
+                var client = await WeiboClient.CreateAsync();
+                if (bytes != null)
+                {
+                    // Thumbnail download success, share image,text and link.
+                    await client.ShareImageAsync(bytes, _feed.Title + Environment.NewLine + _feed.DetailLink);
+                }
+                else
+                {
+                    // Thumbnail download failed, only share text and link.
+                    await client.ShareTextAsync(_feed.Title + Environment.NewLine + _feed.DetailLink);
+                }
+
+                NotificationView.ShowToastMessage("分享成功！");
+            }
+            catch
+            {
+                NotificationView.ShowToastMessage("抱歉，分享失败");
             }
         }
 

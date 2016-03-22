@@ -1,16 +1,15 @@
-﻿using SoftwareKobo.Social.Sina.Weibo;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SoftwareKobo.ACGNews")]
+[assembly: AssemblyTitle("SoftwareKobo.Social.Sina.Weibo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SoftwareKobo.ACGNews")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("SoftwareKobo.Social.Sina.Weibo")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -27,4 +26,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: ComVisible(false)]
-[assembly: WeiboAttribute("2236640975", "583c6f75973ff2c78730389dc769095f", "http://weibo.com/u/5523030798/")]
