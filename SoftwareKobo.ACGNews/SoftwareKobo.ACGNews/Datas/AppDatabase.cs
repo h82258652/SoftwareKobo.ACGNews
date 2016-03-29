@@ -21,7 +21,7 @@ namespace SoftwareKobo.ACGNews.Datas
             try
             {
                 var database = await StorageFile.GetFileFromPathAsync(DbPath);
-                return await database.GetSize();
+                return await database.GetSizeAsync();
             }
             catch (FileNotFoundException)
             {

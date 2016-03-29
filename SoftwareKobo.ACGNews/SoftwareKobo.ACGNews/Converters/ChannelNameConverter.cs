@@ -27,6 +27,9 @@ namespace SoftwareKobo.ACGNews.Converters
                 case Channel.AcgGamersky:
                     return "动漫星空";
 
+                case Channel.Anitama:
+                    return "Anitama";
+
                 case Channel.TencentComic:
                     return "腾讯动漫频道";
             }

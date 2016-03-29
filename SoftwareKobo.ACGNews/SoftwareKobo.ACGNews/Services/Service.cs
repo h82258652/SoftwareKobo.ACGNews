@@ -46,6 +46,9 @@ namespace SoftwareKobo.ACGNews.Services
                 case Channel.AcgGamersky:
                     return new FeedCollection<AcgGamerskyFeed>(new AcgGamerskyService());
 
+                case Channel.Anitama:
+                    return new FeedCollection<AnitamaFeed>(new AnitamaService());
+
                 case Channel.TencentComic:
                     return new FeedCollection<TencentComicFeed>(new TencentComicService());
 
@@ -71,6 +74,10 @@ namespace SoftwareKobo.ACGNews.Services
             if (feed is AcgGamerskyFeed)
             {
                 return new AcgGamerskyService();
+            }
+            if (feed is AnitamaFeed)
+            {
+                return new AnitamaService();
             }
             if (feed is TencentComicFeed)
             {

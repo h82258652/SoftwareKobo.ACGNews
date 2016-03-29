@@ -1,5 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom.Html;
+using AngleSharp.Html;
 using AngleSharp.Parser.Html;
 using Newtonsoft.Json;
 using SoftwareKobo.ACGNews.Models;
@@ -142,7 +143,7 @@ namespace SoftwareKobo.ACGNews.Services
                     buffer.AppendLine("TencentComic 内容解析错误");
                     buffer.AppendLine("Url:" + url);
                     buffer.AppendLine("UserAgent:" + UserAgent);
-                    buffer.AppendLine("Document:" + document.ToHtml());
+                    buffer.AppendLine("Document:" + document.ToHtml(HtmlMarkupFormatter.Instance));
                     await UmengAnalytics.TrackException(ex, buffer.ToString());
 
                     if (Debugger.IsAttached)

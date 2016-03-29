@@ -33,6 +33,9 @@ namespace SoftwareKobo.ACGNews.Converters
                 case Channel.AcgGamersky:
                     return new AcgGamerskyHeader();
 
+                case Channel.Anitama:
+                    return new AnitamaHeader();
+
                 case Channel.TencentComic:
                     return new TencentComicHeader();
 

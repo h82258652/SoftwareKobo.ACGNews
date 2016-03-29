@@ -6,6 +6,7 @@
         Acg178,
         Acgdoge,
         AcgGamersky,
+        Anitama,
         TencentComic
     }
 }

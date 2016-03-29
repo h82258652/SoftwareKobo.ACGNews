@@ -1,5 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom.Html;
+using AngleSharp.Html;
 using AngleSharp.Parser.Html;
 using SoftwareKobo.ACGNews.Datas;
 using SoftwareKobo.ACGNews.Models;
@@ -36,7 +37,7 @@ namespace SoftwareKobo.ACGNews.Services
                         img.Source = src;
                     }
                 }
-                return document.ToHtml();
+                return document.ToHtml(HtmlMarkupFormatter.Instance);
             }
         }
 

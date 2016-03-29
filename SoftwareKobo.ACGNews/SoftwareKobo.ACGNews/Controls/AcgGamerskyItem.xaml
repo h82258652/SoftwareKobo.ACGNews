@@ -24,7 +24,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid  Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}">
+            <Grid Visibility="{Binding Path=HasRead,Converter={StaticResource UnreadConverter}}">
                 <Grid VerticalAlignment="Top"
                       Height="4">
                     <Grid.Background>

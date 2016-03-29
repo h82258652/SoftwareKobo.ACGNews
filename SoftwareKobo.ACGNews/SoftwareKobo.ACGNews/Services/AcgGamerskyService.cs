@@ -1,5 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom.Html;
+using AngleSharp.Html;
 using AngleSharp.Parser.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -178,7 +179,7 @@ namespace SoftwareKobo.ACGNews.Services
                         buffer.AppendLine("AcgGamersky 内容解析错误");
                         buffer.AppendLine("Url:" + url);
                         buffer.AppendLine("UserAgent:" + UserAgent);
-                        buffer.AppendLine("Document:" + document.ToHtml());
+                        buffer.AppendLine("Document:" + document.ToHtml(HtmlMarkupFormatter.Instance));
                         await UmengAnalytics.TrackException(ex, buffer.ToString());
 
                         if (Debugger.IsAttached)

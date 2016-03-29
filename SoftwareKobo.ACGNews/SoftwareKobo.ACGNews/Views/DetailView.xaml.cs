@@ -6,7 +6,6 @@ using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
-using UmengSocialSDK;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.Storage;
@@ -66,6 +65,10 @@ namespace SoftwareKobo.ACGNews.Views
 
         private async void BtnShare_Click(object sender, RoutedEventArgs e)
         {
+            NotificationView.ShowLoading();
+
+            #region 下载图片
+
             byte[] bytes;
             try
             {
@@ -79,6 +82,8 @@ namespace SoftwareKobo.ACGNews.Views
             {
                 bytes = null;
             }
+
+            #endregion 下载图片
 
             try
             {
@@ -99,6 +104,10 @@ namespace SoftwareKobo.ACGNews.Views
             catch
             {
                 NotificationView.ShowToastMessage("抱歉，分享失败");
+            }
+            finally
+            {
+                NotificationView.HideLoading();
             }
         }
 

@@ -18,6 +18,8 @@ namespace SoftwareKobo.ACGNews.Controls
 
         private static readonly DataTemplate TencentComicTemplate = (DataTemplate)XamlReader.Load("<DataTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:controls=\"using:SoftwareKobo.ACGNews.Controls\"><controls:TencentComicItem /></DataTemplate>");
 
+        private static readonly DataTemplate AnitamaTemplate = (DataTemplate)XamlReader.Load("<DataTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:controls=\"using:SoftwareKobo.ACGNews.Controls\"><controls:AnitamaItem /></DataTemplate>");
+
         protected override DataTemplate SelectTemplateCore(object item)
         {
             if (item is Acg17173Feed)
@@ -35,6 +37,10 @@ namespace SoftwareKobo.ACGNews.Controls
             if (item is AcgGamerskyFeed)
             {
                 return AcgGamerskyTemplate;
+            }
+            if (item is AnitamaFeed)
+            {
+                return AnitamaTemplate;
             }
             if (item is TencentComicFeed)
             {

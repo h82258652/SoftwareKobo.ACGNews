@@ -127,6 +127,12 @@
     <Compile Include="Controls\AcgGamerskyItem.xaml.cs">
       <DependentUpon>AcgGamerskyItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AnitamaHeader.xaml.cs">
+      <DependentUpon>AnitamaHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AnitamaItem.xaml.cs">
+      <DependentUpon>AnitamaItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Bubble.xaml.cs">
       <DependentUpon>Bubble.xaml</DependentUpon>
     </Compile>
@@ -166,6 +172,7 @@
     <Compile Include="Models\Acg178Feed.cs" />
     <Compile Include="Models\AcgdogeFeed.cs" />
     <Compile Include="Models\AcgGamerskyFeed.cs" />
+    <Compile Include="Models\AnitamaFeed.cs" />
     <Compile Include="Models\BindableBase.cs" />
     <Compile Include="Models\FeedBase.cs" />
     <Compile Include="Models\TencentComicFeed.cs" />
@@ -174,6 +181,7 @@
     <Compile Include="Services\Acg178Service.cs" />
     <Compile Include="Services\AcgdogeService.cs" />
     <Compile Include="Services\AcgGamerskyService.cs" />
+    <Compile Include="Services\AnitamaService.cs" />
     <Compile Include="Services\Channel.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceGeneric.cs" />
@@ -297,6 +305,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AcgGamerskyItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AnitamaHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AnitamaItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
